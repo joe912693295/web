@@ -1,6 +1,5 @@
-# a noob doing own web site based on dbyll
-
-original readme.md:
+# a noob building a little web site based on dbyll
+# original readme.md below
 
 dbyll
 =====
