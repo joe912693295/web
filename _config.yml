@@ -10,11 +10,11 @@ description: Stylish Jekyll Theme
 author:
   name: joe95
   email: david.joe1995@outlook.com
-  github: https://github.com/joe912693295
+  github: joe912693295
 #  twitter: asd123
 #  pinterest: asd123
-  linkedin: www.linkedin.com/in/david-joe-4911a7241
-  hackthebox: https://app.hackthebox.com/users/620407
+  linkedin: david-joe-4911a7241
+#  hackthebox: https://app.hackthebox.com/users/620407
   bio: CCNP-RS | CCIE-Security | Heading for OSCP
   email_md5: d41d8cd98f00b204e9800998ecf8427e
 
