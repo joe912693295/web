@@ -3352,7 +3352,7 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Throwback(deprecated)</span> </button>                    
                     <div class="sub_dropdown_content">
-                        <br>this box has been taken off the site, and it was not cheap($30 for 30 days), here are some steps.
+                        this box has been taken off the site, and it was not cheap($30 for 30 days), here are some steps.
                         <br>https://medium.com/@hyphens443/tryhackme-active-directory-throwback-network-f5bbb0105f23
                         <br>John Hammond video part1 length 5:52:44 https://www.youtube.com/watch?v=mQT38VR4boQ
                         <br>John Hammond video part2 length 7:12:21 https://www.youtube.com/watch?v=ukFC48bzVSM
@@ -3391,7 +3391,7 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Holo</span> </button>    
                     <div class="sub_dropdown_content">
-                        <br>Thanks to Mr Jokar https://medium.com/system-weakness/holo-network-writeup-tryhackme-lets-hack-active-directory-network-fea687dfa02f
+                        Thanks to Mr Jokar https://medium.com/system-weakness/holo-network-writeup-tryhackme-lets-hack-active-directory-network-fea687dfa02f
                         <br>once connected openvpn, `route` found 10.200.69.0/24 subnet from 10.50.70.1 gateway(openvpn)
                         <br>`nmap -sn -T4 -n 10.200.69.0/24` found .33 and .250 
                         <br>further nmap found 10.200.111.33[22,80,33060] 10.200.111.250[22,1337]
@@ -3499,7 +3499,7 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Wreath</span> </button>    
                     <div class="sub_dropdown_content">
-                        <br>nmap scan MiniServ 1.890 Webmin is vulnerable to CVE-2019-15107
+                        nmap scan MiniServ 1.890 Webmin is vulnerable to CVE-2019-15107
                         <br>`git clone https://github.com/MuirlandOracle/CVE-2019-15107`
                         <br>`cd CVE-2019–15107 ; pip3 install -r requirements.txt`
                         <br>`./CVE-2019–15107.py 10.200.93.200`
@@ -3560,7 +3560,7 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Breaching Active Directory</span> </button>    
                     <div class="sub_dropdown_content">
-                        <br><span class="step_title">Intro</span>
+                        <span class="step_title">Intro</span>
                         <br>config DNS `systemd-resolve --interface breachad --set-dns 10.200.24.101 --set-domain za.tryhackme.com`
                         <br>OR edit /etc/resolv.conf  'search za.tryhackme.com' 'nameserver 10.200.54.101' on up of another nameserver
                         <br>`systemctl restart networking.service`
@@ -3606,7 +3606,7 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Enumerating Active Directory</span> </button>    
                     <div class="sub_dropdown_content">
-                        <br>`openvpn --config ./adenumeration.ovpn --daemon`
+                        `openvpn --config ./adenumeration.ovpn --daemon`
                         <br>edit /etc/resolv.conf  'search za.tryhackme.com' 'nameserver 10.200.54.101' on up of another nameserver
                         <br>`systemctl restart networking.service`
                         <br>test DNS `ping za.tryhackme.com` `nslookup thmdc.za.tryhackme.com`
@@ -3697,7 +3697,7 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Lateral Movement and Pivoting</span> </button>    
                     <div class="sub_dropdown_content">
-                        <br>https://benheater.com/tryhackme-lateral-movement-pivoting/
+                        https://benheater.com/tryhackme-lateral-movement-pivoting/
                         <br>`openvpn --config ./lateralmovementandpivoting.ovpn --daemon`
                         <br>edit /etc/resolv.conf  'search za.tryhackme.com' 'nameserver 10.200.54.101' on up of another nameserver
                         <br>`systemctl restart networking.service`
@@ -3855,7 +3855,7 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Exploiting Active Directory</span> </button>    
                     <div class="sub_dropdown_content">
-                        <br>https://benheater.com/tryhackme-exploiting-active-directory
+                        https://benheater.com/tryhackme-exploiting-active-directory
                         <br>`openvpn --config ./exploitingad.ovpn --daemon`
                         <br>edit /etc/resolv.conf  'search za.tryhackme.com' 'nameserver 10.200.60.101' on up of another nameserver
                         <br>`systemctl restart networking.service`
